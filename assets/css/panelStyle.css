@@ -1,0 +1,36 @@
+.bg-color-blue {
+background-color: #00AAFF;
+color: #fff;
+}
+.no-boder {
+border: 1px solid #f3f3f3;
+}
+.back-footer-blue {
+background-color: #00a0f0;
+border-top: 0px solid #fff;
+}
+.bg-color-green {
+background-color: #41B314;
+color: #fff;
+}
+.back-footer-green {
+background-color: #3ca512;
+border-top: 0px solid #fff;
+}
+.bg-color-red {
+background-color: #d9534f;
+color: #fff;
+}
+.back-footer-red {
+background-color: #d43f3a;
+border-top: 0px solid #fff;
+}
+.bg-color-orange {
+background-color: #e4cb10;
+color: #fff;
+}
+.back-footer-orange {
+background-color: #d6be0f;
+border-top: 0px solid #fff;
+}
+
