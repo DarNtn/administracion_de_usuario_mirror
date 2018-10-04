@@ -6,7 +6,7 @@
     if ($_SESSION['tipo_usu'] == 'a' or $_SESSION['tipo_usu'] == 'u') {
 
     } else {
-        header('location:index.php');
+        //header('location:index.php');
     }
     if ($_SESSION['tipo_usu'] == 'a') {
         $titulo = 'Escuelita InnovaSystem';
@@ -81,14 +81,64 @@
                 </div>
             </nav>
             <!-- END NAVBAR -->
+            
             <!-- LEFT SIDEBAR -->
             <div id="sidebar-nav" class="sidebar">
                 <div class="sidebar-scroll">
                     <nav>
                         <ul class="nav">
-                            <li><a href="inicio.php"><i class="lnr lnr-home"></i> <span>Inicio</span></a></li>
-                            <li><a href="estudiantes.php" class=""><i class="lnr lnr-code"></i> <span>Alumnos</span></a></li>
-                            <li><a href="salones.php" class=""><i class="lnr lnr-chart-bars"></i> <span>Salones</span></a></li>
+                            
+<!--                            <li><a href="inicio.php"><i class="lnr lnr-home"></i> <span>Inicio</span></a></li>  -->
+                            
+                            <li>
+                                <a href="#subMant" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Inicio</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subMant" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="estudiantes.php"><i class="lnr lnr-code"></i>Estudiantes</a></li>
+                                        <li><a href="salones.php"><i class="lnr lnr-chart-bars"></i>Cursos</a></li>
+                                        <li><a href="personal.php"><i class="lnr lnr-chart-bars"></i>Materias</a></li>
+                                        <li><a href="periodo.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>
+                                        <li><a href="servicios.php"><i class="lnr lnr-chart-bars"></i>Administradores</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#subAsignacion" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Asignación</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subAsignacion" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#subHorario" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Horario de Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subHorario" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#subNotificacion" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Notificación</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subNotificacion" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#subCartelera" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Cartelera</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subCartelera" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+<!--                            
                             <li>
                                 <a href="#subPagos" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pagos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subPagos" class="collapse ">
@@ -109,7 +159,7 @@
                                         <li><a href="comunicados.php"><i class="glyphicon glyphicon-edit"></i> Comunicados</a></li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li>-->
                         </ul>
                     </nav>
                 </div>
