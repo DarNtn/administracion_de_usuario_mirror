@@ -70,7 +70,7 @@ if (!empty($_GET['id'])) {
                         </div><br>
                     </div>
                     <div class="col-lg-3">
-                        <select id="lugar_nacimiento" name="lugar_nacimiento" class="form-control">
+                        <select id="lugar_nacimiento" name="lugar_nacimientoo" class="form-control">
                             <?php
                             $t_lugares = $conexion->realizarConsulta("SELECT * FROM lugares;");
                             for ($l = 0; $l < sizeof($t_lugares); $l++) {
