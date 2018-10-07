@@ -7,7 +7,7 @@ class php_conexion {
     function conn() {
         $db_host = "localhost:3306";
         $db_user = "root";
-        $db_esquema = "innovasystemcom_jardin";
+        $db_esquema = "administracion_colegio";
         $db_password = "mysqlUsernamePassword";
         //  $db_esquema = "jardindemo";
 

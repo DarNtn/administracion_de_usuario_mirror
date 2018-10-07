@@ -73,6 +73,7 @@ $(document).ready(function () {
 
 
     $("form#formulario").submit(function (event) {
+        console.log("asdsadasd");
         //disable the default form submission
         event.preventDefault();
         //grab all form data  

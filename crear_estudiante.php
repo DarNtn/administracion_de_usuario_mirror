@@ -14,6 +14,7 @@ if (!empty($_GET['id'])) {
 <script src="assets/js/calcularEdad.js" type="text/javascript"></script>
 
 <script src="assets/js/inputfile.js" type="text/javascript"></script>
+
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">
@@ -30,10 +31,7 @@ if (!empty($_GET['id'])) {
     </div>
 </div>
 
-
-
-
-
+<!--Body-->
 <div class="panel">
     <div class="panel-body">
         <?php
@@ -47,9 +45,12 @@ if (!empty($_GET['id'])) {
         <form id="formulario" enctype="multipart/form-data" method="post">
             <input type="hidden" name="opcion" value="<?php echo $opcion; ?>"/>
             <input type="hidden" id="id" name="id" value="">
+            
+            <!--Datos personales-->
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Datos Personales</legend>
                 <div class="row">
+                    <!--Cedula-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
@@ -57,20 +58,23 @@ if (!empty($_GET['id'])) {
                         </div>
                         <br>
                     </div>
+                    <!--Nombres-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input class="form-control" type="text" id="nombres" name="nombres" placeholder="Nombres" required=""/>
                         </div><br>
                     </div>
+                    <!--Apellidos-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <input class="form-control" type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required=""/>
                         </div><br>
                     </div>
+                    <!--Lugar Nacimiento-->
                     <div class="col-lg-3">
-                        <select id="lugar_nacimiento" name="lugar_nacimientoo" class="form-control">
+                        <select id="lugar_nacimiento" name="lugar_nacimiento" class="form-control">
                             <?php
                             $t_lugares = $conexion->realizarConsulta("SELECT * FROM lugares;");
                             for ($l = 0; $l < sizeof($t_lugares); $l++) {
@@ -82,24 +86,28 @@ if (!empty($_GET['id'])) {
                     </div>
                 </div>
                 <div class="row">
+                    <!--Dirección-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
                             <input class="form-control" type="text" id="direccion" name="direccion" placeholder="Dirección" required=""/>
                         </div><br>
                     </div>
+                    <!--Fecha de Nacimiento-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             <input class="form-control" type="date" id="fechaNac" name="fechaNac" placeholder="Fecha de nacimiento" onblur="calcularEdad(fechaNac.value, '#edad');" required=""/>
                         </div><br>
                     </div>
+                    <!--Edad-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-exclamation-sign"></i></span>
                             <input class="form-control" type="text" id="edad" placeholder="Edad" disabled="true"/>
                         </div><br>
                     </div>
+                    <!--Institución-->
                     <div class="col-lg-3">
                         <select id="tipoI" name="tipoI" class="form-control">
                             <?php
@@ -113,6 +121,7 @@ if (!empty($_GET['id'])) {
                     </div>
                 </div>
                 <div class="row">
+                    <!--Género-->
                     <div class="col-lg-3">
                         <select class="form-control" id="genero" name="genero">
                             <option value="">Escoja Genero</option>
@@ -120,13 +129,23 @@ if (!empty($_GET['id'])) {
                             <option value="2">Femenino</option>
                         </select><br>
                     </div>
+                    <!--Pensión-->
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                            <input class="form-control" type="number" id="pension" name="pension" placeholder="Valor de pensión" required=""/>
+                        </div><br>
+                    </div>
                 </div>
-            </fieldset>                   
+            </fieldset> 
+            
+            <br/>
+            
+            <!--Datos Médicos-->
             <fieldset class="scheduler-border">
-                <legend class="scheduler-border">Datos Medicos</legend>
-
+                <legend class="scheduler-border">Datos Médicos</legend>
                 <div class="row">
-
+                    <!--Tiene discapacidad-->
                     <div class="col-lg-3">
                         <select id="tiene_discapacidad" name="tiene_discapacidad" class="form-control iinput" onChange="if (this.options[0].selected)
                                     porcentaje.disabled = true;
@@ -137,9 +156,10 @@ if (!empty($_GET['id'])) {
                                 else
                                     tipoD.disabled = false;">
                             <option value="NO" selected>SIN DISCAPACIDAD</option>
-                            <option value="SI">COM DISCAPACIDAD</option>
+                            <option value="SI">CON DISCAPACIDAD</option>
                         </select><br>
                     </div>
+                    <!--Porcentaje discapacidad-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
@@ -147,6 +167,7 @@ if (!empty($_GET['id'])) {
                         </div>
                         <br>
                     </div>
+                    <!--Tipo discapacidad-->
                     <div class="col-lg-3">
                         <select class="form-control" id="tipoD" name="tipo" disabled="">
                             <option value="">Escoja Capacidad Especial</option>
@@ -158,21 +179,27 @@ if (!empty($_GET['id'])) {
                             <option value="mental">Mental</option>
                         </select>
                     </div>
+                    <!--Tipo de sangre-->
                     <div class="col-lg-3">
                         <select class="form-control" id="tipo_sangre" name="tipo_sangre">
                             <?php
-                            $t_sangre = $conexion->realizarConsulta("SELECT tipo_sangrineo_id as id,tipo FROM grupo_sangineo;");
-                            for ($a = 0; $a < sizeof($t_sangre); $a++) {
-                                echo '<option value="' . $t_sangre[$a]['id'] . '">' . $t_sangre[$a]['tipo'] . '</option>';
-                            }
+                                $t_sangre = $conexion->realizarConsulta("SELECT idgrupo_sanguineo as id, nombre FROM grupo_sanguineo;");
+                                for ($a = 0; $a < sizeof($t_sangre); $a++) {
+                                    echo '<option value="' . $t_sangre[$a]['id'] . '">' . $t_sangre[$a]['nombre'] . '</option>';
+                                }
                             ?>
                         </select>
                     </div>
                 </div>
             </fieldset>
+            
+            <br/>
+            
+            <!--Documentos-->
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Documentos</legend>
                 <div class="row">
+                    <!--Certificados-->
                     <div class="col-lg-6">
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
@@ -186,6 +213,7 @@ if (!empty($_GET['id'])) {
 
                         </div><br>
                     </div>
+                    <!--Fotografía-->
                     <div class="col-lg-6">
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
@@ -196,14 +224,16 @@ if (!empty($_GET['id'])) {
                                 </label>
                                 <input type="text" class="form-control iinput" readonly>
                             </div>
-
                         </div><br>
                     </div>
                 </div>
             </fieldset>
+            
+            <br/>
+            
+            <!--Observaciones-->
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Observación</legend>
-
                 <div class="row"> 
                     <div class="col-lg-12">
                         <div class="input-group">
@@ -215,13 +245,58 @@ if (!empty($_GET['id'])) {
                 </div>
             </fieldset>
 
-            <hr>
-            <div class="row"><div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 col-lg-offset-7">
+            <br/>
+            
+            <!--Gestionar autorización-->
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Autorización</legend>
+                <div class="row"> 
+                    <div class="col-lg-12">
+                        <a class="btn btn-success btn-block" style="overflow: hidden" href="#nuevo" role="button" data-toggle="modal" title="Nuevo Representante">
+                            <span class="glyphicon glyphicon-user"></span> Gestionar
+                        </a>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <br/><br/>
+            
+            <!--Seleccionar curso-->
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Curso</legend>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <select id="lugar_nacimiento" name="lugar_nacimiento" class="form-control">
+                            <!--AQUÍ SE DEBE HACER UNA CONSULTA A LA BASE PARA EXTRAER TODOS LOS CURSOS CREADOS-->
+                            <?php
+                                //$t_lugares = $conexion->realizarConsulta("SELECT * FROM lugares;");
+                                //for ($l = 0; $l < sizeof($t_lugares); $l++) {
+                                //echo '<option value="' . $t_lugares[$l]['lugar_id'] . '">' . $t_lugares[$l]['provincia'] . ' - ' . $t_lugares[$l]['ciudad'] . '</option>';
+                                //}
+                            ?>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <br/><br/>
+            
+            <fieldset class="scheduler-border">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-info btn-block btn-sm" >
+                             <i class="fa fa-save"> </i> Guardar
+                         </button>
+                    </div>
+                </div>
+            </fieldset>
+            
+<!--            <div class="row"><div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 col-lg-offset-7">
                     <p></p>
                     <a class="btn btn-success btn-block" style="overflow: hidden" href="#nuevo" role="button" data-toggle="modal" title="Nuevo Representante">
-                        <span class="glyphicon glyphicon-user"></span> Nuevo Representante</a>
-                </div></div>
-            <div class="table-responsive">
+                        <span class="glyphicon glyphicon-user"></span>Gestionar</a>
+                </div></div>-->
+<!--            <div class="table-responsive">
                 <table id="example" class="display table table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
@@ -240,13 +315,8 @@ if (!empty($_GET['id'])) {
                     <tbody></tbody>
                 </table>
 
-            </div>
-
-
-
-
-            <button type="submit" class="btn btn-info btn-block btn-sm" >
-                <i class="fa fa-save"> </i> Guardar</button>
+            </div>-->
+            
         </form>
     </div>
 </div>

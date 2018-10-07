@@ -85,14 +85,15 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     }
                 }
 
-                $dto = $_POST['dato'];
-                $parent = $_POST['parentesco'];
-                $n = count($dto);
-                $i = 0;
-                while ($i < $n) {
-                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
-                    $i++;
-                }
+//                Aquí se registran los padres/representantes/autorizados a retirar
+//                $dto = $_POST['dato'];
+//                $parent = $_POST['parentesco'];
+//                $n = count($dto);
+//                $i = 0;
+//                while ($i < $n) {
+//                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
+//                    $i++;
+//                }
                 echo mensajes("success", "Alumno registrado exitosamente" . $comentario);
             } else {
                 echo mensajes("error", "Alumno ya se encuentra");
@@ -102,10 +103,6 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
         }
     }
 }
-
-
-
-
 
 if ($_POST['opcion'] == "Modificar_estudiante2") {
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
