@@ -21,3 +21,18 @@ LOCK TABLES `parentezco` WRITE;
 INSERT  IGNORE INTO `parentezco` (`idparentezco`, `parentezco`) VALUES (1,'Padre'),(2,'Madre'),(3,'Tio/a'),(4,'Abuelo/a');
 /*!40000 ALTER TABLE `parentezco` ENABLE KEYS */;
 UNLOCK TABLES;
+
+LOCK TABLES `estados` WRITE;
+/*!40000 ALTER TABLE `estados` DISABLE KEYS */;
+INSERT  IGNORE INTO `estados` (`estado_id`, `nombre`) VALUES (1, 'activo');
+INSERT  IGNORE INTO `estados` (`estado_id`, `nombre`) VALUES (2, 'inactivo');
+/*!40000 ALTER TABLE `estados` ENABLE KEYS */;
+UNLOCK TABLES;
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT  IGNORE INTO `usuario` (`usuario_id`, `usuario`, `clave`, `tipo`, `estado_id`) VALUES (1, 'wilson', 'wilson', 'a', 1);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
