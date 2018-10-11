@@ -45,12 +45,33 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
     }
 
     function crearEstudiante($cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion) {
-        $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE nombres='$nombres' and apellidos='$apellidos'");
+        
+        // Insertar datos médicos
+        $porcentaje_discapacidad = (int)$porcentaje_discapacidad;
+        $tipo_sangre = (int)$tipo_sangre;
+        $tiene_discapacidad = ($tiene_discapacidad == "SI") ? 1: 0;
+        $dato = $this->realizarConsulta("SELECT * FROM datos_medicos WHERE alumnos_cedula='$cedula'");
+        if($dato == null){
+            $resultado = $this->realizarIngreso("INSERT INTO datos_medicos VALUES($tiene_discapacidad, $porcentaje_discapacidad, '$tipoD', '$cedula', $tipo_sangre)");
+        }
+        
+        // Insertar alumno (FALTA)
+        // Verificar como se manejan la ruta para las fotografías (foto_direccion)
+        // Obtener el id del estado habilitado
+        // Verificar como se manejan la ruta para los certificados (certificado_direccion)
+        // Obtener pensión
+        // Curso queda pendiente, por el momento se pasará 0
+        
+        $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE cedula='$cedula'");
         if ($dato == null) {
-            $resultado = $this->realizarIngresoId("INSERT INTO alumnos VALUES(null,'$cedula','$nombres','$apellidos','$sexo','$direccion','$tiene_discapacidad','$porcentaje_discapacidad','$fecha_nacimiento','$lugar_nacimiento','$tipo_sangre','fotos/user.png',CURDATE(),'$user',1,'$instituto','$tipoD','$observacion','certificados/defaul.jpg')");
+            $resultado = $this->realizarIngresoId("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', 0, $instituto, '$observacion', '', 0, 0)");
+//                    . "'$cedula','$nombres','$apellidos',$sexo,'$direccion',"
+//                    . "'$fecha_nacimiento',$lugar_nacimiento,'fotos/user.png',CURDATE(),'$user',null,$instituto,'$observacion',"
+//                    . "'certificados/defaul.jpg', null, null)");
         } else {
             $resultado = 0;
         }
+        
         return $resultado;
     }
 

@@ -8,6 +8,7 @@ $(document).ready(function () {
                 success: function (data)
                 {
                     if (data['data']['estado'] == "success") {
+                        console.log(data['data']['mensaje'])
                         window.location = data['data']['mensaje'];
                     } else {
                         swal('Mensaje', data['data']['mensaje'], data['data']['estado']);

@@ -73,7 +73,6 @@ $(document).ready(function () {
 
 
     $("form#formulario").submit(function (event) {
-        console.log("asdsadasd");
         //disable the default form submission
         event.preventDefault();
         //grab all form data  
@@ -86,19 +85,19 @@ $(document).ready(function () {
                 enctype: 'multipart/form-data',
                 contentType: false,
                 processData: false,
-                success: function (data)
-                {
+                success: function (data){
                     swal({
                         title: 'Mensaje',
                         text: data['data']['mensaje'],
                         type: data['data']['estado'],
                         confirmButtonText: "OK"
                     },
-                            function () {
-                                if (data['data']['estado'] == "success") {
-                                    window.location.href = 'crear_alumno.php';
-                                }
-                            });
+                    
+                    function () {
+                        if (data['data']['estado'] == "success") {
+                            window.location.href = 'crear_alumno.php';
+                        }
+                    });
                 }
             });
         }

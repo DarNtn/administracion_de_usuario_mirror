@@ -8,11 +8,11 @@ if (!empty($_GET['id'])) {
     $opcion = 'ingresar_estudiante';
 }
 ?>
+
 <link rel="stylesheet" href="assets/css/extra.css"/>
 <script src="funciones/estudiantes/functionEstudiantesAcciones.js" type="text/javascript"></script>
 <script src="assets/js/ValidarCedula.js" type="text/javascript"></script>
 <script src="assets/js/calcularEdad.js" type="text/javascript"></script>
-
 <script src="assets/js/inputfile.js" type="text/javascript"></script>
 
 <!-- Inicio del Cabecera-->
@@ -321,8 +321,6 @@ if (!empty($_GET['id'])) {
     </div>
 </div>
 
-
-
 <div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">  
@@ -457,17 +455,6 @@ if (!empty($_GET['id'])) {
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- Fin del Cabecera-->
 <?php

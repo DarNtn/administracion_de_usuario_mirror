@@ -17,17 +17,17 @@ include_once './funciones/Link/dataTableLink.php';
                 <center><h5>Registro de Estudiantes</h5></center>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-12">
-                <center><a href="crear_estudiante.php"  class="btn btn-danger" >
+                <center><a href="crear_estudiante.php" class="btn btn-danger" >
                         <strong><i class="glyphicon glyphicon-plus"></i> </strong><strong class="hidden-xs">Ingresar Nuevo</strong><strong> Estudiante</strong>
                     </a></center>
             </div>
         </div>
+        
     </div>
 </div>
-
-
 
 <div class="table-responsive">
     <table id="example" class="mdl-data-table" cellspacing="0" width="100%">

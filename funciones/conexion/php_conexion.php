@@ -47,7 +47,7 @@ class php_conexion {
         $datos = mysqli_insert_id($link);
         return $datos;
     }
-
+    
     public function historial($usuario, $tabla, $tipo, $idAfectado, $descripcion) {
         $this->realizarIngreso("INSERT INTO historiales VALUES(null,'$usuario',' $tabla', '$tipo','$idAfectado','$descripcion',curdate())");
     }

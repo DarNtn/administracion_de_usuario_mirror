@@ -57,7 +57,7 @@
             }
 
     </style>
-    <!--<link href="css/bootstrap-responsive.css" rel="stylesheet">-->
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
   </head>
 
   <body>
