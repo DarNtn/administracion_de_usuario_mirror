@@ -5,16 +5,22 @@ require_once '../conexion/php_conexion.php';
 class Estudiante extends php_conexion {
 
     function lista_alumno() {
-        $dato = $this->realizarConsulta(" SELECT a.alumno_id,a.cedula,a.nombres,a.apellidos,a.direccion,a.tiene_discapacidad,a.porcentaje_discapacidad,
-                        	a.fecha_nacimiento,a.lugar_id,a.estado_id,a.grupo_sangrineo_id,a.foto_direccion,
-                                g.genero_id,g.sexo,
-                                gs.tipo_sangrineo_id,gs.tipo,
-                                i.institucion_id,i.nombre,
-                                l.provincia,l.ciudad
-                                FROM alumnos a,generos g,grupo_sangineo gs,instituciones i, lugares l
-                                where a.genero_id=g.genero_id and a.grupo_sangrineo_id=gs.tipo_sangrineo_id 
-                                and a.instituciones_id=i.institucion_id and a.lugar_id=l.lugar_id;");
+        $dato = $this->realizarConsulta("                                
+            select 
 
+            alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.certificado_direccion, alumno.pension, 
+            generos.sexo,
+            lugares.provincia, lugares.ciudad,
+            estados.nombre as 'estado', 
+            instituciones.nombre as 'institucion',
+            cursos.nombre as 'curso', 
+            datos_medicos.tiene_discapacidad, datos_medicos.porcentaje_discapacidad, tipo_discapacidad,
+            grupo_sanguineo.nombre as 'grupo_sanguineo'
+
+            from alumno alumno, generos generos, lugares lugares, estados estados, instituciones instituciones, cursos cursos, datos_medicos datos_medicos, grupo_sanguineo grupo_sanguineo
+            where alumno.genero_id=generos.genero_id and alumno.cedula=datos_medicos.alumnos_cedula and alumno.instituciones_id=instituciones.institucion_id and alumno.lugar_id=lugares.lugar_id and datos_medicos.idgrupo_sanguineo=grupo_sanguineo.idgrupo_sanguineo and estados.estado_id=alumno.estado_id;
+        ");
+        
         return $dato;
     }
 

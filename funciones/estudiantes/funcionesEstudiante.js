@@ -18,8 +18,8 @@ $(document).ready(function() {
             { "data": "apellidos" },
             { "data": "sexo" },
             { "data": "direccion" },
-            { "data": "nombre" },
-            { "data": "provincia" },
+            { "data": "curso" },
+            { "data": "ciudad" },
             {
             "targets": -1,
             "data": null,
@@ -27,7 +27,7 @@ $(document).ready(function() {
                                <button type="button" id="matri" class="btn btn-primary btn-xs" title="Matricular"><i class="glyphicon glyphicon glyphicon-floppy-open"></i></button>\n\
                                <button type="button" id="boton" class="btn btn-xs" title="Cambiar Estado Usuario"><i class="glyphicon glyphicon-off"></i></button>'
             },
-            { "data": "estado_id" }
+            { "data": "estado" }
             
         ],
         

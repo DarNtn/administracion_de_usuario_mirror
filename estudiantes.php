@@ -39,7 +39,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <th>Apellidos</th>
                 <th>Género</th>
                 <th>Dirección</th>
-                <th>Convenio</th>
+                <th>Curso</th>
                 <th>Representante</th>
                 <th class="noExport">Opciones</th>
                 <th>Estado</th>
