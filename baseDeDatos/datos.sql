@@ -36,3 +36,14 @@ INSERT  IGNORE INTO `usuario` (`usuario_id`, `usuario`, `clave`, `tipo`, `estado
 UNLOCK TABLES;
 
 
+LOCK TABLES `generos` WRITE;
+/*!40000 ALTER TABLE `generos` DISABLE KEYS */;
+INSERT  IGNORE INTO `generos` (`genero_id`, `sexo`) VALUES (1,'Masculino'),(2,'Femenino');
+/*!40000 ALTER TABLE `generos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+LOCK TABLES `cursos` WRITE;
+/*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+INSERT  IGNORE INTO `cursos` (`curso_id`, `nombre`, `jornada`, `cant_alumnos`, `paralelo`, `estado_id`, `nivel_id`, `usuario_creacion`, `fecha_creacion`, `dirigente`, `periodo_electivo_periodo_id`) VALUES (1,'Maternal','Matutino','15','1',1,1,'wilson','2017-04-07', '', '');
+/*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
+UNLOCK TABLES;
