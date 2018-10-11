@@ -41,8 +41,8 @@ include_once './funciones/Link/dataTableLink.php';
                 <th>Dirección</th>
                 <th>Curso</th>
                 <th>Representante</th>
-                <th class="noExport">Opciones</th>
                 <th>Estado</th>
+                <th class="noExport">Opciones</th>
             </tr>
         </thead>
         <tbody>

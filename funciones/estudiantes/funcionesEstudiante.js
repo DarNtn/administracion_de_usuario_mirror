@@ -20,19 +20,18 @@ $(document).ready(function() {
             { "data": "direccion" },
             { "data": "curso" },
             { "data": "ciudad" },
+            { "data": "estado" },
             {
             "targets": -1,
             "data": null,
             "defaultContent": '<button type="button" id="modifica" class="btn btn-warning btn-xs" title="Modificar"><i class="glyphicon glyphicon-edit"></i></button>\n\
                                <button type="button" id="matri" class="btn btn-primary btn-xs" title="Matricular"><i class="glyphicon glyphicon glyphicon-floppy-open"></i></button>\n\
                                <button type="button" id="boton" class="btn btn-xs" title="Cambiar Estado Usuario"><i class="glyphicon glyphicon-off"></i></button>'
-            },
-            { "data": "estado" }
-            
+            }  
         ],
         
         "createdRow": function ( row, data, index ) {
-            if ( data['estado_id']!=1 ) {
+            if ( data['estado']!=1 ) {
                 $(row).addClass('danger');
             }
         },
@@ -43,16 +42,11 @@ $(document).ready(function() {
             "targets": 0
         },{
             "orderable": false,
-            "targets": 8
-        },{
-            "orderable": false,
-            "targets": 9,
-            "bVisible": false,
-            "bSearchable": true
+            "targets": 9
         }],
         "order": [[ 1, 'asc' ]],
 
-        lengthChange: false,
+        lengthChange: true,
         dom: 'Bfrtip',
         buttons: [{extend:'excel',className: 'btn btn-success',exportOptions: {columns: "thead th:not(.noExport)"}},{extend:'pdf',className: 'btn btn-primary',exportOptions: {columns: "thead th:not(.noExport)"}},
             {
