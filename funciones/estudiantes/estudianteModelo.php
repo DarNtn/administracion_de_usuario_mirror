@@ -5,7 +5,7 @@ require_once '../conexion/php_conexion.php';
 class Estudiante extends php_conexion {
 
     function lista_alumno() {
-        $dato = $this->realizarConsulta("SELECT a.alumno_id,a.cedula,a.nombres,a.apellidos,a.direccion,a.tiene_discapacidad,a.porcentaje_discapacidad,
+        $dato = $this->realizarConsulta(" SELECT a.alumno_id,a.cedula,a.nombres,a.apellidos,a.direccion,a.tiene_discapacidad,a.porcentaje_discapacidad,
                         	a.fecha_nacimiento,a.lugar_id,a.estado_id,a.grupo_sangrineo_id,a.foto_direccion,
                                 g.genero_id,g.sexo,
                                 gs.tipo_sangrineo_id,gs.tipo,
