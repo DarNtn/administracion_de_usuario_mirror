@@ -1,5 +1,6 @@
 var t;
 $(document).ready(function () {
+    
     t = $('#example').DataTable({
         "columnDefs": [{
                 "searchable": false,
@@ -71,12 +72,12 @@ $(document).ready(function () {
         return false; // Evitar ejecutar el submit del formulario.
     });
 
-
     $("form#formulario").submit(function (event) {
         //disable the default form submission
         event.preventDefault();
         //grab all form data  
         var formData = new FormData($(this)[0]);
+        console.log(formData);
         if (validarCedula($("#ced").val())) {
             $.ajax({
                 type: "POST",
@@ -104,14 +105,15 @@ $(document).ready(function () {
         return false; // Evitar ejecutar el submit del formulario.
     });
 
-//
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                 results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
+    
     var id = getParameterByName('id');
+    
     if (id != null) {
         datosAlumno(id);
     }
@@ -119,35 +121,35 @@ $(document).ready(function () {
     function datosAlumno(id) {
         var parametros = {"id": id,
             "opcion": "buscarAlumno"};
-        buscarRepresentantes(id);
+        //buscarRepresentantes(id);
         $.ajax({
             type: "POST",
             url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
             data: parametros, // Adjuntar los campos del formulario enviado.
-            success: function (data)
-            {
+            success: function (data){
                 console.log(JSON.stringify(data));
-                $("#id").val(data['data'][0]['alumno_id']);
-                if (data['data'][0]['1'] != "No posee Cédula") {
-                    $("#ced").val(data['data'][0]['cedula']);
-                }
+                
+                $("#ced").val(data['data'][0]['cedula']);
                 $("#nombres").val(data['data'][0]['nombres']);
                 $("#apellidos").val(data['data'][0]['apellidos']);
                 $("#fechaNac").val(data['data'][0]['fecha_nacimiento']);
                 $("#direccion").val(data['data'][0]['direccion']);
 
                 $("#tipoI").val(data['data'][0]['instituciones_id']);
-                $("#tipo_sangre").val(data['data'][0]['grupo_sangrineo_id']);
+                $("#tipo_sangre").val(data['data'][0]['grupo_sanguineo_id']);
                 $("#lugar_nacimiento").val(data['data'][0]['lugar_id']);
                 $("#tiene_discapacidad").val(data['data'][0]['tiene_discapacidad']);
                 calcularEdad(data['data'][0]['fecha_nacimiento'], '#edad');
                 $("#genero").val(data['data'][0]['genero_id']);
-                if (data['data'][0]['6'] == "SI") {
+                $("#pension").val(data['data'][0]['pension']);
+                
+                if (data['data'][0]['tiene_discapacidad'] == "1") {
                     $('#porcentaje').prop("disabled", false);
                     $('#tipoD').prop("disabled", false);
                     $("#porcentaje").val(data['data'][0]['porcentaje_discapacidad']);
-                    $("#tipoD").val(data['data'][0]['tipo_de_discapacidad']);
+                    $("#tipoD").val(data['data'][0]['tipo_discapacidad']);
                 }
+                
                 $("#observacion").val(data['data'][0]['observacion']);
             }
         });
@@ -182,10 +184,11 @@ $(document).ready(function () {
         });
     }
 });
+
 function datos(cedula) {
     var parametros = {"id": cedula,
         "opcion": "buscarR"};
-
+    
     $.ajax({
         type: "POST",
         url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.

@@ -1,12 +1,12 @@
 <?php
-include_once('header.php');
-include_once './funciones/Link/dataTableLink.php';
-$opcion = "";
-if (!empty($_GET['id'])) {
-    $opcion = 'Modificar_estudiante2';
-} else {
-    $opcion = 'ingresar_estudiante';
-}
+    include_once('header.php');
+    include_once './funciones/Link/dataTableLink.php';
+    $opcion = "";
+    if (!empty($_GET['id'])) {
+        $opcion = 'Modificar_estudiante2';
+    } else {
+        $opcion = 'ingresar_estudiante';
+    }
 ?>
 
 <link rel="stylesheet" href="assets/css/extra.css"/>
@@ -35,16 +35,18 @@ if (!empty($_GET['id'])) {
 <div class="panel">
     <div class="panel-body">
         <?php
-        $opcion = "";
-        if (!empty($_GET['id'])) {
-            $opcion = 'Modificar_estudiante2';
-        } else {
-            $opcion = 'ingresar_estudiante';
-        }
+            $opcion = "";
+            $id = $_GET['id'];
+            if (!empty($_GET['id'])) {
+                $opcion = 'Modificar_estudiante2';
+                
+            } else {
+                $opcion = 'ingresar_estudiante';
+            }
         ?>
         <form id="formulario" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="opcion" value="<?php echo $opcion; ?>"/>
-            <input type="hidden" id="id" name="id" value="">
+            <input name="opcion" type="hidden" value="<?php echo $opcion; ?>"/>
+            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
             
             <!--Datos personales-->
             <fieldset class="scheduler-border">
@@ -54,7 +56,7 @@ if (!empty($_GET['id'])) {
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
-                            <input class="form-control" type="text" id="ced" name="cedula" placeholder="Cédula"/>
+                            <input class="form-control" type="text" id="ced" name="cedula" placeholder="Cédula" value=""/>
                         </div>
                         <br>
                     </div>
@@ -133,7 +135,7 @@ if (!empty($_GET['id'])) {
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                            <input class="form-control" type="number" id="pension" name="pension" placeholder="Valor de pensión" required=""/>
+                            <input class="form-control" type="number" step="0.01" id="pension" name="pension" placeholder="Valor de pensión" required=""/>
                         </div><br>
                     </div>
                 </div>
@@ -147,7 +149,7 @@ if (!empty($_GET['id'])) {
                 <div class="row">
                     <!--Tiene discapacidad-->
                     <div class="col-lg-3">
-                        <select id="tiene_discapacidad" name="tiene_discapacidad" class="form-control iinput" onChange="if (this.options[0].selected)
+                        <select id="tiene_discapacidad" name="tiene_discapacidad" class="form-control input" onChange="if (this.options[0].selected)
                                     porcentaje.disabled = true;
                                 else
                                     porcentaje.disabled = false;
@@ -155,8 +157,8 @@ if (!empty($_GET['id'])) {
                                     tipoD.disabled = true;
                                 else
                                     tipoD.disabled = false;">
-                            <option value="NO" selected>SIN DISCAPACIDAD</option>
-                            <option value="SI">CON DISCAPACIDAD</option>
+                            <option value="2" selected>SIN DISCAPACIDAD</option>
+                            <option value="1">CON DISCAPACIDAD</option>
                         </select><br>
                     </div>
                     <!--Porcentaje discapacidad-->

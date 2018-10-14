@@ -4,15 +4,19 @@ header("Content-Type: application/json;charset=utf-8");
 require_once('estudianteModelo.php');
 # Traer los datos de un usuario
 $estudiante = new Estudiante();
+
 if ($_POST['opcion'] == "Lista_alumno") {
     echo $estudiante->respuestaJson($estudiante->lista_alumno());
 }
+
 if ($_POST['opcion'] == "buscarR") {
     echo $estudiante->respuestaJson($estudiante->buscarRepresentante($_POST['id']));
 }
+
 if ($_POST['opcion'] == "buscarRepreAsignados") {
     echo $estudiante->respuestaJson($estudiante->listaRepresenAsigna($_POST['id']));
 }
+
 if ($_POST['opcion'] == "Guardar_representante") {
     if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['fechaNac']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC'])) {
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
@@ -42,6 +46,7 @@ if ($_POST['opcion'] == "Guardar_representante") {
         }
     }
 }
+
 if ($_POST['opcion'] == "ingresar_estudiante") {
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
@@ -58,7 +63,7 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
             } else {
                 $tipoDiscapacidad = $_POST['tipo'];
             }
-            $respuesta = $estudiante->crearEstudiante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion']);
+            $respuesta = $estudiante->crearEstudiante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion'], $_POST['pension']);
 //            if ($respuesta != 0) {
 //                $comentario = "";
 //                if (!empty($_FILES["imagen"]['name'])) {
@@ -107,9 +112,10 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 
 if ($_POST['opcion'] == "Modificar_estudiante2") {
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
-        echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
+        echo $estudiante->mensajes("warning", "Algunos campos estan vaciossssss");
     } else {
-        if (isset($_POST['dato'])) {
+        // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
+        //if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
             } else {
@@ -121,53 +127,56 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
                 $tipoDiscapacidad = $_POST['tipo'];
             }
             $respuesta = $estudiante->modificarEstudiante($_POST['id'], $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion']);
-            if ($respuesta == "success") {
-                $comentario = "";
-                if (!empty($_FILES["imagen"]['name'])) {
-                    $nameimagen = $_FILES['imagen']['name'];
-                    $tmpimagen = $_FILES['imagen']['tmp_name'];
-                    $extimagen = pathinfo($nameimagen);
-                    $urlnueva = "archivos/fotos/" . $_POST['id'] . ".jpg";
-                    if ($extimagen['extension'] == "jpg") {
-                        copy($tmpimagen, $urlnueva);
-                        $estudiante->fotoEstudiante($respuesta, $urlnueva);
-                    } else {
-                        $comentario = ", error al cargar imagen";
-                    }
-                }
-                if (!empty($_FILES["certificado"]['name'])) {
-                    $namecerti = $_FILES['certificado']['name'];
-                    $tmpcerti = $_FILES['certificado']['tmp_name'];
-                    $extcerti = pathinfo($namecerti);
-                    $urlcertificado = "archivos/certificados/" . $_POST['id'] . ".jpg";
-                    if ($extcerti['extension'] == "jpg") {
-                        copy($tmpcerti, $urlcertificado);
-                        $estudiante->certificadoEstudiante($respuesta, $urlcertificado);
-                    } else {
-                        $comentario = $comentario . ", error al cargar certificado";
-                    }
-                }
-                $estudiante->eliminarRepresentantes($_POST['id']);
-                $dto = $_POST['dato'];
-                $parent = $_POST['parentesco'];
-                $n = count($dto);
-                $i = 0;
-                while ($i < $n) {
-                    $estudiante->asignarRepresentante($_POST['id'], $dto[$i], '2', $parent[$i]);
-                    $i++;
-                }
-                echo $estudiante->mensajes("success", "Alumno modificado exitosamente" . $comentario);
-            } else {
-                echo $estudiante->mensajes("error", $respuesta);
-            }
-        } else {
-            echo $estudiante->mensajes("error", "No hay representantes");
-        }
+            echo $estudiante ->mensajes("respuesta", $respuesta);
+//            if ($respuesta == "success") {
+//                $comentario = "";
+//                if (!empty($_FILES["imagen"]['name'])) {
+//                    $nameimagen = $_FILES['imagen']['name'];
+//                    $tmpimagen = $_FILES['imagen']['tmp_name'];
+//                    $extimagen = pathinfo($nameimagen);
+//                    $urlnueva = "archivos/fotos/" . $_POST['id'] . ".jpg";
+//                    if ($extimagen['extension'] == "jpg") {
+//                        copy($tmpimagen, $urlnueva);
+//                        $estudiante->fotoEstudiante($respuesta, $urlnueva);
+//                    } else {
+//                        $comentario = ", error al cargar imagen";
+//                    }
+//                }
+//                if (!empty($_FILES["certificado"]['name'])) {
+//                    $namecerti = $_FILES['certificado']['name'];
+//                    $tmpcerti = $_FILES['certificado']['tmp_name'];
+//                    $extcerti = pathinfo($namecerti);
+//                    $urlcertificado = "archivos/certificados/" . $_POST['id'] . ".jpg";
+//                    if ($extcerti['extension'] == "jpg") {
+//                        copy($tmpcerti, $urlcertificado);
+//                        $estudiante->certificadoEstudiante($respuesta, $urlcertificado);
+//                    } else {
+//                        $comentario = $comentario . ", error al cargar certificado";
+//                    }
+//                }
+//                $estudiante->eliminarRepresentantes($_POST['id']);
+//                $dto = $_POST['dato'];
+//                $parent = $_POST['parentesco'];
+//                $n = count($dto);
+//                $i = 0;
+//                while ($i < $n) {
+//                    $estudiante->asignarRepresentante($_POST['id'], $dto[$i], '2', $parent[$i]);
+//                    $i++;
+//                }
+//                echo $estudiante->mensajes("success", "Alumno modificado exitosamente" . $comentario);
+//            } else {
+//                echo $estudiante->mensajes("error", $respuesta);
+//            }
+//        } else {
+//            echo $estudiante->mensajes("error", "No hay representantes");
+//        }
     }
 }
+
 if ($_POST['opcion'] == "buscarAlumno") {
     echo $estudiante->respuestaJson($estudiante->buscarEstudiante($_POST['id']));
 }
+
 if ($_POST['opcion'] == "estadoAlumno") {
     $estudiante->estadoAlumno($_POST['id'], $_POST['estado']);
 }

@@ -50,7 +50,7 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         }
     }
 
-    function crearEstudiante($cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion) {
+    function crearEstudiante($cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion, $pension) {
         
         // Insertar datos médicos
         $porcentaje_discapacidad = (int)$porcentaje_discapacidad;
@@ -61,19 +61,10 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
             $resultado = $this->realizarIngreso("INSERT INTO datos_medicos VALUES($tiene_discapacidad, $porcentaje_discapacidad, '$tipoD', '$cedula', $tipo_sangre)");
         }
         
-        // Insertar alumno (FALTA)
-        // Verificar como se manejan la ruta para las fotografías (foto_direccion)
-        // Obtener el id del estado habilitado
-        // Verificar como se manejan la ruta para los certificados (certificado_direccion)
-        // Obtener pensión
-        // Curso queda pendiente, por el momento se pasará 0
-        
+        $estado_id = (int) $this->realizarConsulta("SELECT estado_id FROM estados WHERE nombre='Activo'");
         $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE cedula='$cedula'");
         if ($dato == null) {
-            $resultado = $this->realizarIngresoId("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', 0, $instituto, '$observacion', '', 0, 0)");
-//                    . "'$cedula','$nombres','$apellidos',$sexo,'$direccion',"
-//                    . "'$fecha_nacimiento',$lugar_nacimiento,'fotos/user.png',CURDATE(),'$user',null,$instituto,'$observacion',"
-//                    . "'certificados/defaul.jpg', null, null)");
+            $resultado = $this->realizarIngresoId("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', $estado_id, $instituto, '$observacion', '', $pension, 0)");
         } else {
             $resultado = 0;
         }
@@ -89,17 +80,28 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         $this->realizarIngreso("UPDATE alumnos SET certificado_direccion='$direccion' where alumno_id='$id'");
     }
 
-    function modificarEstudiante($id, $cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion) {
-        $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE alumno_id='$id'");
+    function modificarEstudiante($cedula_sin_modificar, $cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion) {
+
+        $dato = $this->realizarConsulta("SELECT * FROM alumno WHERE cedula='$cedula_sin_modificar'");
         if ($dato != null) {
-            $this->realizarIngreso("Update alumnos Set cedula='$cedula',nombres='$nombres',apellidos='$apellidos',
-					genero_id='$sexo',direccion='$direccion',tiene_discapacidad='$tiene_discapacidad',porcentaje_discapacidad='$porcentaje_discapacidad',
-					fecha_nacimiento='$fecha_nacimiento',lugar_id='$lugar_nacimiento',grupo_sangrineo_id='$tipo_sangre',
-                                        fecha_creacion=CURDATE(),usuario_creacion='$user',instituciones_id='$instituto',tipo_de_discapacidad='$tipoD',observacion='$observacion'
-                                        Where alumno_id='$id'");
-            return "success";
+            
+            // Actualizar alumno
+            $this->realizarIngreso("update alumno set cedula='$cedula', nombres='$nombres', apellidos='$apellidos',
+					genero_id=$sexo, direccion='$direccion', fecha_nacimiento='$fecha_nacimiento',
+                                        lugar_id=$lugar_nacimiento, instituciones_id=$instituto,observacion='$observacion'
+                                        where cedula='$cedula_sin_modificar'");
+            
+            // Actualizar datos médicos de un alumno
+            $this->realizarIngreso("update datos_medicos set alumnos_cedula='$cedula', porcentaje_discapacidad=$porcentaje_discapacidad,
+                                    tipo_discapacidad='$tipoD', idgrupo_sanguineo=$tipo_sangre, tiene_discapacidad=$tiene_discapacidad
+                                    where alumnos_cedula='$cedula_sin_modificar'");
+            
+            return "El alumno se ha modificado exitosamente";
+            
         } else {
+            
             return "Alumno no se pudo modificar";
+            
         }
     }
 
@@ -114,8 +116,16 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         }
     }
 
-    function buscarEstudiante($id) {
-        $dato = $this->realizarConsulta("SELECT * from alumnos where alumno_id='$id'");
+    function buscarEstudiante($cedula) {
+        $dato = $this->realizarConsulta("select 
+            alumno.*,
+            datos_medicos.tiene_discapacidad, datos_medicos.porcentaje_discapacidad, tipo_discapacidad,
+            grupo_sanguineo.idgrupo_sanguineo as 'grupo_sanguineo_id'
+
+            from alumno alumno, datos_medicos datos_medicos, grupo_sanguineo grupo_sanguineo
+
+            where alumno.cedula=datos_medicos.alumnos_cedula and datos_medicos.idgrupo_sanguineo=grupo_sanguineo.idgrupo_sanguineo and alumno.cedula = '$cedula';
+        ");
         return $dato;
     }
 
