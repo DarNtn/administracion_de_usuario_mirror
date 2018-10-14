@@ -28,6 +28,16 @@ $(document).ready(function () {
                 .draw();
     });
 
+    $('#inputFotografia').on("input", function() {
+        var reader = new FileReader();
+        reader.readAsDataURL(event.srcElement.files[0]);
+        reader.onload = function () {
+          var fileContent = reader.result;
+              console.log(fileContent);
+              document.getElementById("imgFotografia").src=fileContent;
+        }
+    });
+
     $("form#formularioRepresentante").submit(function (event) {
         //disable the default form submission
         event.preventDefault();

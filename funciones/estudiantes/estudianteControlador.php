@@ -68,52 +68,41 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                 $tipoDiscapacidad = $_POST['tipo'];
             }
             
-//            if ($respuesta != 0) {
+            $respuesta = $estudiante->crearEstudiante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion'], $_POST['pension']);
+            $estudiante ->mensajes("respuest", $respuesta);
+            
+            if ($respuesta == 1) {
+                
                 $comentario = "";
+                
+                // Guardar foto de alumno
                 if (!empty($_FILES["imagen"]['name'])) {
                     $nameimagen = $_FILES['imagen']['name'];
                     $tmpimagen = $_FILES['imagen']['tmp_name'];
                     $extimagen = pathinfo($nameimagen);
-                    $urlnueva = "fotos/" . $respuesta . ".jpg";
-                    echo $estudiante->mensajes("dir", "urlnueva");
-                    if ($extimagen['extension'] == "jpg") {
+                    $urlnueva = "archivos/fotos/" . $_POST['cedula'] . ".jpg";
+                    $estudiante->mensajes("fotoAlumno", $urlnueva);
+                    if ($extimagen['extension'] == "jpg" || $extimagen['extension'] == "jpeg") {
                         copy($tmpimagen, $urlnueva);
-//                        $estudiante->fotoEstudiante($respuesta, $urlnueva);
+                        echo $estudiante->fotoEstudiante($_POST['cedula'], $urlnueva);
                     } else {
-                        $comentario = ", error al cargar imagen";
+                        $comentario = ". Error al cargar foto, tipo de dato no soportado.";
                     }
-                }   
-//            }
+                }
                 
-            
-            $respuesta = $estudiante->crearEstudiante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion'], $_POST['pension']);
-//            if ($respuesta != 0) {
-//                $comentario = "";
-//                if (!empty($_FILES["imagen"]['name'])) {
-//                    $nameimagen = $_FILES['imagen']['name'];
-//                    $tmpimagen = $_FILES['imagen']['tmp_name'];
-//                    $extimagen = pathinfo($nameimagen);
-//                    $urlnueva = "fotos/" . $respuesta . ".jpg";
-//                    if ($extimagen['extension'] == "jpg") {
-//                        copy($tmpimagen, $urlnueva);
-//                        $estudiante->fotoEstudiante($respuesta, $urlnueva);
-//                    } else {
-//                        $comentario = ", error al cargar imagen";
-//                    }
-//                }
-//                if (!empty($_FILES["certificado"]['name'])) {
-//                    $namecerti = $_FILES['certificado']['name'];
-//                    $tmpcerti = $_FILES['certificado']['tmp_name'];
-//                    $extcerti = pathinfo($namecerti);
-//                    $urlcertificado = "certificados/" . $respuesta . ".jpg";
-//                    if ($extcerti['extension'] == "jpg") {
-//                        copy($tmpcerti, $urlcertificado);
-//                        $estudiante->certificadoEstudiante($respuesta, $urlcertificado);
-//                    } else {
-//                        $comentario = $comentario . ", error al cargar certificado";
-//                    }
-//                }
-
+                // Guardar certificado de alumno
+                if (!empty($_FILES["certificado"]['name'])) {
+                    $namecerti = $_FILES['certificado']['name'];
+                    $tmpcerti = $_FILES['certificado']['tmp_name'];
+                    $extcerti = pathinfo($namecerti);
+                    $urlcertificado = "archivos/certificados/" . $_POST['cedula'] . ".jpg";
+                    if ($extimagen['extension'] == "jpg" || $extimagen['extension'] == "jpeg") {
+                        copy($tmpcerti, $urlcertificado);
+                        $estudiante->certificadoEstudiante($_POST['cedula'], $urlcertificado);
+                    } else {
+                        $comentario = ". Error al cargar certificado, tipo de dato no soportado.";
+                    }
+                }
 //                Aquí se registran los padres/representantes/autorizados a retirar
 //                $dto = $_POST['dato'];
 //                $parent = $_POST['parentesco'];
@@ -123,10 +112,14 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 //                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
 //                    $i++;
 //                }
-//                echo mensajes("success", "Alumno registrado exitosamente" . $comentario);
-//            } else {
-                //echo mensajes("error", "Alumno ya se encuentra");
-//            }
+                
+                echo $estudiante->mensajes("success", "Alumno registrado exitosamente" . $comentario);
+                
+            } else {
+                
+                echo $estudiante->mensajes("error", "Alumno ya se encuentra registrado");
+                
+            }
 //        } else {
 //            echo mensajes("error", "No hay representantes");
 //        }
@@ -134,8 +127,11 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 }
 
 if ($_POST['opcion'] == "Modificar_estudiante2") {
+    
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
+        
         echo $estudiante->mensajes("warning", "Algunos campos estan vaciossssss");
+        
     } else {
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
         //if (isset($_POST['dato'])) {

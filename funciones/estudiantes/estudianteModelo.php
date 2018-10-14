@@ -55,26 +55,27 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         // Insertar datos médicos
         $porcentaje_discapacidad = (int)$porcentaje_discapacidad;
         $tipo_sangre = (int)$tipo_sangre;
-        $tiene_discapacidad = ($tiene_discapacidad == "SI") ? 1: 0;
+        $tiene_discapacidad = ($tiene_discapacidad == "SI") ? 2: 1;
         $dato = $this->realizarConsulta("SELECT * FROM datos_medicos WHERE alumnos_cedula='$cedula'");
         if($dato == null){
             $resultado = $this->realizarIngreso("INSERT INTO datos_medicos VALUES($tiene_discapacidad, $porcentaje_discapacidad, '$tipoD', '$cedula', $tipo_sangre)");
+            if($resultado == 1){
+                // Insertar estudiante
+                $estado_id = (int) $this->realizarConsulta("SELECT estado_id FROM estados WHERE nombre='Activo'");
+                $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE cedula='$cedula'");
+                if ($dato == null) {
+                    $resultado = $this->realizarIngreso("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', $estado_id, $instituto, '$observacion', '', $pension, 0)");
+                    return $resultado;
+                }
+                
+            }
         }
-        
-        // Insertar estudiante
-        $estado_id = (int) $this->realizarConsulta("SELECT estado_id FROM estados WHERE nombre='Activo'");
-        $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE cedula='$cedula'");
-        if ($dato == null) {
-            $resultado = $this->realizarIngresoId("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', $estado_id, $instituto, '$observacion', '', $pension, 0)");
-        } else {
-            $resultado = 0;
-        }
-        
         return $resultado;
+        
     }
 
     function fotoEstudiante($id, $direccion) {
-        $this->realizarIngreso("UPDATE alumno SET foto_direccion='$direccion' where cedula='$id'");
+        return $this->realizarIngreso("UPDATE alumno SET foto_direccion='$direccion' where cedula='$id'");
     }
 
     function certificadoEstudiante($id, $direccion) {
@@ -101,7 +102,7 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
             
         } else {
             
-            return "Alumno no se pudo modificar";
+            return false;
             
         }
     }

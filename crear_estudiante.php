@@ -202,7 +202,25 @@
                 <legend class="scheduler-border">Documentos</legend>
                 <div class="row">
                     <!--Certificados-->
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <ul class="list-group">
+                            <a class="list-group-item clearfix" onclick="alert('Action2 -> Details');">
+                                Action2
+                                <span class="pull-right">
+                                    <span class="btn btn-xs btn-default" onclick="">
+                                        X
+                                    </span>
+                                </span>
+                            </a>
+                            <a class="list-group-item clearfix" onclick="alert('Action2 -> Details');">
+                                Action2
+                                <span class="pull-right">
+                                    <span class="btn btn-xs btn-default" onclick="">
+                                        X
+                                    </span>
+                                </span>
+                            </a>
+                        </ul>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
@@ -216,15 +234,23 @@
                         </div><br>
                     </div>
                     <!--Fotografía-->
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <?php
+
+                            $dir = "/funciones/estudiantes/archivos/fotos/" . $id . ".jpg";
+                            echo '
+                                <div class="text-center">
+                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El estudiante no posee fotografía" />
+                                </div>'
+                        ?>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
                                     <span class="btn" style="background: #55d9cb;color: white">
-                                        Fotografia&hellip; <input type="file" name="imagen" style="display: none;" accept=".jpg">
+                                        Fotografia&hellip; <input type="file" id="inputFotografia" name="imagen" style="display: none;" accept=".jpg">
                                     </span>
                                 </label>
-                                <input type="text" class="form-control iinput" readonly>
+                                <input type="text" class="form-control input" readonly>
                             </div>
                         </div><br>
                     </div>

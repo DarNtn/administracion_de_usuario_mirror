@@ -50,3 +50,6 @@ where cedula='0930703707';
 update datos_medicos set alumnos_cedula='0930703707', porcentaje_discapacidad=33,
 tipo_discapacidad='fisica', idgrupo_sanguineo=3, tiene_discapacidad=1
 where alumnos_cedula='0930703707';
+
+###########
+UPDATE alumno SET foto_direccion='$direccion' where cedula='0930703707';
