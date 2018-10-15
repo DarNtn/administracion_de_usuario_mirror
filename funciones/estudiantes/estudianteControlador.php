@@ -72,7 +72,7 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
     } else {
         
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
-        //if (isset($_POST['dato'])) {
+        if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
             } else {
@@ -111,21 +111,21 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     $nombre = "documento-" . ($numero + 1);
                 }
 //                Aquí se registran los padres/representantes/autorizados a retirar
-//                $dto = $_POST['dato'];
-//                $parent = $_POST['parentesco'];
+                $dto = $_POST['dato'];
+                $parent = $_POST['parentesco'];
 //                $n = count($dto);
 //                $i = 0;
 //                while ($i < $n) {
-//                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
+                $estudiante->asignarRepresentante($respuesta, $dto[0], $_POST['funcion'], $parent[$i]);
 //                    $i++;
 //                }
                 echo $estudiante->mensajes("success", "Alumno registrado exitosamente" . $comentario);
             } else {
                 echo $estudiante->mensajes("error", "Alumno ya se encuentra registrado");
             }
-//        } else {
-//            echo mensajes("error", "No hay representantes");
-//        }
+        } else {
+            echo mensajes("error", "No hay representantes");
+        }
     }
 }
 
