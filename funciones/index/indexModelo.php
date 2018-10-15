@@ -1,5 +1,4 @@
 <?php
-
 require_once '../conexion/php_conexion.php';
 
 class Index extends php_conexion {
@@ -14,6 +13,7 @@ class Index extends php_conexion {
     }
     
     public function iniciarSession($user, $password) {
+        // eMconsole_log( $user );
         if (!empty($user) && !empty($password)) {
             $dato = $this->realizarConsulta("SELECT * FROM usuario WHERE usuario='$user' and clave='$password'");
             if ($dato != null) {

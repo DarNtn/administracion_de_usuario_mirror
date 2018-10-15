@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`usuario` (
   `usuario_id` INT NOT NULL AUTO_INCREMENT,
   `estado_id` INT(11) NULL,
   PRIMARY KEY (`usuario_id`),
-  INDEX `fk_usuario_estados1_idx` (`estado_id` ASC) VISIBLE)
+  INDEX `fk_usuario_estados1_idx` (`estado_id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
@@ -150,12 +150,12 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`personal` (
   `foto` BLOB NULL,
   `cedula` VARCHAR(10) NULL,
   PRIMARY KEY (`personal_id`),
-  INDEX `profesores_generos_idx` (`genero_id` ASC) VISIBLE,
-  INDEX `profesores_estado_civil_idx` (`estado_civil_id` ASC) VISIBLE,
-  INDEX `profesores_especialidades_fk_idx` (`especialidad_id` ASC) VISIBLE,
-  INDEX `profesor_id` (`personal_id` ASC) VISIBLE,
-  INDEX `profesor_id_2` (`personal_id` ASC) VISIBLE,
-  INDEX `fk_personal_usuarios1_idx` (`usuario_id` ASC) VISIBLE)
+  INDEX `profesores_generos_idx` (`genero_id` ASC),
+  INDEX `profesores_estado_civil_idx` (`estado_civil_id` ASC),
+  INDEX `profesores_especialidades_fk_idx` (`especialidad_id` ASC),
+  INDEX `profesor_id` (`personal_id` ASC),
+  INDEX `profesor_id_2` (`personal_id` ASC),
+  INDEX `fk_personal_usuarios1_idx` (`usuario_id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`periodo_electivo` (
   `fecha_inicio_periodo` DATE NULL DEFAULT NULL,
   `fecha_fin_periodo` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`periodo_id`),
-  INDEX `periodo_electivo_estados_fk_idx` (`estado_id` ASC) VISIBLE)
+  INDEX `periodo_electivo_estados_fk_idx` (`estado_id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
@@ -198,10 +198,10 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`cursos` (
   `dirigente` INT(11) NOT NULL,
   `periodo_electivo_periodo_id` INT(11) NOT NULL,
   PRIMARY KEY (`curso_id`),
-  INDEX `cursos_estados_fk_idx` (`estado_id` ASC) VISIBLE,
-  INDEX `cursos_niveles_fk_idx` (`nivel_id` ASC) VISIBLE,
-  INDEX `fk_cursos_personal1_idx` (`dirigente` ASC) VISIBLE,
-  INDEX `fk_cursos_periodo_electivo1_idx` (`periodo_electivo_periodo_id` ASC) VISIBLE)
+  INDEX `cursos_estados_fk_idx` (`estado_id` ASC),
+  INDEX `cursos_niveles_fk_idx` (`nivel_id` ASC),
+  INDEX `fk_cursos_personal1_idx` (`dirigente` ASC),
+  INDEX `fk_cursos_periodo_electivo1_idx` (`periodo_electivo_periodo_id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8;
@@ -230,11 +230,11 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`alumno` (
   `pension` DOUBLE NOT NULL,
   `cursos_curso_id` INT(11) NULL,
   PRIMARY KEY (`cedula`),
-  INDEX `alumnos_genero_id_fk_idx` (`genero_id` ASC) VISIBLE,
-  INDEX `alumnos_estados_idx` (`estado_id` ASC) VISIBLE,
-  INDEX `alumnos_instituciones_fk_idx` (`instituciones_id` ASC) VISIBLE,
-  INDEX `alumnos_lugares_fk_idx` (`lugar_id` ASC) VISIBLE,
-  INDEX `fk_alumnos_cursos1_idx` (`cursos_curso_id` ASC) VISIBLE)
+  INDEX `alumnos_genero_id_fk_idx` (`genero_id` ASC),
+  INDEX `alumnos_estados_idx` (`estado_id` ASC),
+  INDEX `alumnos_instituciones_fk_idx` (`instituciones_id` ASC),
+  INDEX `alumnos_lugares_fk_idx` (`lugar_id` ASC),
+  INDEX `fk_alumnos_cursos1_idx` (`cursos_curso_id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 22
 DEFAULT CHARACTER SET = utf8;
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`administrador` (
   `usuarios_usuario_id` INT NOT NULL,
   `cedula_copy1` VARCHAR(10) NULL,
   PRIMARY KEY (`admin_id`),
-  INDEX `fk_administradores_usuarios1_idx` (`usuarios_usuario_id` ASC) VISIBLE)
+  INDEX `fk_administradores_usuarios1_idx` (`usuarios_usuario_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -322,10 +322,10 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`autorizacion` (
   `idparentezco` INT NOT NULL,
   `usuario_usuario_id` INT NOT NULL,
   PRIMARY KEY (`id_padre`),
-  INDEX `fk_padre_estado_civil1_idx` (`estado_civil_id` ASC) VISIBLE,
-  INDEX `fk_autorizacion_generos1_idx` (`genero_id` ASC) VISIBLE,
-  INDEX `fk_autorizacion_parentezco1_idx` (`idparentezco` ASC) VISIBLE,
-  INDEX `fk_autorizacion_usuario1_idx` (`usuario_usuario_id` ASC) VISIBLE)
+  INDEX `fk_padre_estado_civil1_idx` (`estado_civil_id` ASC),
+  INDEX `fk_autorizacion_generos1_idx` (`genero_id` ASC),
+  INDEX `fk_autorizacion_parentezco1_idx` (`idparentezco` ASC),
+  INDEX `fk_autorizacion_usuario1_idx` (`usuario_usuario_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -338,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`documento` (
   `link` VARCHAR(45) NULL,
   `nombre` VARCHAR(45) NULL,
   `alumno_cedula` VARCHAR(20) NOT NULL,
-  INDEX `fk_documento_alumno1_idx` (`alumno_cedula` ASC) VISIBLE,
+  INDEX `fk_documento_alumno1_idx` (`alumno_cedula` ASC),
   PRIMARY KEY (`alumno_cedula`))
 ENGINE = InnoDB;
 
@@ -366,9 +366,9 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`datos_medicos` (
   `tipo_discapacidad` VARCHAR(45) NULL,
   `alumnos_cedula` VARCHAR(20) NOT NULL,
   `idgrupo_sanguineo` INT NULL,
-  INDEX `fk_datos_medicos_alumnos1_idx` (`alumnos_cedula` ASC) VISIBLE,
+  INDEX `fk_datos_medicos_alumnos1_idx` (`alumnos_cedula` ASC),
   PRIMARY KEY (`alumnos_cedula`),
-  INDEX `fk_datos_medicos_grupo_sanguineo1_idx` (`idgrupo_sanguineo` ASC) VISIBLE)
+  INDEX `fk_datos_medicos_grupo_sanguineo1_idx` (`idgrupo_sanguineo` ASC))
 ENGINE = InnoDB;
 
 
@@ -383,9 +383,9 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`detalle_materia` (
   `personal_personal_id` INT(11) NOT NULL,
   `cursos_curso_id` INT(11) NOT NULL,
   PRIMARY KEY (`id_detalle_materia`),
-  INDEX `fk_detalle_materia_materia1_idx` (`materia_id_materia` ASC) VISIBLE,
-  INDEX `fk_detalle_materia_personal1_idx` (`personal_personal_id` ASC) VISIBLE,
-  INDEX `fk_detalle_materia_cursos1_idx` (`cursos_curso_id` ASC) VISIBLE)
+  INDEX `fk_detalle_materia_materia1_idx` (`materia_id_materia` ASC),
+  INDEX `fk_detalle_materia_personal1_idx` (`personal_personal_id` ASC),
+  INDEX `fk_detalle_materia_cursos1_idx` (`cursos_curso_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -401,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`horario` (
   `hora_fin` TIME NULL,
   `detalle_materia_id_detalle_materia` INT NOT NULL,
   PRIMARY KEY (`id_horario`),
-  INDEX `fk_horario_detalle_materia1_idx` (`detalle_materia_id_detalle_materia` ASC) VISIBLE)
+  INDEX `fk_horario_detalle_materia1_idx` (`detalle_materia_id_detalle_materia` ASC))
 ENGINE = InnoDB;
 
 
@@ -431,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`adjunto` (
   `nombre` VARCHAR(45) NULL,
   `mensaje_id` INT NOT NULL,
   PRIMARY KEY (`id_documento`),
-  INDEX `fk_adjunto_mensajes1_idx` (`mensaje_id` ASC) VISIBLE)
+  INDEX `fk_adjunto_mensajes1_idx` (`mensaje_id` ASC))
 ENGINE = InnoDB;
 
 
@@ -465,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`citacion` (
   `mensaje` INT NOT NULL,
   `hora` TIMESTAMP(5) NULL,
   PRIMARY KEY (`id_Citacion`),
-  INDEX `fk_Citación_mensaje1_idx` (`mensaje` ASC) VISIBLE)
+  INDEX `fk_Citación_mensaje1_idx` (`mensaje` ASC))
 ENGINE = InnoDB;
 
 
@@ -479,8 +479,8 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`citacion_padre` (
   `padre` INT NOT NULL,
   `citacion` INT NOT NULL,
   PRIMARY KEY (`id_citacion_padre`),
-  INDEX `fk_citacion_padre_autorizacion1_idx` (`padre` ASC) VISIBLE,
-  INDEX `fk_citacion_padre_Citación1_idx` (`citacion` ASC) VISIBLE)
+  INDEX `fk_citacion_padre_autorizacion1_idx` (`padre` ASC),
+  INDEX `fk_citacion_padre_Citación1_idx` (`citacion` ASC))
 ENGINE = InnoDB;
 
 
@@ -494,8 +494,8 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`citacion_curso` (
   `profesor` INT(11) NOT NULL,
   `citacion` INT NOT NULL,
   PRIMARY KEY (`id_citacion_curso`),
-  INDEX `fk_citación_curso_personal1_idx` (`profesor` ASC) VISIBLE,
-  INDEX `fk_citación_curso_citación1_idx` (`citacion` ASC) VISIBLE)
+  INDEX `fk_citación_curso_personal1_idx` (`profesor` ASC),
+  INDEX `fk_citación_curso_citación1_idx` (`citacion` ASC))
 ENGINE = InnoDB;
 
 
