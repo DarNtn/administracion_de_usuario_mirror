@@ -1,5 +1,4 @@
 .DS_Store
 *.log
 funciones/conexion/php_conection.php
-vendor/
 TODO
