@@ -19,7 +19,7 @@ class Index extends php_conexion {
             if ($dato != null) {
                 $estado = $dato[0]['estado_id'];
                 $estado = $this->realizarConsulta("SELECT nombre FROM estados WHERE estado_id = '$estado'");
-                if ( $estado[0]['nombre'] == 'activo') {
+                if ( $estado[0]['nombre'] == 'Activo') {
                     if ($dato[0]['clave'] == $password) {
                         $_SESSION['username'] = $dato[0]['usuario'];
                         $_SESSION['user'] = $dato[0]['usuario_id'];

@@ -24,8 +24,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `estados` WRITE;
 /*!40000 ALTER TABLE `estados` DISABLE KEYS */;
-INSERT  IGNORE INTO `estados` (`estado_id`, `nombre`) VALUES (1, 'activo');
-INSERT  IGNORE INTO `estados` (`estado_id`, `nombre`) VALUES (2, 'inactivo');
+INSERT  IGNORE INTO `estados` (`estado_id`, `nombre`) VALUES (1, 'Activo');
+INSERT  IGNORE INTO `estados` (`estado_id`, `nombre`) VALUES (2, 'Inactivo');
 /*!40000 ALTER TABLE `estados` ENABLE KEYS */;
 UNLOCK TABLES;
 

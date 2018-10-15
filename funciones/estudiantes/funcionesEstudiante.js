@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    
     var parametros={ "opcion":"Lista_alumno"};
     // Elementos de tabla.
     var t = $('#example').DataTable( {
@@ -69,47 +69,24 @@ $(document).ready(function() {
             }
         ],
         "language": {
-                        "zeroRecords": "No hay resultados - lo sentimos",
-                        "info": "Mostrando página _PAGE_ de _PAGES_",
-                        "infoEmpty": "No hay registros",
-                        "infoFiltered": ""
-                    }
+            "zeroRecords": "No hay resultados - lo sentimos",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros",
+            "infoFiltered": ""
+        }
         
     } );
     // Elementos de tabla.
 
     $('#example tbody').on( 'click', '#modifica', function () {
         var data = t.row( $(this).parents('tr') ).data();
-        DoPost(data['alumno_id']);
+        DoPost(data['cedula']);
     } );
+    
     $('#example tbody').on( 'click', '#matri', function () {
         var data = t.row( $(this).parents('tr') ).data();
         window.location.href = 'matriculacion.php?id='+data['alumno_id'];
     } );
-//    
-//    $('#example tbody').on( 'click', '#info', function () {
-//        var data = t.row( $(this).parents('tr') ).data();
-//        $('#informacion').modal('show');
-//        $('#cedula').html(data['cedula']);
-////        $('#inst').html(data[15]);
-//        $('#nombres').html(data['nombres']);
-//        $('#apellidos').html(data['apellidos']);
-////        $('#fechaNac').html(data['']);
-////        $('#tipoS').html(data[15]);
-////        $('#lugarN').html(data[26]+' - '+data[27]);
-////        $('#direccion').html(data['direccion']);
-////        $('#genero').html(data[13]);
-//        $('#discapacidad').html(data['tiene_discapacidad']);
-//        $('#porcentaje').html(data['porcentaje_discapacidad']);
-////        
-////        $('#cedulaR').html(data[17]);
-////        $('#nombresR').html(data[18]);
-////        $('#apellidosR').html(data[19]);
-////        $('#direccionR').html(data[21]);
-////        $('#telefonoR').html(data[22]);
-////        $('#emailR').html(data[23]);
-////        $('#foto').html('<img src="'+data[11]+'" class="img-responsive" alt="Responsive image">');
-//    } );
     
     $('#example tbody').on( 'click', '#boton', function () {
         var data = t.row( $(this).parents('tr') ).data();
@@ -124,18 +101,18 @@ $(document).ready(function() {
     } );
     
     $('input.global_filter').on( 'keyup click', function () {
-            filterGlobal();
-        } );
+        filterGlobal();
+    });
 
     $('#col4_filter').change(function () {
         var col=4;
         filterColumn(col,$(this)[0]);
-    } );
+    });
+    
     $('#col3_filter').change(function () {
         var col=9;
         filterColumn(col,$(this)[0]);
-    } );
-
+    });
 
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
@@ -148,11 +125,10 @@ $(document).ready(function() {
         .appendTo( '#example_wrapper .col-sm-6:eq(0)' );
     
     function refresh() {
-                    t.ajax.reload();
-                }
+        t.ajax.reload(); 
+    }
     
 } );
-
 
 function filterGlobal () {
     $('#example').DataTable().search(
@@ -165,6 +141,7 @@ function filterColumn (col,lugar) {
         $(lugar).val()
     ).draw();
 }
+
 function DoPost(dato1){
-       window.location.href = 'crear_estudiante.php?id='+dato1;
-   }
+    window.location.href = 'crear_estudiante.php?id='+dato1;
+}
