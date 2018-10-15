@@ -172,13 +172,10 @@ $(document).ready(function () {
                         text: data['data']['mensaje'],
                         type: data['data']['estado'],
                         confirmButtonText: "OK"
-                    },
-                    
-                    function () {
-                        if (data['data']['estado'] == "success") {
-                            window.location.href = 'crear_alumno.php';
-                        }
-                    });
+                    }).then( result => {
+                        console.log("asdsadsadas");
+                        window.location.reload();
+                    })                    
                 }
             });
         }
@@ -210,8 +207,6 @@ $(document).ready(function () {
             url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
             data: parametros, // Adjuntar los campos del formulario enviado.
             success: function (data){
-                console.log(JSON.stringify(data));
-                
                 $("#ced").val(data['data'][0]['cedula']);
                 $("#nombres").val(data['data'][0]['nombres']);
                 $("#apellidos").val(data['data'][0]['apellidos']);
