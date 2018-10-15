@@ -331,6 +331,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <!-- Modal Gestionamiento de Autorización -->
 <div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -504,6 +505,9 @@
 </div>
 
 <!--div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+=======
+<div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+>>>>>>> 0895252aff9e7908eb5d131c6de8c0bffbd61048
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">  
             <div class="modal-body">
@@ -636,7 +640,11 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div-->
+=======
+</div>
+>>>>>>> 0895252aff9e7908eb5d131c6de8c0bffbd61048
 
 <!-- Fin del Cabecera-->
 <?php
