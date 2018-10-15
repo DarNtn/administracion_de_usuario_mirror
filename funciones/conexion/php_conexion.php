@@ -22,14 +22,16 @@ class php_conexion {
         $conn->query("SET lc_time_names = 'es_EC'");
         $result = $conn->query($consulta);
         $rows = array();
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-                $rows[] = $row;
+        if($result){
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+                return $rows;
+            } else {
+                return null;
             }
-            return $rows;
-        } else {
-            return null;
         }
     }
 

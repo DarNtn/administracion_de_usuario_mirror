@@ -36,10 +36,10 @@
     <div class="panel-body">
         <?php
             $opcion = "";
-            $id = $_GET['id'];
+            $id = "";
             if (!empty($_GET['id'])) {
                 $opcion = 'Modificar_estudiante2';
-                
+                $id = $_GET['id'];
             } else {
                 $opcion = 'ingresar_estudiante';
             }
