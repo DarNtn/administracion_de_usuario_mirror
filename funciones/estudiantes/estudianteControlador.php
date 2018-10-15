@@ -2,7 +2,6 @@
 
 header("Content-Type: application/json;charset=utf-8");
 require_once('estudianteModelo.php');
-# Traer los datos de un usuario
 $estudiante = new Estudiante();
 
 if ($_POST['opcion'] == "Lista_alumno") {
@@ -77,10 +76,9 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     $tmpimagen = $_FILES['imagen']['tmp_name'];
                     $extimagen = pathinfo($nameimagen);
                     $urlnueva = "archivos/fotos/" . $_POST['cedula'] . ".jpg";
-                    $estudiante->mensajes("fotoAlumno", $urlnueva);
                     if ($extimagen['extension'] == "jpg" || $extimagen['extension'] == "jpeg") {
                         copy($tmpimagen, $urlnueva);
-                        echo $estudiante->fotoEstudiante($_POST['cedula'], $urlnueva);
+                        $estudiante->fotoEstudiante($_POST['cedula'], $urlnueva);
                     } else {
                         $comentario = ". Error al cargar foto, tipo de dato no soportado.";
                     }
@@ -90,7 +88,7 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                 while (!empty($_FILES[$nombre]['name'])) {
                     $namecerti = $_FILES[$nombre]['name'];
                     $tmpcerti = $_FILES[$nombre]['tmp_name'];
-                    $urlcertificado = "archivos/certificados/" . $_POST['id'] . "-" . $namecerti;
+                    $urlcertificado = "archivos/certificados/" . $_POST['cedula'] . "-" . $namecerti;
                     copy($tmpcerti, $urlcertificado);
                     $estudiante->documentoEstudiante($_POST['cedula'], $namecerti, $urlcertificado);
                     $numero = (int) explode("-", $nombre)[1];
@@ -105,13 +103,9 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 //                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
 //                    $i++;
 //                }
-                
                 echo $estudiante->mensajes("success", "Alumno registrado exitosamente" . $comentario);
-                
             } else {
-                
                 echo $estudiante->mensajes("error", "Alumno ya se encuentra registrado");
-                
             }
 //        } else {
 //            echo mensajes("error", "No hay representantes");
@@ -199,5 +193,6 @@ if ($_POST['opcion'] == "cargarDocumentos"){
 if ($_POST['opcion'] == "eliminarDocumentos"){
     for ($i = 0; $i < count($_POST['documentos']); $i++) {
         $estudiante->eliminarDocumento($_POST['documentos'][$i]);
+        unlink($_POST['documentos'][$i]);
     }
 }

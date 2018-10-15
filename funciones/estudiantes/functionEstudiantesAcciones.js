@@ -151,7 +151,7 @@ $(document).ready(function () {
             url: "funciones/estudiantes/estudianteControlador.php",
             data: parametros,
             success: function (data){
-                console.log("Docuemntos eliminados correctamente")
+                console.log("Documentos eliminados correctamente")
             }
         });
         
@@ -188,21 +188,6 @@ $(document).ready(function () {
     function borrarDocumento(nombre){
         documentosABorrar.push(nombre);
         console.log(documentosABorrar);
-    }
-
-    function borrarDocumentoDesdeBase(nombre){
-        for (var i = 0; i < data['data'].length; i++) {
-            crearLabelDocumentoCargado(data['data'][i].nombre, data['data'][i].link)
-        }
-        var parametros={ "opcion": "eliminarDocumentos", "documentos": "documentos"};
-        $.ajax({
-            type: "POST",
-            url: "funciones/estudiantes/estudianteControlador.php",
-            data: parametros,
-            success: function (data){
-                console.log("Docuemntos eliminados correctamente")
-            }
-        });
     }
 
     function getParameterByName(name) {

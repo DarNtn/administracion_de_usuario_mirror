@@ -30,7 +30,6 @@ class php_conexion {
             }
             return $rows;
         } else {
-            echo "0 results";
             return null;
         }
     }

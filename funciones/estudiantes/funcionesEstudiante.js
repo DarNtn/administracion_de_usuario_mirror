@@ -80,7 +80,6 @@ $(document).ready(function() {
 
     $('#example tbody').on( 'click', '#modifica', function () {
         var data = t.row( $(this).parents('tr') ).data();
-        console.log(data)
         DoPost(data['cedula']);
     } );
     
@@ -102,18 +101,18 @@ $(document).ready(function() {
     } );
     
     $('input.global_filter').on( 'keyup click', function () {
-            filterGlobal();
-        } );
+        filterGlobal();
+    });
 
     $('#col4_filter').change(function () {
         var col=4;
         filterColumn(col,$(this)[0]);
-    } );
+    });
     
     $('#col3_filter').change(function () {
         var col=9;
         filterColumn(col,$(this)[0]);
-    } );
+    });
 
     t.on( 'order.dt search.dt', function () {
         t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
