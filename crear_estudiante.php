@@ -345,7 +345,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
-                                    <input class="form-control" type="text" id="buscarR" name="busqueda" placeholder="Buscar registrado"/>
+                                    <input class="form-control" type="text" id="buscarR" name="busqueda" placeholder="Buscar registrado"/>                                        
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -355,7 +355,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-vcard fa-fw"></i></span>
-                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/>
+                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" required=""/><!--onblur="datos(cedulaR.value);"-->
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -445,7 +445,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                        <input class="form-control" type="text" id="password" name="password" placeholder="Contraseña"/>
+                                        <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña"/>
                                     </div>
                                 </div>
                             </div><br>

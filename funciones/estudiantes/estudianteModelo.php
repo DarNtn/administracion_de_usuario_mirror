@@ -41,7 +41,7 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
     }
 
     function crearRepresentante($cedula, $nombres, $apellidos, $direccion, $sexo, $telefono, $email, $civil, $cuenta) {
-        $dato = $this->realizarConsulta("SELECT * FROM representantes WHERE cedula='$cedula'");
+        $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$cedula'");
         if ($dato === null) {
             $cuenta_id = null;           
             if ($cuenta != null){

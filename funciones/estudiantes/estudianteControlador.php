@@ -24,7 +24,7 @@ if ($_POST['opcion'] == "buscarRepreAsignados") {
 
 if ($_POST['opcion'] == "Guardar_representante") {
     
-    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC'])) {
+    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC']) || empty($_POST['funcion'])) {
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
     } else {
         /*
