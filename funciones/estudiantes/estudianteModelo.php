@@ -8,7 +8,7 @@ class Estudiante extends php_conexion {
         $dato = $this->realizarConsulta("                                
             select 
 
-            alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.certificado_direccion, alumno.pension, 
+            alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.pension, 
             generos.sexo,
             lugares.provincia, lugares.ciudad,
             estados.nombre as 'estado', 
@@ -64,7 +64,7 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
                 $estado_id = (int) $this->realizarConsulta("SELECT estado_id FROM estados WHERE nombre='Activo'");
                 $dato = $this->realizarConsulta("SELECT * FROM alumnos WHERE cedula='$cedula'");
                 if ($dato == null) {
-                    $resultado = $this->realizarIngreso("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', $estado_id, $instituto, '$observacion', '', $pension, 0)");
+                    $resultado = $this->realizarIngreso("INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', $sexo, '$direccion', '$fecha_nacimiento', $lugar_nacimiento, '', CURDATE(), '$user', $estado_id, $instituto, '$observacion', $pension, 0)");
                     return $resultado;
                 }
                 
@@ -78,8 +78,8 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         return $this->realizarIngreso("UPDATE alumno SET foto_direccion='$direccion' where cedula='$id'");
     }
 
-    function certificadoEstudiante($id, $direccion) {
-        $this->realizarIngreso("UPDATE alumno SET certificado_direccion='$direccion' where cedula='$id'");
+    function documentoEstudiante($cedula, $nombre, $direccion) {
+        return $this->realizarIngreso("insert into documento values('$direccion', '$nombre', '$cedula')");
     }
 
     function modificarEstudiante($cedula_sin_modificar, $cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion) {
@@ -109,6 +109,10 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
 
     function eliminarRepresentantes($id) {
         $this->realizarIngreso("Delete from asignar_representante where alumno_id='$id'");
+    }
+    
+    function eliminarDocumento($direccion) {
+        $this->realizarIngreso("Delete from documento where link='$direccion'");
     }
 
     function asignarRepresentante($alumno, $representate, $principal, $parentesco) {
@@ -140,4 +144,13 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         }
     }
 
+    function cargarDocumentos($cedula){
+        $dato = $this->realizarConsulta("                                
+            select *
+            from documento
+            where alumno_cedula='$cedula'
+        ");
+        
+        return $dato;
+    }
 }

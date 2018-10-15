@@ -1,6 +1,27 @@
 var t;
+
 $(document).ready(function () {
+
+    var counter = 1;
+    var id = getParameterByName('id');
+    var documentosABorrar = [];
     
+    var opcion = document.getElementsByName('opcion')[0].value;
+    if(opcion === 'Modificar_estudiante2'){
+        // Cargar documentos
+        var parametros={ "opcion": "cargarDocumentos", "id": id};
+        $.ajax({
+            type: "POST",
+            url: "funciones/estudiantes/estudianteControlador.php",
+            data: parametros,
+            success: function (data){
+                for (var i = 0; i < data['data'].length; i++) {
+                    crearLabelDocumentoCargado(data['data'][i].nombre, data['data'][i].link)
+                }
+            }
+        });
+    }
+
     t = $('#example').DataTable({
         "columnDefs": [{
                 "searchable": false,
@@ -19,7 +40,6 @@ $(document).ready(function () {
             "infoFiltered": ""
         }
     });
-    var counter = 1;
 
     $('#example tbody').on('click', '#delete', function () {
         t
@@ -36,6 +56,44 @@ $(document).ready(function () {
               console.log(fileContent);
               document.getElementById("imgFotografia").src=fileContent;
         }
+    });
+    
+    $(document).on("input", "#selectorDocumentos #inputDocumento", function() {
+        
+        var nombreDocumento = this.getAttribute('name');
+        var numeroDocumento = parseInt(nombreDocumento.split("-")[1], 10);
+        var nombreNuevo = "documento-" + (numeroDocumento + 1);
+
+        // Se elimina el input actual
+        this.setAttribute("style", "display: none;");
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            // El elemento seleccionado se añade a la lista de documentos
+            crearLabelDocumentoCargado(fileName, "sin direccion");
+        });
+        
+        // Se crea y se muestra un input nuevo
+        var input = document.createElement("input");
+        input.setAttribute("type", "file");
+        input.classList.add('form-control-file');
+        input.setAttribute("id", "inputDocumento");
+        input.setAttribute("name", nombreNuevo);
+        
+        var selectorDocumentos = document.getElementById('selectorDocumentos');
+        selectorDocumentos.appendChild(input);
+
+    });
+
+    $('#contenedorDocumentos').on("click", "#eliminarDocumento", function() {
+        // Si el elemento no posee direccion, es porque no está guardado en la base de datos
+        name = $(this).parent().attr("name");
+        
+        if(name !== 'sin direccion'){
+            borrarDocumento(name);
+        }
+        
+        $(this).parent().remove();
+        
     });
 
     $("form#formularioRepresentante").submit(function (event) {
@@ -85,14 +143,26 @@ $(document).ready(function () {
     $("form#formulario").submit(function (event) {
         //disable the default form submission
         event.preventDefault();
-        //grab all form data  
+        
+        // Borrar documentos eliminados
+        var parametros={ "opcion": "eliminarDocumentos", "documentos": documentosABorrar};
+        $.ajax({
+            type: "POST",
+            url: "funciones/estudiantes/estudianteControlador.php",
+            data: parametros,
+            success: function (data){
+                console.log("Docuemntos eliminados correctamente")
+            }
+        });
+        
+        // Enviar formulario
         var formData = new FormData($(this)[0]);
         console.log(formData);
         if (validarCedula($("#ced").val())) {
             $.ajax({
                 type: "POST",
-                url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
-                data: formData, // Adjuntar los campos del formulario enviado.
+                url: "funciones/estudiantes/estudianteControlador.php",
+                data: formData, 
                 enctype: 'multipart/form-data',
                 contentType: false,
                 processData: false,
@@ -115,14 +185,32 @@ $(document).ready(function () {
         return false; // Evitar ejecutar el submit del formulario.
     });
 
+    function borrarDocumento(nombre){
+        documentosABorrar.push(nombre);
+        console.log(documentosABorrar);
+    }
+
+    function borrarDocumentoDesdeBase(nombre){
+        for (var i = 0; i < data['data'].length; i++) {
+            crearLabelDocumentoCargado(data['data'][i].nombre, data['data'][i].link)
+        }
+        var parametros={ "opcion": "eliminarDocumentos", "documentos": "documentos"};
+        $.ajax({
+            type: "POST",
+            url: "funciones/estudiantes/estudianteControlador.php",
+            data: parametros,
+            success: function (data){
+                console.log("Docuemntos eliminados correctamente")
+            }
+        });
+    }
+
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                 results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-    
-    var id = getParameterByName('id');
     
     if (id != null) {
         datosAlumno(id);
@@ -165,6 +253,7 @@ $(document).ready(function () {
         });
 
     }
+    
     function buscarRepresentantes(id) {
         var representantesAsignados = {"id": id,
             "opcion": "buscarRepreAsignados"};
@@ -193,6 +282,33 @@ $(document).ready(function () {
             }
         });
     }
+    
+    function crearLabelDocumentoCargado(nombreDocumento, dirDocumento){
+        
+        var a = document.createElement("a");
+        a.classList.add('list-group-item');
+        a.classList.add('clearfix');
+        a.setAttribute("name", dirDocumento)
+        a.textContent += nombreDocumento;
+        
+        var span = document.createElement("span");
+        span.classList.add('pull-right');
+        span.setAttribute("id", "eliminarDocumento");
+        
+        var spanChild = document.createElement("span");
+        spanChild.classList.add('btn');
+        spanChild.classList.add('btn-xs');
+        spanChild.classList.add('btn-default');
+        spanChild.textContent += "X";
+        
+        span.appendChild(spanChild);
+        a.appendChild(span);
+        
+        var contenedor = document.getElementById('contenedorDocumentos');
+        contenedor.appendChild(a);
+        
+    }
+                            
 });
 
 function datos(cedula) {

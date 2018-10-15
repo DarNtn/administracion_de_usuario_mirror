@@ -2,6 +2,7 @@ use administracion_colegio;
 
 describe alumno;
 describe estados;
+describe documento;
 
 select * from alumno;
 select * from datos_medicos;
@@ -12,13 +13,14 @@ select * from instituciones;
 select * from grupo_sanguineo;
 select * from cursos;
 select * from usuario;
+select * from documento;
 
 INSERT INTO datos_medicos VALUES(1,22,'$tipoD','$cedula', 5);
-INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', 0, '', '2018-02-22', 0, '', '2018-02-22', '', 0, 0, '', '', 0, 0);
-
+INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', 0, '', '2018-02-22', 0, '', '2018-02-22', '', 0, 0, '', 0, 0);
+insert into documento values('link', 'name', '0930703707');
 # Get alumnos
 select 
-alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.certificado_direccion, alumno.pension, 
+alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.pension, 
 generos.sexo,
 lugares.provincia, lugares.ciudad,
 estados.nombre as 'estado', 

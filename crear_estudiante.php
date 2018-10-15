@@ -202,33 +202,15 @@
                 <legend class="scheduler-border">Documentos</legend>
                 <div class="row">
                     <!--Certificados-->
-                    <div class="col-lg-12">
-                        <ul class="list-group">
-                            <a class="list-group-item clearfix" onclick="alert('Action2 -> Details');">
-                                Action2
-                                <span class="pull-right">
-                                    <span class="btn btn-xs btn-default" onclick="">
-                                        X
-                                    </span>
-                                </span>
-                            </a>
-                            <a class="list-group-item clearfix" onclick="alert('Action2 -> Details');">
-                                Action2
-                                <span class="pull-right">
-                                    <span class="btn btn-xs btn-default" onclick="">
-                                        X
-                                    </span>
-                                </span>
-                            </a>
+                    <div class="col-lg-12" >
+                        <ul class="list-group" id="contenedorDocumentos">
                         </ul>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
-                                <label class="input-group-btn">
-                                    <span class="btn" style="background: #55d9cb;color: white">
-                                        Certificado&hellip; <input type="file" name="certificado" style="display: none;" accept=".jpg">
-                                    </span>
-                                </label>
-                                <input type="text" class="form-control iinput" readonly>
+                                <div id="selectorDocumentos">
+                                    <!--<label for="exampleFormControlFile1">Example file input</label>-->
+                                    <input type="file" class="form-control-file" id="inputDocumento" name="documento-1">
+                                </div>
                             </div>
 
                         </div><br>

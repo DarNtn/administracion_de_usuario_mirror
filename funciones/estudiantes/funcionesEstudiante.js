@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    
     var parametros={ "opcion":"Lista_alumno"};
     // Elementos de tabla.
     var t = $('#example').DataTable( {
@@ -69,11 +69,11 @@ $(document).ready(function() {
             }
         ],
         "language": {
-                        "zeroRecords": "No hay resultados - lo sentimos",
-                        "info": "Mostrando página _PAGE_ de _PAGES_",
-                        "infoEmpty": "No hay registros",
-                        "infoFiltered": ""
-                    }
+            "zeroRecords": "No hay resultados - lo sentimos",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros",
+            "infoFiltered": ""
+        }
         
     } );
     // Elementos de tabla.
