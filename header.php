@@ -14,6 +14,7 @@
     } else {
         $titulo = 'Usuario';
     }
+    
 ?>
 <html lang="en">
     <head>
