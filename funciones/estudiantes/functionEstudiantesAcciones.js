@@ -173,7 +173,6 @@ $(document).ready(function () {
                         type: data['data']['estado'],
                         confirmButtonText: "OK"
                     }).then( result => {
-                        
                         window.location.reload();
                     })                    
                 }
