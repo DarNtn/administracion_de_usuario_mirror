@@ -1,12 +1,12 @@
 <?php
-include_once('header.php');
-include_once './funciones/Link/dataTableLink.php';
-$opcion = "";
-if (!empty($_GET['id'])) {
-    $opcion = 'Modificar_estudiante2';
-} else {
-    $opcion = 'ingresar_estudiante';
-}
+    include_once('header.php');
+    include_once './funciones/Link/dataTableLink.php';
+    $opcion = "";
+    if (!empty($_GET['id'])) {
+        $opcion = 'Modificar_estudiante2';
+    } else {
+        $opcion = 'ingresar_estudiante';
+    }
 ?>
 
 <link rel="stylesheet" href="assets/css/extra.css"/>
@@ -35,16 +35,18 @@ if (!empty($_GET['id'])) {
 <div class="panel">
     <div class="panel-body">
         <?php
-        $opcion = "";
-        if (!empty($_GET['id'])) {
-            $opcion = 'Modificar_estudiante2';
-        } else {
-            $opcion = 'ingresar_estudiante';
-        }
+            $opcion = "";
+            $id = $_GET['id'];
+            if (!empty($_GET['id'])) {
+                $opcion = 'Modificar_estudiante2';
+                
+            } else {
+                $opcion = 'ingresar_estudiante';
+            }
         ?>
         <form id="formulario" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="opcion" value="<?php echo $opcion; ?>"/>
-            <input type="hidden" id="id" name="id" value="">
+            <input name="opcion" type="hidden" value="<?php echo $opcion; ?>"/>
+            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
             
             <!--Datos personales-->
             <fieldset class="scheduler-border">
@@ -54,7 +56,7 @@ if (!empty($_GET['id'])) {
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-credit-card"></i></span>
-                            <input class="form-control" type="text" id="ced" name="cedula" placeholder="Cédula"/>
+                            <input class="form-control" type="text" id="ced" name="cedula" placeholder="Cédula" value=""/>
                         </div>
                         <br>
                     </div>
@@ -133,7 +135,7 @@ if (!empty($_GET['id'])) {
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-                            <input class="form-control" type="number" id="pension" name="pension" placeholder="Valor de pensión" required=""/>
+                            <input class="form-control" type="number" step="0.01" id="pension" name="pension" placeholder="Valor de pensión" required=""/>
                         </div><br>
                     </div>
                 </div>
@@ -147,7 +149,7 @@ if (!empty($_GET['id'])) {
                 <div class="row">
                     <!--Tiene discapacidad-->
                     <div class="col-lg-3">
-                        <select id="tiene_discapacidad" name="tiene_discapacidad" class="form-control iinput" onChange="if (this.options[0].selected)
+                        <select id="tiene_discapacidad" name="tiene_discapacidad" class="form-control input" onChange="if (this.options[0].selected)
                                     porcentaje.disabled = true;
                                 else
                                     porcentaje.disabled = false;
@@ -155,8 +157,8 @@ if (!empty($_GET['id'])) {
                                     tipoD.disabled = true;
                                 else
                                     tipoD.disabled = false;">
-                            <option value="NO" selected>SIN DISCAPACIDAD</option>
-                            <option value="SI">CON DISCAPACIDAD</option>
+                            <option value="2" selected>SIN DISCAPACIDAD</option>
+                            <option value="1">CON DISCAPACIDAD</option>
                         </select><br>
                     </div>
                     <!--Porcentaje discapacidad-->
@@ -200,29 +202,37 @@ if (!empty($_GET['id'])) {
                 <legend class="scheduler-border">Documentos</legend>
                 <div class="row">
                     <!--Certificados-->
-                    <div class="col-lg-6">
+                    <div class="col-lg-12" >
+                        <ul class="list-group" id="contenedorDocumentos">
+                        </ul>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
-                                <label class="input-group-btn">
-                                    <span class="btn" style="background: #55d9cb;color: white">
-                                        Certificado&hellip; <input type="file" name="certificado" style="display: none;" accept=".jpg">
-                                    </span>
-                                </label>
-                                <input type="text" class="form-control iinput" readonly>
+                                <div id="selectorDocumentos">
+                                    <!--<label for="exampleFormControlFile1">Example file input</label>-->
+                                    <input type="file" class="form-control-file" id="inputDocumento" name="documento-1">
+                                </div>
                             </div>
 
                         </div><br>
                     </div>
                     <!--Fotografía-->
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <?php
+
+                            $dir = "/funciones/estudiantes/archivos/fotos/" . $id . ".jpg";
+                            echo '
+                                <div class="text-center">
+                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El estudiante no posee fotografía" />
+                                </div>'
+                        ?>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
                                     <span class="btn" style="background: #55d9cb;color: white">
-                                        Fotografia&hellip; <input type="file" name="imagen" style="display: none;" accept=".jpg">
+                                        Fotografia&hellip; <input type="file" id="inputFotografia" name="imagen" style="display: none;" accept=".jpg">
                                     </span>
                                 </label>
-                                <input type="text" class="form-control iinput" readonly>
+                                <input type="text" class="form-control input" readonly>
                             </div>
                         </div><br>
                     </div>

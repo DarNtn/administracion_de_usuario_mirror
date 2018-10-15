@@ -8,7 +8,7 @@ class mailEnviar {
      public function enviar($correo, $nombreUsuario, $contrasena) {
         $mail = new PHPMailer;
         $mail->isSMTP();
-        $mail->SMTPDebug = 2; // 0 para produccion
+        $mail->SMTPDebug = 0; // 0 para produccion y 2 para debugging
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAutoTLS = false;
         $mail->Port = 587;
