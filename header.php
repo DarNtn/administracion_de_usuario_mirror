@@ -1,5 +1,6 @@
 <!doctype html>
 <?php
+    session_start();
     include_once('./funciones/conexion/php_conexion.php');
     $conexion = new php_conexion();
 

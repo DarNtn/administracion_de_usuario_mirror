@@ -7,18 +7,16 @@ $estudiante = new Estudiante();
 if ($_POST['opcion'] == "Lista_alumno") {
     echo $estudiante->respuestaJson($estudiante->lista_alumno());
 }
-<<<<<<< HEAD
+
 /*
 if ($_POST['opcion'] == "busqueda") {
     echo $estudiante->respuestaJson($estudiante->buscarRepresentante($_POST['id']));
 }
 */
-=======
 
 if ($_POST['opcion'] == "buscarR") {
     echo $estudiante->respuestaJson($estudiante->buscarRepresentante($_POST['id']));
 }
->>>>>>> 0895252aff9e7908eb5d131c6de8c0bffbd61048
 
 if ($_POST['opcion'] == "buscarRepreAsignados") {
     echo $estudiante->respuestaJson($estudiante->listaRepresenAsigna($_POST['id']));
@@ -26,11 +24,7 @@ if ($_POST['opcion'] == "buscarRepreAsignados") {
 
 if ($_POST['opcion'] == "Guardar_representante") {
     
-<<<<<<< HEAD
     if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC'])) {
-=======
-    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['fechaNac']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC'])) {
->>>>>>> 0895252aff9e7908eb5d131c6de8c0bffbd61048
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
     } else {
         /*
@@ -78,11 +72,7 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
     } else {
         
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
-<<<<<<< HEAD
-        if (isset($_POST['dato'])) {
-=======
         //if (isset($_POST['dato'])) {
->>>>>>> 0895252aff9e7908eb5d131c6de8c0bffbd61048
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
             } else {
@@ -108,27 +98,6 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     } else {
                         $comentario = ". Error al cargar foto, tipo de dato no soportado.";
                     }
-<<<<<<< HEAD
-                }
-                // Guardar documentos de alumno
-                $nombre = "documento-1";
-                while (!empty($_FILES[$nombre]['name'])) {
-                    $namecerti = $_FILES[$nombre]['name'];
-                    $tmpcerti = $_FILES[$nombre]['tmp_name'];
-                    $urlcertificado = "archivos/certificados/" . $_POST['cedula'] . "-" . $namecerti;
-                    copy($tmpcerti, $urlcertificado);
-                    $estudiante->documentoEstudiante($_POST['cedula'], $namecerti, $urlcertificado);
-                    $numero = (int) explode("-", $nombre)[1];
-                    $nombre = "documento-" . ($numero + 1);
-                }
-//                Aquí se registran los padres/representantes/autorizados a retirar
-                $dto = $_POST['dato'];
-                $parent = $_POST['parentesco'];
-//                $n = count($dto);
-//                $i = 0;
-//                while ($i < $n) {
-                $estudiante->asignarRepresentante($respuesta, $dto[0], $_POST['funcion'], $parent);
-=======
                 }
                 // Guardar documentos de alumno
                 $nombre = "documento-1";
@@ -148,7 +117,6 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 //                $i = 0;
 //                while ($i < $n) {
 //                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
->>>>>>> 0895252aff9e7908eb5d131c6de8c0bffbd61048
 //                    $i++;
 //                }
                 echo $estudiante->mensajes("success", "Alumno registrado exitosamente" . $comentario);
