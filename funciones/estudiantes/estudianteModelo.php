@@ -40,13 +40,20 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         return $dato;
     }
 
-    function crearRepresentante($cedula, $nombres, $apellidos, $direccion, $sexo, $telefono, $fecha_nacimiento, $email, $user, $civil, $certificado) {
+    function crearRepresentante($cedula, $nombres, $apellidos, $direccion, $sexo, $telefono, $email, $civil, $cuenta) {
         $dato = $this->realizarConsulta("SELECT * FROM representantes WHERE cedula='$cedula'");
-        if ($dato == null) {
-            $resultado = $this->realizarIngresoId("INSERT INTO representantes (cedula,nombres,apellidos,genero_id,direccion,telefono,fecha_nacimiento,email,fecha_creacion,usuario_creacion,estado_id,estado_civil_id,certificado_direccion) VALUES('$cedula','$nombres','$apellidos','$sexo','$direccion','$telefono','$fecha_nacimiento','$email',CURDATE(),'$user', 1,'$civil','$certificado')");
-            return $resultado;
+        if ($dato === null) {
+            $cuenta_id = null;           
+            if ($cuenta != null){
+                $cuenta_id = $this.realizarIngresoId("INSERT INTO usuario (usuario, clave, tipo, estado_id) VALUES('$cuenta[0]','$cuenta[1]','r',1)");
+                if ($cuenta_id === 0) {
+                    $cuenta_id = NULL;
+                }
+            }
+            $this->realizarIngresoId("INSERT INTO autorizado (cedula,nombre,apellido,genero_id,direccion,telefono,correo,estado_civil_id,usuario_usuario_id) VALUES('$cedula','$nombres','$apellidos','$sexo','$direccion','$telefono','$email','$civil','$cuenta_id')");
+            return $cedula;
         } else {
-            return $dato[0]['representante_id'];
+            return $dato[0]['cedula'];
         }
     }
 
@@ -115,10 +122,10 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         $this->realizarIngreso("Delete from documento where link='$direccion'");
     }
 
-    function asignarRepresentante($alumno, $representate, $principal, $parentesco) {
+    function asignarRepresentante($alumno, $representate, $tipo, $parentesco) {
         $dato = $this->realizarConsulta("SELECT * FROM asignar_representante WHERE alumno_id='$alumno' and representante_id='$representate'");
         if ($dato == null) {
-            $this->realizarIngresoId("INSERT INTO asignar_representante (alumno_id,representante_id,principal,parentesco_id) VALUES('$alumno','$representate','$principal','$parentesco')");
+            $this->realizarIngresoId("INSERT INTO autorizacion (alumno_cedula,autorizado_id,parentesco_id,tipo) VALUES('$alumno','$representate','$parentesco','$tipo')");
         }
     }
 

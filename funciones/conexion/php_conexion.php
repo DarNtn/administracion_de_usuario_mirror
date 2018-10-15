@@ -8,7 +8,7 @@ class php_conexion {
         $db_host = "localhost:3306";
         $db_user = "root";
         $db_esquema = "administracion_colegio";
-        $db_password = "mysqldb";
+        $db_password = "mysqlUsernamePassword";
 
         $db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_esquema);
         if (mysqli_connect_error()) {

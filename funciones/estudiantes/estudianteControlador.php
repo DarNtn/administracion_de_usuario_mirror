@@ -7,10 +7,11 @@ $estudiante = new Estudiante();
 if ($_POST['opcion'] == "Lista_alumno") {
     echo $estudiante->respuestaJson($estudiante->lista_alumno());
 }
-
-if ($_POST['opcion'] == "buscarR") {
+/*
+if ($_POST['opcion'] == "busqueda") {
     echo $estudiante->respuestaJson($estudiante->buscarRepresentante($_POST['id']));
 }
+*/
 
 if ($_POST['opcion'] == "buscarRepreAsignados") {
     echo $estudiante->respuestaJson($estudiante->listaRepresenAsigna($_POST['id']));
@@ -18,16 +19,25 @@ if ($_POST['opcion'] == "buscarRepreAsignados") {
 
 if ($_POST['opcion'] == "Guardar_representante") {
     
-    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['fechaNac']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC'])) {
+    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC'])) {
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
     } else {
+        /*
         if (empty($_FILES['certificadoRepresentante']['name'])) {
             $urlnueva = "archivos/certificadoTrabajo/defaul.jpg";
         } else {
             $urlnueva = "archivos/certificadoTrabajo/" . $_POST['cedula'] . ".jpg";
         }
-        $resultado = $estudiante->crearRepresentante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['direccion'], $_POST['genero'], $_POST['telefono'], $_POST['fechaNac'], $_POST['mail'], $_SESSION['user'], $_POST['tipoC'], $urlnueva);
+         */
+        if (!empty($_POST['usuario']) && !empty($_POST['password'])) {
+            $cuenta = array($_POST['usuario'],$_POST['password']);
+        } else{
+            $cuenta = null;
+        }
+        
+        $resultado = $estudiante->crearRepresentante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['direccion'], $_POST['genero'], $_POST['telefono'], $_POST['mail'], $_POST['tipoC'], $cuenta);
         if ($resultado != 0) {
+            /*
             if (!empty($_FILES["certificadoRepresentante"]['name'])) {
                 $nameimagen = $_FILES['certificadoRepresentante']['name'];
                 $tmpimagen = $_FILES['certificadoRepresentante']['tmp_name'];
@@ -38,9 +48,10 @@ if ($_POST['opcion'] == "Guardar_representante") {
                 } else {
                     echo $estudiante->mensajes("warning", $resultado);
                 }
-            } else {
+            } else {             
+             */
                 echo $estudiante->mensajes("success", $resultado);
-            }
+            //}
         } else {
             echo $estudiante->mensajes("error", "No se pudo realizar el registro de representante");
         }
@@ -56,7 +67,7 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
     } else {
         
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
-        //if (isset($_POST['dato'])) {
+        if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
             } else {
@@ -95,28 +106,28 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     $nombre = "documento-" . ($numero + 1);
                 }
 //                Aquí se registran los padres/representantes/autorizados a retirar
-//                $dto = $_POST['dato'];
-//                $parent = $_POST['parentesco'];
+                $dto = $_POST['dato'];
+                $parent = $_POST['parentesco'];
 //                $n = count($dto);
 //                $i = 0;
 //                while ($i < $n) {
-//                    $estudiante->asignarRepresentante($respuesta, $dto[$i], '2', $parent[$i]);
+                $estudiante->asignarRepresentante($respuesta, $dto[0], $_POST['funcion'], $parent);
 //                    $i++;
 //                }
                 echo $estudiante->mensajes("success", "Alumno registrado exitosamente" . $comentario);
             } else {
                 echo $estudiante->mensajes("error", "Alumno ya se encuentra registrado");
             }
-//        } else {
-//            echo mensajes("error", "No hay representantes");
-//        }
+        } else {
+            echo mensajes("error", "No hay representantes");
+        }
     }
 }
 
 if ($_POST['opcion'] == "Modificar_estudiante2") {
     
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
-        echo $estudiante->mensajes("warning", "Algunos campos estan vaciossssss");
+        echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
     } else {
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
         //if (isset($_POST['dato'])) {

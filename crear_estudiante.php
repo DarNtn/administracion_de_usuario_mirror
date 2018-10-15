@@ -331,7 +331,179 @@
     </div>
 </div>
 
+<!-- Modal Gestionamiento de Autorización -->
 <div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">  
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <center> <h3 style="color: #55d9cb;">Gestionamiento de autorización</h3></center>
+
+                    <form id="formularioRepresentante" enctype="multipart/form-data"  method="post">
+                        <div>
+                            <input type="hidden" name="opcion" value="Guardar_representante"/>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                    <input class="form-control" type="text" id="buscarR" name="busqueda" placeholder="Buscar registrado"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <h5>Nuevo</h5><hr>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-vcard fa-fw"></i></span>
+                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                        <input class="form-control" type="text" id="nombresR" name="nombres" placeholder="Nombres" required=""/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                        <input class="form-control" type="text" id="apellidosR" name="apellidos" placeholder="Apellidos" required=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                        <select class="form-control" id="tipoC" name="tipoC" required="">
+                                            <option value="">Estado civil</option>
+                                            <option value="1">Soltero(a)</option>
+                                            <option value="2">Casado(a)</option>
+                                            <option value="3">Viudo(a)</option>
+                                            <option value="4">Divorciado(a)</option>
+                                            <option value="5">Unión de Hecho</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-users fa-fw"></i></span>
+                                        <select class="form-control" id="parentesco" name="parentesco" required="">
+                                            <option value="">Escoja parentesco</option>
+                                            <?php
+                                            $parentesco = $conexion->realizarConsulta("SELECT * FROM parentesco;");
+                                            for ($pa = 0; $pa < sizeof($parentesco); $pa++) {
+                                                echo '<option value="' . $parentesco[$pa]['idparentesco'] . '">' . $parentesco[$pa]['parentesco'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
+                                        <input class="form-control" type="number" id="telefono" name="telefono" placeholder="Teléfono" required="true"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                        <input class="form-control" type="text" id="direccionR" name="direccion" placeholder="Dirección" required=""/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input class="form-control" type="email" id="mail" name="mail" placeholder="Email" required=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <a style="color: gray">Sexo</a>
+                            <div class="btn-group btn-group-justified row">
+                                <div class="col-md-4">
+                                    <input class="estado" type="radio" name="genero" value="1" id="gender-m" checked=""/>
+                                    <label class="form-control" for="gender-m"><i class="fa fa-male"></i> Hombre</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="estado" type="radio" name="genero" value="2" id="gender-fem"/>
+                                    <label class="form-control" for="gender-fem"><i class="fa fa-female" ></i> Mujer</label>
+                                </div>
+                            </div><br>  
+                            <a style="color:gray">Cuenta</a><br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
+                                        <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuario"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                        <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña"/>
+                                    </div>
+                                </div>
+                            </div><br>
+
+                            <div class="col-md-12">
+                                <h5>Función</h5><hr>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="funcion" id="padre" value="padre" checked>
+                                <label class="form-check-label" for="padre">Padre/Madre</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="funcion" id="representante" value="representante">
+                                <label class="form-check-label" for="representante">Representante</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="funcion" id="retirar" value="retirar">
+                                <label class="form-check-label" for="retirar">Autorizado a retirar</label>
+                            </div>
+                            <br>
+                            <!--div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group-datos input-group-icon">
+                                        <div class="input-group">
+                                            <label class="input-group-btn">
+                                                <span class="btn" style="background: #55d9cb;color: white">
+                                                    Certificado&hellip; <input type="file" id="certificadoRepresentante" name="certificadoRepresentante" style="display: none;" accept=".jpg">
+                                                </span>
+                                            </label>
+                                            <input type="text" class="form-control iinput" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div-->   
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group-datos input-group-icon">
+                                        <button type="submit" class="btn btn-info btn-block btn-sm" value="Guardar">
+                                            <i class="fa fa-save"> </i> Guardar</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group-datos input-group-icon">
+                                        <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
+                                            <i class="fa fa-trash"> </i> Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">  
             <div class="modal-body">
@@ -464,7 +636,7 @@
             </div>
         </div>
     </div>
-</div>
+</div-->
 
 <!-- Fin del Cabecera-->
 <?php
