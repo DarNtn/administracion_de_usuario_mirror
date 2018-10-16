@@ -1,30 +1,87 @@
 <?php
 header("Content-Type: application/json;charset=utf-8");
+
 require_once('administradoresModelo.php');
-# Traer los datos de un usuario
+
 $usuario = new Usuario();
-if ($_POST['opcion'] == "idUsuario") {
-    $idUsuario=$_POST['id'];
-    echo ($usuario->respuestaJson($usuario->getId($idUsuario)));
-}
-if ($_POST['opcion'] == "cedulaUsuario") {
-    $cedula=$_POST['cedula'];
-    echo ($usuario->respuestaJson($usuario->getCedula($cedula)));
-}
+
+// GET ALL
 if ($_POST['opcion'] == "listaAdministradores") {
-    echo ($usuario->respuestaJson($usuario->get()));
+  echo ($usuario->respuestaJson($usuario->get()));
 }
+
+// GET ONE
+if ($_POST['opcion'] == "idUsuario") {
+  $idUsuario=$_POST['id'];
+  echo ($usuario->respuestaJson($usuario->getId($idUsuario)));
+}
+
+// CREATE
 if($_POST['opcion']=="Guardar_administrador"){
-if(empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['usuario']) || empty($_POST['correo']) || empty($_POST['clave'])  || empty($_POST['apellido'])|| empty($_POST['estado_id'])){
+  if( empty($_POST['usuario']) || // tabla usuario
+      empty($_POST['clave'])  ||
+      // tipo se guarda automaticamente en la db, como es adminstrador
+      empty($_POST['estado_id']) ||
+      // tabla administrador
+      empty($_POST['nombre']) || 
+      empty($_POST['apellido']) ||
+      empty($_POST['correo']) ||
+      empty($_POST['foto']) ||
+      empty($_POST['cedula'])
+      // empty($_POST['cedula_copy1']) // why?
+    ) 
+  {
     echo $usuario->mensajes("error","Algunos campos estan vacios");
-}else{
-    echo $usuario->set($_POST['cedula'],$_POST['estado_id'],$_POST['nombre'],$_POST['usuario'],$_POST['correo'],$_POST['clave'],$_POST['apellido']);
+  } else {
+    echo $usuario->set(
+      $_POST['usuario'],
+      $_POST['clave'],
+      $_POST['estado_id'],
+      $_POST['nombre'],
+      $_POST['apellido'],
+      $_POST['correo'],
+      $_POST['cedula'],
+      $_POST['foto']
+    );
+  }
 }
-}
+
+// UPDATE
+
 if($_POST['opcion']=="Editar_usuarios"){
-if(empty($_POST['id']) || empty($_POST['cedula']) || empty($_POST['nombre']) || empty($_POST['email']) || empty($_POST['clave'])  || empty($_POST['tipo'])|| empty($_POST['estado'])){
+  if( empty($_POST['usuario']) || // tabla usuario
+      empty($_POST['clave'])  ||
+      // tipo se guarda automaticamente en la db, como es adminstrador
+      empty($_POST['estado_id']) ||
+      // tabla administrador
+      empty($_POST['nombre']) || 
+      empty($_POST['apellido']) ||
+      empty($_POST['correo']) ||
+      // empty($_POST['foto']) ||
+      empty($_POST['cedula']) ||
+      empty($_POST['usuario_id']) ||
+      empty($_POST['admin_id'])
+      // empty($_POST['cedula_copy1']) // why?
+    ) 
+  {
     echo $usuario->mensajes("error","Algunos campos estan vacios");
-}else{
-    echo $usuario->edit($_POST['id'],$_POST['cedula'],$_POST['estado'],$_POST['nombre'],$_POST['email'],$_POST['clave'],$_POST['tipo']);
+  } else {
+    echo $usuario->edit(
+      $_POST['usuario'],
+      $_POST['clave'],
+      $_POST['estado_id'],
+      $_POST['nombre'],
+      $_POST['apellido'],
+      $_POST['correo'],
+      $_POST['cedula'],
+      $_POST['usuario_id'],
+      $_POST['admin_id']
+      // $_POST['fotoRaw']
+    );
+  }
 }
+
+if ($_POST['opcion'] == "cedulaUsuario") {
+  $cedula=$_POST['cedula'];
+  echo ($usuario->respuestaJson($usuario->getCedula($cedula)));
 }
