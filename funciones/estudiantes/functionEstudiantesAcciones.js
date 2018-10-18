@@ -125,12 +125,14 @@ $(document).ready(function () {
                             $('#direccionR').val(),
                             $('#telefono').val(),
                             $('#mail').val(),
+                            $('input:radio[name=funcion]:checked').val(),
                             '<input type="hidden" name="dato[]" value="' + data['data']['mensaje'] + '"><input type="hidden" name="parentesco[]" value="' + $('#parentesco').val() + '"><button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar"><i class="glyphicon glyphicon-remove-sign"></i></button>'
                         ]).draw(false);
 
                         counter++;
                         document.getElementById("formularioRepresentante").reset();
-                        $('#nuevo').modal('hide');
+                        //$('#nuevo').modal('hide');
+                        //console.log("Modal ocultado");
                     } else {
                         swal('Mensaje', data['data']['mensaje'], data['data']['estado']);
                     }
@@ -301,23 +303,21 @@ function datos(cedula) {
         success: function (data)
         {
             console.log(JSON.stringify(data));
-            if (data['data'] == null) {
-                $('#gender-maleR').prop("checked", true);
-                $('#gender-femaleR').prop("checked", false);
-            } else {
-
-
-                $("#idR").val(data['data'][0]['representante_id']);
-                $("#nombresR").val(data['data'][0]['nombres']);
-                $("#apellidosR").val(data['data'][0]['apellidos']);
+            if (data['data'][0]['representante_id'] == '0') {
+                $('#gender-m').prop("checked", true);
+                $('#gender-fem').prop("checked", false);
+            } else {                
+                //$("#idR").val(data['data'][0]['representante_id']);
+                $("#nombresR").val(data['data'][0]['nombre']);
+                $("#apellidosR").val(data['data'][0]['apellido']);
                 $("#tipoC").val(data['data'][0]['estado_civil_id']);
-                $("#fechaN").val(data['data'][0]['fecha_nacimiento']);
+                //$("#fechaN").val(data['data'][0]['fecha_nacimiento']);
                 $("#direccionR").val(data['data'][0]['direccion']);
                 $("#telefono").val(data['data'][0]['telefono']);
-                $("#mail").val(data['data'][0]['email']);
+                $("#mail").val(data['data'][0]['correo']);
                 $("#cedulaR").val(data['data'][0]['cedula']);
-                $("#parentesco").val(data['data'][0]['parentesco_id']);
-                calcularEdad(data['data'][0]['fecha_nacimiento'], '#edad2');
+                //$("#parentesco").val(data['data'][0]['parentesco_id']);
+                //calcularEdad(data['data'][0]['fecha_nacimiento'], '#edad2');
                 if (data['data'][0]['genero_id'] == 1) {
                     $('#gender-m').prop("checked", true);
                     $('#gender-fem').prop("checked", false);

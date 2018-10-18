@@ -343,6 +343,9 @@
                         <div>
                             <input type="hidden" name="opcion" value="Guardar_representante"/>
                             <div class="col-md-12">
+                                <h5 style="margin-top: 0">Existente</h5><hr>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                                     <input class="form-control" type="text" id="buscarR" name="busqueda" placeholder="Buscar registrado"/>                                        
@@ -355,7 +358,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-vcard fa-fw"></i></span>
-                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" required=""/><!--onblur="datos(cedulaR.value);"-->
+                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/><!---->
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -466,21 +469,45 @@
                                 <label class="form-check-label" for="retirar">Autorizado a retirar</label>
                             </div>
                             <br>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group-datos input-group-icon">
-                                        <button type="submit" class="btn btn-info btn-block btn-sm" value="Guardar">
-                                            <i class="fa fa-save"> </i> Guardar</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group-datos input-group-icon">
-                                        <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
-                                            <i class="fa fa-trash"> </i> Cancelar</button>
-                                    </div>
+                                                        
+                            <div class="col-md-12">
+                                <div class="input-group-datos input-group-icon">
+                                    <button type="submit" class="btn btn-info btn-block btn-sm" value="Añadir">
+                                        <i class="fa fa-plus"> </i> Añadir</button>
                                 </div>
                             </div>
+                            
+                            <div class="col-md-12">
+                                <h5>Lista de autorizados</h5><hr>
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table id="example" class="mdl-data-table" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr class="success">
+                                            <th>N°</th>
+                                            <th>Cédula</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Estado Civil</th>
+                                            <th>Parentesco</th>
+                                            <th>Dirección</th>
+                                            <th>Teléfono</th>
+                                            <th>Correo</th>
+                                            <th>Tipo</th>
+                                            <th class="noExport">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="input-group-datos input-group-icon">
+                                    <button class="btn btn-success btn-block btn-sm" data-dismiss="modal" value="Save">
+                                        <i class="fa fa-save"> </i> Guardar</button>
+                                </div>
+                            </div>                            
                         </div>
                     </form>
                 </div>                

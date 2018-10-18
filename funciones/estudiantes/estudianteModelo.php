@@ -25,9 +25,10 @@ class Estudiante extends php_conexion {
     }
 
     function buscarRepresentante($id) {
-        $dato = $this->realizarConsulta("SELECT * FROM representantes WHERE cedula='$id'");
+        $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$id'");
         if ($dato == NULL) {
             $dato = array('0' => array('0' => '0', 'representante_id' => '0'));
+            
         }
         return $dato;
     }
@@ -45,13 +46,18 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
         if ($dato === null) {
             $cuenta_id = null;           
             if ($cuenta != null){
-                $cuenta_id = $this.realizarIngresoId("INSERT INTO usuario (usuario, clave, tipo, estado_id) VALUES('$cuenta[0]','$cuenta[1]','r',1)");
+                $cuenta_id = $this->realizarIngresoId("INSERT INTO usuario (usuario, clave, tipo, estado_id) VALUES('$cuenta[0]','$cuenta[1]','r',1)");
                 if ($cuenta_id === 0) {
                     $cuenta_id = NULL;
                 }
             }
             $this->realizarIngresoId("INSERT INTO autorizado (cedula,nombre,apellido,genero_id,direccion,telefono,correo,estado_civil_id,usuario_usuario_id) VALUES('$cedula','$nombres','$apellidos','$sexo','$direccion','$telefono','$email','$civil','$cuenta_id')");
-            return $cedula;
+            $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$cedula'");
+            if ($dato === null){
+                return null;
+            } else{
+                return $cedula;
+            }            
         } else {
             return $dato[0]['cedula'];
         }
