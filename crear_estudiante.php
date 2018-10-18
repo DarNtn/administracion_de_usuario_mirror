@@ -358,7 +358,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-vcard fa-fw"></i></span>
-                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/><!---->
+                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -448,7 +448,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                        <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña"/>
+                                        <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña"/>                                                                              
                                     </div>
                                 </div>
                             </div><br>
@@ -515,141 +515,6 @@
         </div>
     </div>
 </div>
-
-<!--div id="nuevo" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">  
-            <div class="modal-body">
-
-                <center> <h3 style="color: #55d9cb;">Crear Representante</h3></center>
-
-                <form id="formularioRepresentante" enctype="multipart/form-data"  method="post">
-                    <div style="padding: 0em 3em 0em 3em;">
-                        <input type="hidden" name="opcion" value="Guardar_representante"/>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/>
-                                </div><br>
-                            </div>
-                            <div class="col-lg-6">
-                                <select class="form-control" id="tipoC" name="tipoC" required="">
-                                    <option value="">Escoja estado</option>
-                                    <option value="1">Soltero(a)</option>
-                                    <option value="2">Casado(a)</option>
-                                    <option value="3">Viudo(a)</option>
-                                    <option value="4">Divorciado(a)</option>
-                                    <option value="5">Unión de Hecho</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control" type="text" id="nombresR" name="nombres" placeholder="Nombres" required=""/>
-                                </div><br>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control" type="text" id="apellidosR" name="apellidos" placeholder="Apellidos" required=""/>
-                                </div><br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                    <input class="form-control" type="date" id="fechaN" name="fechaNac" placeholder="Fecha de nacimiento" onblur="calcularEdad(fechaN.value, '#edad2');" required=""/>
-                                </div><br>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="glyphicon glyphicon-exclamation-sign"></i></span>
-                                    <input class="form-control"  type="text" id="edad2" placeholder="Edad" disabled="true"/>
-                                </div><br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control" type="text" id="direccionR" name="direccion" placeholder="Dirección" required=""/>
-                                </div><br>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control" type="number" id="telefono" name="telefono" placeholder="Teléfono" required="true"/>
-                                </div><br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-mail-forward"></i></span>
-                                    <input class="form-control" type="email" id="mail" name="mail" placeholder="Email" required=""/>
-                                </div><br>
-                            </div>  
-
-                            <div class="col-lg-6">
-                                <div class="btn-group btn-group-justified">
-                                    <input class="estado" type="radio" name="genero" value="1" id="gender-m" checked=""/>
-                                    <label for="gender-m"><i class="fa fa-male"></i>Hombre</label>
-                                    <input class="estado" type="radio" name="genero" value="2" id="gender-fem"/>
-                                    <label for="gender-fem"><i class="fa fa-female" ></i>Mujer</label>
-                                </div><br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <select class="form-control" id="parentesco" name="parentesco" required="">
-                                    <option value="">Escoja parentesco</option>
-                                    <?php
-                                    $parentesco = $conexion->realizarConsulta("SELECT * FROM parentesco;");
-                                    for ($pa = 0; $pa < sizeof($parentesco); $pa++) {
-                                        echo '<option value="' . $parentesco[$pa]['parentesco_id'] . '">' . $parentesco[$pa]['parntesco'] . '</option>';
-                                    }
-                                    ?>
-                                </select><br>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="input-group-datos input-group-icon">
-                                    <div class="input-group">
-                                        <label class="input-group-btn">
-                                            <span class="btn" style="background: #55d9cb;color: white">
-                                                Certificado&hellip; <input type="file" id="certificadoRepresentante" name="certificadoRepresentante" style="display: none;" accept=".jpg">
-                                            </span>
-                                        </label>
-                                        <input type="text" class="form-control iinput" readonly>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>   
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group-datos input-group-icon">
-                                    <button type="submit" class="btn btn-info btn-block btn-sm" value="Guardar">
-                                        <i class="fa fa-save"> </i> Guardar</button>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="input-group-datos input-group-icon">
-                                    <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
-                                        <i class="fa fa-trash"> </i> Cancelar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div-->
 
 <!-- Fin del Cabecera-->
 <?php
