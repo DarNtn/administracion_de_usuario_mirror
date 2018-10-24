@@ -96,13 +96,16 @@ $(document).ready(function () {
         
     });
 
-    $("form#formularioRepresentante").submit(function (event) {
+    //$("form#formularioRepresentante").submit(function (event) {}
+    $("#añadirR").click(function (event) {
         //disable the default form submission
         event.preventDefault();
         //grab all form data  
-        var formData = new FormData($(this)[0]);
+        var formData = new FormData($("form#formularioRepresentante")[0]);
+        console.log("FormData:");
+        console.log(formData);
         if (validarCedula($("#cedulaR").val())) {
-            $.ajax({
+            $.ajax({                
                 type: "POST",
                 url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
                 data: formData, // Adjuntar los campos del formulario enviado.
@@ -111,7 +114,9 @@ $(document).ready(function () {
                 processData: false,
                 success: function (data)
                 {
-
+                    alert(data['data']['estado']);
+                    console.log("Registrar Rep. respuesta");
+                    console.log(data)
                     if (data['data']['estado'] == "success") {
                         console.log(JSON.stringify(data));
 
@@ -131,8 +136,8 @@ $(document).ready(function () {
 
                         counter++;
                         document.getElementById("formularioRepresentante").reset();
-                        //$('#nuevo').modal('hide');
-                        //console.log("Modal ocultado");
+                        //$('#nuevo').modal('hide');                        
+                        swal('Mensaje', "Registro existoso", "success");
                     } else {
                         swal('Mensaje', data['data']['mensaje'], data['data']['estado']);
                     }
@@ -301,13 +306,11 @@ function datos(cedula) {
         url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
         data: parametros, // Adjuntar los campos del formulario enviado.
         success: function (data)
-        {
-            console.log(JSON.stringify(data));
-            if (data['data'][0]['representante_id'] == '0') {
+        {            
+            if (data['data'][0]['cedula'] == null) {
                 $('#gender-m').prop("checked", true);
                 $('#gender-fem').prop("checked", false);
-            } else {                
-                //$("#idR").val(data['data'][0]['representante_id']);
+            } else {                                
                 $("#nombresR").val(data['data'][0]['nombre']);
                 $("#apellidosR").val(data['data'][0]['apellido']);
                 $("#tipoC").val(data['data'][0]['estado_civil_id']);

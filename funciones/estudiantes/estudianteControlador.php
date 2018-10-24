@@ -22,9 +22,8 @@ if ($_POST['opcion'] == "buscarRepreAsignados") {
     echo $estudiante->respuestaJson($estudiante->listaRepresenAsigna($_POST['id']));
 }
 
-if ($_POST['opcion'] == "Guardar_representante") {
-    
-    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC']) || empty($_POST['funcion'])) {
+if ($_POST['opcion'] == "Guardar_representante") {    
+    if (empty($_POST['cedula']) || empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['direccion']) || empty($_POST['telefono']) || empty($_POST['mail']) || empty($_POST['genero']) || empty($_POST['tipoC']) || empty($_POST['funcion']) || empty($_POST['parentesco'])) {
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
     } else {
         /*
@@ -33,7 +32,8 @@ if ($_POST['opcion'] == "Guardar_representante") {
         } else {
             $urlnueva = "archivos/certificadoTrabajo/" . $_POST['cedula'] . ".jpg";
         }
-         */
+         */        
+        
         if (!empty($_POST['usuario']) && !empty($_POST['password'])) {
             $cuenta = array($_POST['usuario'],$_POST['password']);
         } else{
@@ -41,7 +41,7 @@ if ($_POST['opcion'] == "Guardar_representante") {
         }
         
         $resultado = $estudiante->crearRepresentante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['direccion'], $_POST['genero'], $_POST['telefono'], $_POST['mail'], $_POST['tipoC'], $cuenta);
-        if ($resultado != 0) {
+        if ($resultado != null) {
             /*
             if (!empty($_FILES["certificadoRepresentante"]['name'])) {
                 $nameimagen = $_FILES['certificadoRepresentante']['name'];
@@ -55,7 +55,7 @@ if ($_POST['opcion'] == "Guardar_representante") {
                 }
             } else {             
              */
-                echo $estudiante->mensajes("success", $resultado);
+            echo $estudiante->mensajes("success", "Registro completado exitosamente");
             //}
         } else {
             echo $estudiante->mensajes("error", "No se pudo realizar el registro de representante");

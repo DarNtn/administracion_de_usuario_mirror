@@ -437,18 +437,35 @@
                                     <label class="form-control" for="gender-fem"><i class="fa fa-female" ></i> Mujer</label>
                                 </div>
                             </div><br>  
-                            <a style="color:gray">Cuenta</a><br>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <a style="color:gray">Cuenta</a>                                
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="switch">
+                                        <input id="flag" name="checkCuenta" type="checkbox" onchange="
+                                            $('input#usuario').prop('disabled', !$('#flag').is(':checked'));
+                                            $('input#password').prop('disabled', !$('#flag').is(':checked'));
+                                            if (!$('#flag').is(':checked')){
+                                                $('input#usuario').val('');
+                                                $('input#password').val('');
+                                            }
+                                        ">
+                                        <span class="slider"></span>
+                                    </label>                                    
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
-                                        <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuario"/>
+                                        <input class="form-control" type="text" id="usuario" name="usuario" placeholder="Usuario" disabled="true"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                        <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña"/>                                                                              
+                                        <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña" disabled="true"/>                                                                              
                                     </div>
                                 </div>
                             </div><br>
@@ -472,7 +489,7 @@
                                                         
                             <div class="col-md-12">
                                 <div class="input-group-datos input-group-icon">
-                                    <button type="submit" class="btn btn-info btn-block btn-sm" value="Añadir">
+                                    <button id="añadirR" class="btn btn-info btn-block btn-sm" value="Añadir">
                                         <i class="fa fa-plus"> </i> Añadir</button>
                                 </div>
                             </div>
@@ -504,7 +521,7 @@
                             
                             <div class="col-md-12">
                                 <div class="input-group-datos input-group-icon">
-                                    <button class="btn btn-success btn-block btn-sm" data-dismiss="modal" value="Save">
+                                    <button type="submit" class="btn btn-success btn-block btn-sm" data-dismiss="modal" value="Save">
                                         <i class="fa fa-save"> </i> Guardar</button>
                                 </div>
                             </div>                            
