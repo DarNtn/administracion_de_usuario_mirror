@@ -1,5 +1,4 @@
 <?php
-
 require_once '../conexion/php_conexion.php';
 
 class Index extends php_conexion {
@@ -14,30 +13,29 @@ class Index extends php_conexion {
     }
     
     public function iniciarSession($user, $password) {
-    if (!empty($user) && !empty($password)) {
-        $dato = $this->realizarConsulta("SELECT * FROM usuarios WHERE usuario='$user' and clave='$password'");
-        if ($dato != null) {
-            if ($dato[0]['estado'] == '1') {
-                if ($dato[0]['clave'] == $password) {
-                    $nombre = $dato[0]['nombre'];
-                    $palabra = explode(" ", $nombre);
-                    $nomb = $palabra[0];
-                    $_SESSION['username'] = $nomb;
-                    $_SESSION['user'] = $dato[0]['usuario_id'];
-                    $_SESSION['tipo_usu'] = $dato[0]['tipo'];
-                    $this->mensajes("success", "inicio.php");
+        // eMconsole_log( $user );
+        if (!empty($user) && !empty($password)) {
+            $dato = $this->realizarConsulta("SELECT * FROM usuario WHERE usuario='$user' and clave='$password'");
+            if ($dato != null) {
+                $estado = $dato[0]['estado_id'];
+                $estado = $this->realizarConsulta("SELECT nombre FROM estados WHERE estado_id = '$estado'");
+                if ( $estado[0]['nombre'] == 'Activo') {
+                    if ($dato[0]['clave'] == $password) {
+                        $_SESSION['username'] = $dato[0]['usuario'];
+                        $_SESSION['user'] = $dato[0]['usuario_id'];
+                        $_SESSION['tipo_usu'] = $dato[0]['tipo'];
+                        $this->mensajes("success", "inicio.php");
+                    } else {
+                        $this->mensajes("error", "Usuario o clave incorrecta");
+                    }
                 } else {
-                    $this->mensajes("error", "Usuario o clave incorrecta");
+                    $this->mensajes("error", "Usuario desactivado");
                 }
             } else {
-                $this->mensajes("error", "Usuario desactivado");
+                $this->mensajes("error", "Usuario o clave incorrecta");
             }
         } else {
-            $this->mensajes("error", "Usuario o clave incorrecta");
+           $this->mensajes("error", "Campos vacios");
         }
-    } else {
-       $this->mensajes("error", "Campos vacios");
     }
-}
-
 }

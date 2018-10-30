@@ -5,11 +5,10 @@ date_default_timezone_set('America/Guayaquil');
 class php_conexion {
 
     function conn() {
-        $db_host = "localhost:3306";
+        $db_host = "localhost";
         $db_user = "root";
-        $db_esquema = "innovasystemcom_jardin";
-        $db_password = "mysqlUsernamePassword";
-        //  $db_esquema = "jardindemo";
+        $db_esquema = "administracion_colegio";
+        $db_password = "root";
 
         $db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_esquema);
         if (mysqli_connect_error()) {
@@ -23,15 +22,16 @@ class php_conexion {
         $conn->query("SET lc_time_names = 'es_EC'");
         $result = $conn->query($consulta);
         $rows = array();
-        if ($result->num_rows > 0) {
-            // output data of each row
-            while($row = $result->fetch_assoc()) {
-                $rows[] = $row;
+        if($result){
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+                return $rows;
+            } else {
+                return null;
             }
-            return $rows;
-        } else {
-            echo "0 results";
-            return null;
         }
     }
 
@@ -47,7 +47,7 @@ class php_conexion {
         $datos = mysqli_insert_id($link);
         return $datos;
     }
-
+    
     public function historial($usuario, $tabla, $tipo, $idAfectado, $descripcion) {
         $this->realizarIngreso("INSERT INTO historiales VALUES(null,'$usuario',' $tabla', '$tipo','$idAfectado','$descripcion',curdate())");
     }

@@ -5,5 +5,5 @@ require_once('indexModelo.php');
 # Traer los datos de un usuario
 $index = new Index();
 if($_POST['opcion']=="iniciar"){
-$index->iniciarSession($_POST['usuario'],$_POST['contra']);
+    $index->iniciarSession($_POST['usuario'],$_POST['contra']);
 }

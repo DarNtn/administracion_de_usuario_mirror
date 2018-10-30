@@ -14,6 +14,7 @@
     } else {
         $titulo = 'Usuario';
     }
+    
 ?>
 <html lang="en">
     <head>
@@ -99,7 +100,7 @@
                                         <li><a href="salones.php"><i class="lnr lnr-chart-bars"></i>Cursos</a></li>
                                         <li><a href="personal.php"><i class="lnr lnr-chart-bars"></i>Materias</a></li>
                                         <li><a href="periodo.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>
-                                        <li><a href="servicios.php"><i class="lnr lnr-chart-bars"></i>Administradores</a></li>
+                                        <li><a href="administradores.php"><i class="lnr lnr-chart-bars"></i>Administradores</a></li>
                                     </ul>
                                 </div>
                             </li>

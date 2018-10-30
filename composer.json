@@ -1,0 +1,7 @@
+{
+    "name": "joelerll/administracion_usuarios",
+    "type": "proyect",
+    "require": {
+        "phpmailer/phpmailer": "^6.0"
+    }
+}

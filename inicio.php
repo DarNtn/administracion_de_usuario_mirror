@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     include_once('header.php');
 ?>
 <!-- Inicio del Cabecera-->
