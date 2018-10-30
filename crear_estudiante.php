@@ -14,6 +14,17 @@
 <script src="assets/js/ValidarCedula.js" type="text/javascript"></script>
 <script src="assets/js/calcularEdad.js" type="text/javascript"></script>
 <script src="assets/js/inputfile.js" type="text/javascript"></script>
+<script src="assets/vendor/jquery/jquery-ui.js" type="text/javascript"></script>
+<script>
+    $(function() {
+        $('#buscarR').autocomplete({
+            source: "funciones/estudiantes/filtroRepresentantes.php",//['marciano', 'marcia','martillo','peluche','pera'] 
+            select: function(){
+                
+            }
+        });
+    });
+</script>
 
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">

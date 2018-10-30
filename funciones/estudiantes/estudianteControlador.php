@@ -8,12 +8,6 @@ if ($_POST['opcion'] == "Lista_alumno") {
     echo $estudiante->respuestaJson($estudiante->lista_alumno());
 }
 
-/*
-if ($_POST['opcion'] == "busqueda") {
-    echo $estudiante->respuestaJson($estudiante->buscarRepresentante($_POST['id']));
-}
-*/
-
 if ($_POST['opcion'] == "buscarR") {
     echo $estudiante->respuestaJson($estudiante->buscarRepresentante($_POST['id']));
 }
@@ -55,7 +49,8 @@ if ($_POST['opcion'] == "Guardar_representante") {
                 }
             } else {             
              */
-            echo $estudiante->mensajes("success", "Registro completado exitosamente");
+                        
+            echo $estudiante->mensajes("success", "Autorizado agregado");
             //}
         } else {
             echo $estudiante->mensajes("error", "No se pudo realizar el registro de representante");
@@ -72,6 +67,8 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
     } else {
         
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
+        //if (isset($_POST['dato'])) {!empty(Asignacion::hasParent())
+        
         if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
@@ -111,20 +108,27 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     $nombre = "documento-" . ($numero + 1);
                 }
 //                Aquí se registran los padres/representantes/autorizados a retirar
-                $dto = $_POST['dato'];
-                $parent = $_POST['parentesco'];
-//                $n = count($dto);
-//                $i = 0;
-//                while ($i < $n) {
-                $estudiante->asignarRepresentante($respuesta, $dto[0], $_POST['funcion'], $parent[$i]);
-//                    $i++;
-//                }
-                echo $estudiante->mensajes("success", "Alumno registrado exitosamente" . $comentario);
+                try{
+                    $dto = $_POST['dato'];
+                    $parent = $_POST['parentesco'];
+                    $funcion = $_POST['funcion'];
+                    $n = count($dto);
+                    $i = 0;
+                    
+                    while ($i < $n) {                        
+                        $estudiante->asignarRepresentante($_POST['cedula'], $dto[$i], $parent[$i], $funcion[$i]);
+                        $i++;
+                    }
+                                        
+                    echo $estudiante->mensajes("success", "Alumno registrado exitosamente");
+                } catch (Exception $e){
+                    echo $estudiante->mensajes("error", $e->getMessage());
+                }
             } else {
                 echo $estudiante->mensajes("error", "Alumno ya se encuentra registrado");
             }
         } else {
-            echo mensajes("error", "No hay representantes");
+            echo $estudiante->mensajes("error", "No hay representantes.");
         }
     }
 }
@@ -132,10 +136,10 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 if ($_POST['opcion'] == "Modificar_estudiante2") {
     
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
-        echo $estudiante->mensajes("warning", "Algunos campos estan vaciossssss");
+        echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
     } else {
         // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
-        //if (isset($_POST['dato'])) {
+        if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
             } else {
@@ -175,22 +179,26 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
                     $numero = (int) explode("-", $nombre)[1];
                     $nombre = "documento-" . ($numero + 1);
                 }
-//                $estudiante->eliminarRepresentantes($_POST['id']);
-//                $dto = $_POST['dato'];
-//                $parent = $_POST['parentesco'];
-//                $n = count($dto);
-//                $i = 0;
-//                while ($i < $n) {
-//                    $estudiante->asignarRepresentante($_POST['id'], $dto[$i], '2', $parent[$i]);
-//                    $i++;
-//                }
-                echo $estudiante->mensajes("success", "Alumno modificado exitosamente" . $comentario);
+                try {
+                    $estudiante->eliminarRepresentantes($_POST['id']);
+                    $dto = $_POST['dato'];
+                    $parent = $_POST['parentesco'];
+                    $n = count($dto);
+                    $i = 0;
+                    while ($i < $n) {
+                        $estudiante->asignarRepresentante($_POST['id'], $dto[$i], $parent[$i], $_POST['funcion']);
+                        $i++;
+                    }
+                    echo $estudiante->mensajes("success", "Alumno modificado exitosamente" . $comentario);
+                } catch(Exception $e){
+                    echo $estudiante->mensajes("error", $e->getMessage());
+                }
             } else {
                 echo $estudiante->mensajes("error", $respuesta);
             }
-//        } else {
-//            echo $estudiante->mensajes("error", "No hay representantes");
-//        }
+        } else {
+            echo $estudiante->mensajes("error", "No hay representantes");
+        }
     }
 }
 

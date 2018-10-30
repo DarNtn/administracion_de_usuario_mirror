@@ -5,10 +5,9 @@
         <group>
             <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/estudiantes/estudianteModelo.php</file>
             <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/estudiantes/functionEstudiantesAcciones.js</file>
-            <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/conexion/php_conexion.php</file>
             <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/estudiantes/estudianteControlador.php</file>
-            <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/estudiantes.php</file>
-            <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/estudiantes/funcionesEstudiante.js</file>
+            <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/conexion/php_conexion.php</file>
+            <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/funciones/estudiantes/filtroRepresentantes.php</file>
             <file>file:/C:/Apache24/htdocs/proyecto/administracion_usuarios/crear_estudiante.php</file>
         </group>
     </open-files>

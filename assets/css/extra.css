@@ -1,6 +1,11 @@
 input[type="radio"].estado{
     display: none;
 }
+
+.ui-autocomplete {
+    z-index: 3000;
+}
+
 .estado + label{
     width: 50%;
     padding: 0.5em;

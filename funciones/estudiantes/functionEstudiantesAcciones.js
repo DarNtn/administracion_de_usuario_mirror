@@ -113,8 +113,7 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (data)
-                {
-                    alert(data['data']['estado']);
+                {                    
                     console.log("Registrar Rep. respuesta");
                     console.log(data)
                     if (data['data']['estado'] == "success") {
@@ -131,13 +130,16 @@ $(document).ready(function () {
                             $('#telefono').val(),
                             $('#mail').val(),
                             $('input:radio[name=funcion]:checked').val(),
-                            '<input type="hidden" name="dato[]" value="' + data['data']['mensaje'] + '"><input type="hidden" name="parentesco[]" value="' + $('#parentesco').val() + '"><button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar"><i class="glyphicon glyphicon-remove-sign"></i></button>'
+                            '<button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar">\n\
+                                <i class="glyphicon glyphicon-remove-sign"></i></button>'
                         ]).draw(false);
-
+                        $("#formulario").append('<input type="hidden" name="dato[]" value="' + $('#cedulaR').val()+ '">');
+                        $("#formulario").append('<input type="hidden" name="parentesco[]" value="' + $('#parentesco').val() + '">');
+                        $("#formulario").append('<input type="hidden" name="funcion[]" value="' + $('input:radio[name=funcion]:checked').val() + '">');
                         counter++;
                         document.getElementById("formularioRepresentante").reset();
                         //$('#nuevo').modal('hide');                        
-                        swal('Mensaje', "Registro existoso", "success");
+                        swal('Mensaje', "Registro existoso\n "+data['data']['mensaje'], "success");
                     } else {
                         swal('Mensaje', data['data']['mensaje'], data['data']['estado']);
                     }
@@ -163,8 +165,7 @@ $(document).ready(function () {
         });
         
         // Enviar formulario
-        var formData = new FormData($(this)[0]);
-        console.log(formData);
+        var formData = new FormData($(this)[0]);          
         if (validarCedula($("#ced").val())) {
             $.ajax({
                 type: "POST",
@@ -180,7 +181,9 @@ $(document).ready(function () {
                         type: data['data']['estado'],
                         confirmButtonText: "OK"
                     }).then( result => {
-                        window.location.reload();
+                        if (data['data']['estado']=="success"){
+                            window.location.reload();
+                        }                        
                     })                    
                 }
             });
@@ -254,14 +257,14 @@ $(document).ready(function () {
                     t.row.add([
                         counter,
                         data['data'][i]['cedula'],
-                        data['data'][i]['nombres'],
-                        data['data'][i]['apellidos'],
+                        data['data'][i]['nombre'],
+                        data['data'][i]['apellido'],
                         data['data'][i]['descripcion'],
-                        data['data'][i]['parntesco'],
+                        data['data'][i]['parentesco'],
                         data['data'][i]['direccion'],
                         data['data'][i]['telefono'],
-                        data['data'][i]['email'],
-                        '<input type="hidden" name="dato[]" value="' + data['data'][i]['id'] + '"><input type="hidden" name="parentesco[]" value="' + data['data'][i]['parentesco_id'] + '"><button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar"><i class="glyphicon glyphicon-remove-sign"></i></button>'
+                        data['data'][i]['correo'],
+                        '<input type="hidden" name="dato[]" value="' + data['data'][i]['id'] + '"><input type="hidden" name="parentesco[]" value="' + data['data'][i]['idparentesco'] + '"><button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar"><i class="glyphicon glyphicon-remove-sign"></i></button>'
                     ]).draw(false);
                     counter++;
                 }
@@ -319,7 +322,7 @@ function datos(cedula) {
                 $("#telefono").val(data['data'][0]['telefono']);
                 $("#mail").val(data['data'][0]['correo']);
                 $("#cedulaR").val(data['data'][0]['cedula']);
-                //$("#parentesco").val(data['data'][0]['parentesco_id']);
+                $("#parentesco").val(data['data'][0]['parentesco_id']);
                 //calcularEdad(data['data'][0]['fecha_nacimiento'], '#edad2');
                 if (data['data'][0]['genero_id'] == 1) {
                     $('#gender-m').prop("checked", true);
