@@ -32,11 +32,16 @@
         <script src="assets/vendor/jquery/jquery.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/js/vue.js">></script>
         <script src="assets/scripts/klorofil-common.js"></script>
+        <script src="assets/js/polyfill.min.js"></script>
+        <script src="assets/js/bootstrap-vue.js"></script>
+        <script src="assets/js/vee-validate.js"></script>
+        <script src="assets/js/axios.min.js"></script>
         <!-- ICONS -->
         <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
         <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
-
+        <link type="text/css" rel="stylesheet" href="assets/css/bootstrap-vue.css"/>
         <link href="Plugins/SweetAlert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
         <script src="Plugins/SweetAlert2/sweetalert2.min.js" type="text/javascript"></script>
     </head>
@@ -140,7 +145,24 @@
                                     </ul>
                                 </div>
                             </li>
-<!--                            
+
+                            <li>
+                                <a href="#comunicados" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Comunicados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="comunicados" class="collapse">
+                                    <ul class="nav">
+                                        <li><a href="comunicados.php"><i class="lnr lnr-code"></i>Nueva Notificación</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Nueva Citación</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Plantillas Ingresadas</a></li>
+                                        <li><a href="configuracion_mail.php"><i class="lnr lnr-code"></i>Configuración</a></li>
+                                        <!-- <li><a href=""><i class="lnr lnr-code"></i>Nueva Notificación</a></li> -->
+                                    </ul>
+                                </div>
+                            </li>
+<!--                        
                             <li>
                                 <a href="#subPagos" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pagos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subPagos" class="collapse ">
