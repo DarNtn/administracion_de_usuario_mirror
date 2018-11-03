@@ -1,14 +1,8 @@
-<!doctype html>
 <?php
     session_start();
     include_once('./funciones/conexion/php_conexion.php');
     $conexion = new php_conexion();
 
-    if ($_SESSION['tipo_usu'] == 'a' or $_SESSION['tipo_usu'] == 'u') {
-
-    } else {
-        //header('location:index.php');
-    }
     if ($_SESSION['tipo_usu'] == 'a') {
         $titulo = 'Escuelita InnovaSystem';
     } else {

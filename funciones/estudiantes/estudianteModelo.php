@@ -26,7 +26,6 @@ class Estudiante extends php_conexion {
 
     function buscarRepresentante($idR) {
         $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$idR'");
-        //$dato = $this->realizarConsulta("select r.*, a.parentesco_id from autorizado r, autorizacion a where r.cedula = a.autorizado_cedula and a.alumno_cedula='$idAlumno' and a.autorizado_cedula='$idR'");
         
         if ($dato == NULL) {
             $dato = array('0' => array('0' => '0', 'cedula' => null));            
@@ -126,12 +125,14 @@ and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
     
     function eliminarDocumento($direccion) {
         $this->realizarIngreso("Delete from documento where link='$direccion'");
-    }   
-    
-    function asignarRepresentante($cedulaA, $cedulaR, $parentesco, $tipo){    
-        $id = $this->realizarIngreso("INSERT INTO autorizacion (alumno_cedula,autorizado_cedula,parentesco_id,tipo) VALUES ('$cedulaA','$cedulaR',$parentesco,'$tipo')");        
-        return $id;
-    }  
+    }
+
+    function asignarRepresentante($alumno, $representate, $tipo, $parentesco) {
+        $dato = $this->realizarConsulta("SELECT * FROM asignar_representante WHERE alumno_id='$alumno' and representante_id='$representate'");
+        if ($dato == null) {
+            $this->realizarIngresoId("INSERT INTO autorizacion (alumno_cedula,autorizado_id,parentesco_id,tipo) VALUES('$alumno','$representate','$parentesco','$tipo')");
+        }
+    }
 
     function buscarEstudiante($cedula) {
         $dato = $this->realizarConsulta("select 

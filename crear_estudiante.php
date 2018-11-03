@@ -312,32 +312,6 @@
                 </div>
             </fieldset>
             
-<!--            <div class="row"><div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 col-lg-offset-7">
-                    <p></p>
-                    <a class="btn btn-success btn-block" style="overflow: hidden" href="#nuevo" role="button" data-toggle="modal" title="Nuevo Representante">
-                        <span class="glyphicon glyphicon-user"></span>Gestionar</a>
-                </div></div>-->
-<!--            <div class="table-responsive">
-                <table id="example" class="display table table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>Cédula</th>
-                            <th>Nombres </th>
-                            <th>Apellidos</td>
-                            <th>Estado civil</th>
-                            <th>Parentesco</th>
-                            <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Borrar</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-            </div>-->
-            
         </form>
     </div>
 </div>
@@ -543,7 +517,3 @@
         </div>
     </div>
 </div>
-
-<!-- Fin del Cabecera-->
-<?php
-include_once('footer.php');

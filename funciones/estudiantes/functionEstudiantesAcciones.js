@@ -113,12 +113,8 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (data)
-                {                    
-                    console.log("Registrar Rep. respuesta");
-                    console.log(data)
+                {
                     if (data['data']['estado'] == "success") {
-                        console.log(JSON.stringify(data));
-
                         t.row.add([
                             counter,
                             $('#cedulaR').val(),

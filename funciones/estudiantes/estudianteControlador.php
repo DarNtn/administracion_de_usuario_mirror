@@ -49,7 +49,7 @@ if ($_POST['opcion'] == "Guardar_representante") {
                 }
             } else {             
              */
-                        
+         
             echo $estudiante->mensajes("success", "Autorizado agregado");
             //}
         } else {
@@ -65,9 +65,6 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
         echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
         
     } else {
-        
-        // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
-        //if (isset($_POST['dato'])) {!empty(Asignacion::hasParent())
         
         if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
@@ -107,7 +104,8 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
                     $numero = (int) explode("-", $nombre)[1];
                     $nombre = "documento-" . ($numero + 1);
                 }
-//                Aquí se registran los padres/representantes/autorizados a retirar
+                
+                //Aquí se registran los padres/representantes/autorizados a retirar
                 try{
                     $dto = $_POST['dato'];
                     $parent = $_POST['parentesco'];
@@ -136,9 +134,9 @@ if ($_POST['opcion'] == "ingresar_estudiante") {
 if ($_POST['opcion'] == "Modificar_estudiante2") {
     
     if (empty($_POST['nombres']) || empty($_POST['apellidos']) || empty($_POST['fechaNac']) || empty($_POST['tipo_sangre']) || empty($_POST['lugar_nacimiento']) || empty($_POST['direccion']) || empty($_POST['tiene_discapacidad']) || empty($_POST['genero']) || empty($_POST['tipoI'])) {
-        echo $estudiante->mensajes("warning", "Algunos campos estan vacios");
+        echo $estudiante->mensajes("warning", "Algunos campos estan vaciossssss");
     } else {
-        // ESTE IF FUE COMENTADO PORQUE FALTA LA PARTE DE AGREGAR REPRESENTANTES/AUTORIZADOS A RETIRAR/PADRES
+        
         if (isset($_POST['dato'])) {
             if (empty($_POST['porcentaje_discapacidad'])) {
                 $porcentaje = 0;
@@ -178,6 +176,7 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
                     $estudiante->documentoEstudiante($_POST['id'], $namecerti, $urlcertificado);
                     $numero = (int) explode("-", $nombre)[1];
                     $nombre = "documento-" . ($numero + 1);
+
                 }
                 try {
                     $estudiante->eliminarRepresentantes($_POST['id']);
@@ -193,11 +192,10 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
                 } catch(Exception $e){
                     echo $estudiante->mensajes("error", $e->getMessage());
                 }
+
             } else {
                 echo $estudiante->mensajes("error", $respuesta);
             }
-        } else {
-            echo $estudiante->mensajes("error", "No hay representantes");
         }
     }
 }

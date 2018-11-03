@@ -1,8 +1,11 @@
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for macos10.13 (x86_64)
 --
--- Host: 127.0.0.1    Database: administracion_colegio
+-- Host: localhost    Database: administracion_colegio
 -- ------------------------------------------------------
 -- Server version	8.0.12
+
+CREATE DATABASE IF NOT EXISTS administracion_colegio;
+USE administracion_colegio;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -138,7 +141,6 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES ('0930703707','slkdnsa','dfsdg',1,'sdgfg','2011-08-24',5,'','2018-10-25','1',1,3,'',200,0),('0950078089','Alumno Name','Alumno Apellido',1,'Km 4 vía a Samborondón','2009-07-23',10,'','2018-10-25','1',1,3,'',230,0),('0950078105','asdsa','sadasds',1,'Km 4 vía a Samborondón','2010-10-29',2,'','2018-10-30','1',1,2,'',0.01,0);
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +170,6 @@ CREATE TABLE `autorizacion` (
 
 LOCK TABLES `autorizacion` WRITE;
 /*!40000 ALTER TABLE `autorizacion` DISABLE KEYS */;
-INSERT INTO `autorizacion` VALUES (11,'padre','0950078105',2,'0950078105'),(12,'padre','0950078105',1,'0930703707');
 /*!40000 ALTER TABLE `autorizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +203,6 @@ CREATE TABLE `autorizado` (
 
 LOCK TABLES `autorizado` WRITE;
 /*!40000 ALTER TABLE `autorizado` DISABLE KEYS */;
-INSERT INTO `autorizado` VALUES ('Padre Name','Padre Apellido','Km 4 vía a Samborondón','2345567','prueba@example.com',2,1,'0930703707',NULL),('Madre Name','Madre Apellido','Km 4 vía a Samborondón','25678943','prueba@example.com',2,2,'0950078105',12);
 /*!40000 ALTER TABLE `autorizado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +318,6 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
-INSERT INTO `cursos` VALUES (1,'Maternal','Matutino','15','1',1,1,'wilson','2017-04-07',0,0);
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,7 +346,6 @@ CREATE TABLE `datos_medicos` (
 
 LOCK TABLES `datos_medicos` WRITE;
 /*!40000 ALTER TABLE `datos_medicos` DISABLE KEYS */;
-INSERT INTO `datos_medicos` VALUES (1,0,'','0930703707',2),(1,0,'','0950078089',2),(1,0,'','0950078105',2);
 /*!40000 ALTER TABLE `datos_medicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -797,7 +795,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('wilson','wilson','a',1,1),('userP','1234','r',10,1),('userM','1234','r',11,1),('madreUser','1234','r',12,1);
+INSERT INTO `usuario` VALUES ('admin','admin','a',1,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -810,4 +808,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-31 15:09:47
+-- Dump completed on 2018-11-03 17:15:17
