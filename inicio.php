@@ -1,5 +1,4 @@
 <?php
-    //session_start();
     include_once('header.php');
 ?>
 <!-- Inicio del Cabecera-->
@@ -25,14 +24,6 @@
                         </div>
                          <div class="row">
                             <div class="col-xs-12" style="font-size: 18px;margin-top: 10px;">Alumnos</div></div>
-                    </div>
-<!--                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Ver Detalles</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>-->
                 </div>
             </div>
             <div class="col-md-6" align="center">
@@ -50,13 +41,6 @@
                          <div class="row">
                             <div class="col-xs-12" style="font-size: 18px;margin-top: 10px;">Cursos</div></div>
                     </div>
-<!--                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Ver Detalles</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>-->
                 </div>
             </div>
             <div class="col-md-6" align="center">
@@ -74,13 +58,6 @@
                          <div class="row">
                             <div class="col-xs-12" style="font-size: 18px;margin-top: 10px;">Profesores</div></div>
                     </div>
-<!--                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Ver Detalles</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>-->
                 </div>
             </div>
             <div class="col-md-6" align="center">
@@ -92,24 +69,14 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge" style="font-size: 40px;line-height: 40px;">1000 <?php // echo $t_pagos;  ?></div>
-<!--                                <div>Pagos Pendientes</div>-->
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12" style="font-size: 18px;margin-top: 10px;">Pagos Pendientes</div></div>
                     </div>
-<!--                    <a href="#">
-                        <div class="panel-footer">
-                            <span class="pull-left">Ver Detalles</span>
-                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            <div class="clearfix"></div>
-                        </div>
-                    </a>-->
+
                 </div>
             </div>
         </div>  
     </div>
 </div>
-<!-- Fin del Cabecera-->
-<?php
-include_once('footer.php');

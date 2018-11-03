@@ -5,11 +5,11 @@ date_default_timezone_set('America/Guayaquil');
 class php_conexion {
 
     function conn() {
-        $db_host = "localhost";
+        $db_host = "localhost:3306";
         $db_user = "root";
         $db_esquema = "administracion_colegio";
-        $db_password = "root";
-
+        $db_password = "mysqlUsernamePassword";
+        
         $db_connection = mysqli_connect($db_host, $db_user, $db_password, $db_esquema);
         if (mysqli_connect_error()) {
             die("Failed to connect to MySQL: " . mysqli_connect_error());

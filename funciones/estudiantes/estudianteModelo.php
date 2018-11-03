@@ -2,7 +2,7 @@
 
 require_once '../conexion/php_conexion.php';
 
-class Estudiante extends php_conexion {
+class Estudiante extends php_conexion {        
 
     function lista_alumno() {
         $dato = $this->realizarConsulta("                                
@@ -24,20 +24,20 @@ class Estudiante extends php_conexion {
         return $dato;
     }
 
-    function buscarRepresentante($id) {
-        $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$id'");
+    function buscarRepresentante($idR) {
+        $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$idR'");
+        
         if ($dato == NULL) {
-            $dato = array('0' => array('0' => '0', 'cedula' => null));
-            
+            $dato = array('0' => array('0' => '0', 'cedula' => null));            
         }
         return $dato;
     }
 
     function listaRepresenAsigna($idAlumno) {
-        $dato = $this->realizarConsulta("SELECT r.representante_id as id,r.cedula,r.nombres,r.apellidos, ec.descripcion, pa.parntesco,r.direccion,r.telefono,r.email,pa.parentesco_id
-FROM asignar_representante ar,alumnos a,representantes r,estado_civil ec,parentesco pa
-where ar.alumno_id=a.alumno_id and ar.representante_id=r.representante_id and r.estado_civil_id=ec.estado_civil_id
-and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
+        $dato = $this->realizarConsulta("SELECT r.cedula,r.nombre,r.apellido, ec.descripcion, pa.parentesco,r.direccion,r.telefono,r.correo,pa.idparentesco
+FROM autorizacion ar,alumno a,autorizado r,estado_civil ec,parentesco pa
+where ar.alumno_cedula=a.cedula and ar.autorizado_cedula=r.cedula and r.estado_civil_id=ec.estado_civil_id
+and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
         return $dato;
     }
 
@@ -120,7 +120,7 @@ and ar.parentesco_id=pa.parentesco_id and a.alumno_id='$idAlumno';");
     }
 
     function eliminarRepresentantes($id) {
-        $this->realizarIngreso("Delete from asignar_representante where alumno_id='$id'");
+        $this->realizarIngreso("Delete from autodrizacion where alumno_cedula='$id'");
     }
     
     function eliminarDocumento($direccion) {
