@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS configuracion (
     clave VARCHAR(255) NOT NULL
 );
 
-INSERT INTO `configuracion` (`correo`, `clave`) VALUES ('joel@gmail.com', 'aaa');
+INSERT INTO `configuracion` (`correo`, `clave`) VALUES ('mija@gmail.com', 'aaa');
