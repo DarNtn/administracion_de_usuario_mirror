@@ -26,7 +26,7 @@ if($_POST['opcion']=="Guardar_administrador"){
       empty($_POST['nombre']) || 
       empty($_POST['apellido']) ||
       empty($_POST['correo']) ||
-      empty($_POST['foto']) ||
+      empty($_POST['fotoRaw']) ||
       empty($_POST['cedula'])
       // empty($_POST['cedula_copy1']) // why?
     ) 
@@ -41,7 +41,8 @@ if($_POST['opcion']=="Guardar_administrador"){
       $_POST['apellido'],
       $_POST['correo'],
       $_POST['cedula'],
-      $_POST['foto']
+      // ''
+      $_POST['fotoRaw']
     );
   }
 }
