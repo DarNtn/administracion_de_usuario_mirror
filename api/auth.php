@@ -8,7 +8,7 @@ function auth($user, $password){
         $dato = $php_conexion->realizarConsulta("SELECT * FROM usuario WHERE usuario='$user' and clave='$password'");
     }
     
-    $respuesta = $dato==1 ? "true" : "false";
+    $respuesta = $dato!=null ? "true" : "false";
     $json = array("respuesta" => $respuesta);
         
     return json_encode($json);
