@@ -2,6 +2,8 @@
     "name": "joelerll/administracion_usuarios",
     "type": "proyect",
     "require": {
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "slim/slim-skeleton": "^3.1",
+        "tuupola/slim-basic-auth": "^3.2"
     }
 }

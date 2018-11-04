@@ -1,9 +1,9 @@
 <?php
 /**
- * Slim Framework (http://slimframework.com)
+ * Slim Framework (https://slimframework.com)
  *
  * @link      https://github.com/slimphp/Slim
- * @copyright Copyright (c) 2011-2015 Josh Lockhart
+ * @copyright Copyright (c) 2011-2017 Josh Lockhart
  * @license   https://github.com/slimphp/Slim/blob/3.x/LICENSE.md (MIT License)
  */
 namespace Slim\Http;
@@ -23,6 +23,14 @@ use Psr\Http\Message\UploadedFileInterface;
  */
 class UploadedFile implements UploadedFileInterface
 {
+    /**
+     * The client-provided full path to the file
+     *
+     * @note this is public to maintain BC with 3.1.0 and earlier.
+     *
+     * @var string
+     */
+    public $file;
     /**
      * The client-provided file name.
      *
@@ -101,26 +109,28 @@ class UploadedFile implements UploadedFileInterface
                 }
                 continue;
             }
+
             $parsed[$field] = [];
             if (!is_array($uploadedFile['error'])) {
                 $parsed[$field] = new static(
                     $uploadedFile['tmp_name'],
-                    isset($uploadedFile['tmp_name']) ? $uploadedFile['name'] : null,
+                    isset($uploadedFile['name']) ? $uploadedFile['name'] : null,
                     isset($uploadedFile['type']) ? $uploadedFile['type'] : null,
                     isset($uploadedFile['size']) ? $uploadedFile['size'] : null,
                     $uploadedFile['error'],
                     true
                 );
             } else {
+                $subArray = [];
                 foreach ($uploadedFile['error'] as $fileIdx => $error) {
-                    $parsed[$field][] = new static(
-                        $uploadedFile['tmp_name'][$fileIdx],
-                        isset($uploadedFile['tmp_name']) ? $uploadedFile['name'][$fileIdx] : null,
-                        isset($uploadedFile['type']) ? $uploadedFile['type'][$fileIdx] : null,
-                        isset($uploadedFile['size']) ? $uploadedFile['size'][$fileIdx] : null,
-                        $uploadedFile['error'][$fileIdx],
-                        true
-                    );
+                    // normalise subarray and re-parse to move the input's keyname up a level
+                    $subArray[$fileIdx]['name'] = $uploadedFile['name'][$fileIdx];
+                    $subArray[$fileIdx]['type'] = $uploadedFile['type'][$fileIdx];
+                    $subArray[$fileIdx]['tmp_name'] = $uploadedFile['tmp_name'][$fileIdx];
+                    $subArray[$fileIdx]['error'] = $uploadedFile['error'][$fileIdx];
+                    $subArray[$fileIdx]['size'] = $uploadedFile['size'][$fileIdx];
+
+                    $parsed[$field] = static::parseUploadedFiles($subArray);
                 }
             }
         }
@@ -167,7 +177,7 @@ class UploadedFile implements UploadedFileInterface
     public function getStream()
     {
         if ($this->moved) {
-            throw new \RuntimeException(sprintf('Uploaded file %1s has already been moved', $this->name));
+            throw new \RuntimeException(sprintf('Uploaded file %s has already been moved', $this->name));
         }
         if ($this->stream === null) {
             $this->stream = new Stream(fopen($this->file, 'r'));
@@ -216,29 +226,29 @@ class UploadedFile implements UploadedFileInterface
             throw new RuntimeException('Uploaded file already moved');
         }
 
-        if (!is_writable(dirname($targetPath))) {
+        $targetIsStream = strpos($targetPath, '://') > 0;
+        if (!$targetIsStream && !is_writable(dirname($targetPath))) {
             throw new InvalidArgumentException('Upload target path is not writable');
         }
 
-        $targetIsStream = strpos($targetPath, '://') > 0;
         if ($targetIsStream) {
             if (!copy($this->file, $targetPath)) {
-                throw new RuntimeException(sprintf('Error moving uploaded file %1s to %2s', $this->name, $targetPath));
+                throw new RuntimeException(sprintf('Error moving uploaded file %s to %s', $this->name, $targetPath));
             }
             if (!unlink($this->file)) {
-                throw new RuntimeException(sprintf('Error removing uploaded file %1s', $this->name));
+                throw new RuntimeException(sprintf('Error removing uploaded file %s', $this->name));
             }
         } elseif ($this->sapi) {
             if (!is_uploaded_file($this->file)) {
-                throw new RuntimeException(sprintf('%1s is not a valid uploaded file', $this->file));
+                throw new RuntimeException(sprintf('%s is not a valid uploaded file', $this->file));
             }
 
             if (!move_uploaded_file($this->file, $targetPath)) {
-                throw new RuntimeException(sprintf('Error moving uploaded file %1s to %2s', $this->name, $targetPath));
+                throw new RuntimeException(sprintf('Error moving uploaded file %s to %s', $this->name, $targetPath));
             }
         } else {
             if (!rename($this->file, $targetPath)) {
-                throw new RuntimeException(sprintf('Error moving uploaded file %1s to %2s', $this->name, $targetPath));
+                throw new RuntimeException(sprintf('Error moving uploaded file %s to %s', $this->name, $targetPath));
             }
         }
 
