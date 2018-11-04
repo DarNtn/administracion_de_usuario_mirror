@@ -18,8 +18,7 @@ $(document).ready(function() {
             { "data": "apellidos" },
             { "data": "sexo" },
             { "data": "direccion" },
-            { "data": "curso" },
-            { "data": "ciudad" },
+            { "data": "direccion" },
             { "data": "estado" },
             {
             "targets": -1,
@@ -42,7 +41,7 @@ $(document).ready(function() {
             "targets": 0
         },{
             "orderable": false,
-            "targets": 9
+            "targets": 8
         }],
         "order": [[ 1, 'asc' ]],
 

@@ -40,7 +40,6 @@ include_once './funciones/Link/dataTableLink.php';
                 <th>Género</th>
                 <th>Dirección</th>
                 <th>Curso</th>
-                <th>Representante</th>
                 <th>Estado</th>
                 <th class="noExport">Opciones</th>
             </tr>
