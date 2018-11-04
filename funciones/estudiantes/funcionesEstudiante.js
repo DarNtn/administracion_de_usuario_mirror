@@ -19,7 +19,6 @@ $(document).ready(function() {
             { "data": "sexo" },
             { "data": "direccion" },
             { "data": "curso" },
-            { "data": "ciudad" },
             { "data": "estado" },
             {
             "targets": -1,
