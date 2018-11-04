@@ -74,3 +74,6 @@ https://www.howtoforge.com/tutorial/install-apache-with-php-and-mysql-on-ubuntu-
 https://github.com/phpbrew/phpbrew
 
 https://getcomposer.org/
+
+
+<?php echo php_ini_loaded_file(); ?>
