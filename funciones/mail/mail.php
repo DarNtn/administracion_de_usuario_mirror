@@ -1,6 +1,7 @@
 <?php
 require '../../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
+require 'configuracionModelo.php';
 
 // Habilitar aplicaciones menos seguras en el mail
 // https://support.google.com/accounts/answer/6010255
@@ -14,11 +15,12 @@ class mailEnviar {
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth = true;
+        $configuracion = new ConfiguracionMail();
+        list($correoDest, $claveDest) = $configuracion->Obtener();
+        $mail->Username = $correoDest; // ;
+        $mail->Password = $claveDest; // ;
 
-        $mail->Username = "darichiliao@gmail.com"; // ;
-        $mail->Password = "Believer1980"; // ;
-
-        $mail->setFrom('darichiliao@gmail.com', 'Escuelas');
+        $mail->setFrom($correoDest, 'Escuelas');
         $mail->addAddress($correo, $nombreUsuario);
         $mail->Subject = 'Clave y usuario';
         $mail->isHTML(true); 
@@ -26,9 +28,9 @@ class mailEnviar {
         $mail->AltBody = 'This is a plain-text message body';
 
         if (!$mail->send()) {
-            return array('estado' => false, 'mensaje' => $mail->ErrorInfo);
+            return 'no-enviado';
         } else {
-            return array('estado' => true, 'mensaje' => "Mail enviado");
+            return 'enviado';
         }
      }
 }
