@@ -3,7 +3,7 @@
 date_default_timezone_set('America/Guayaquil');
 
 class php_conexion {
-    var $db_connection;
+
     function conn() {
         $db_host = "localhost:3306";
         $db_user = "root";
@@ -15,13 +15,7 @@ class php_conexion {
         if (mysqli_connect_error()) {
             die("Failed to connect to MySQL: " . mysqli_connect_error());
         }
-        // mysqli_autocommit($this->db_connection,FALSE);
-        // $this->db_connection->autocommit(false);
-        return $this->db_connection;
-    }
-
-    function obtenerConexion () {
-      return $this->db_connection;
+        return $db_connection;
     }
 
     function realizarConsulta($consulta) {
