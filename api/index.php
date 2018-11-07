@@ -39,5 +39,15 @@
         return getEstudiante($cedula);
 
     });
+    
+    // autorizados
+    $app->get('/autorizado', function (Request $request, Response $response){
+        
+        if (isset($request->getParams()["cedulaR"])){
+            return getAutorizado($request->getParams()["cedulaR"]);
+        } else if (isset($request->getParams()["cedulaA"])){
+            return getAutorizados($request->getParams()["cedulaA"]);
+        }       
+    });
 
     $app->run();
