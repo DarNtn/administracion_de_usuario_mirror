@@ -182,10 +182,11 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
                     $estudiante->eliminarRepresentantes($_POST['id']);
                     $dto = $_POST['dato'];
                     $parent = $_POST['parentesco'];
+                    $funcion = $_POST['funcion'];
                     $n = count($dto);
                     $i = 0;
                     while ($i < $n) {
-                        $estudiante->asignarRepresentante($_POST['id'], $dto[$i], $parent[$i], $_POST['funcion']);
+                        $estudiante->asignarRepresentante($_POST['id'], $dto[$i], $parent[$i], $funcion[$i]);
                         $i++;
                     }
                     echo $estudiante->mensajes("success", "Alumno modificado exitosamente" . $comentario);
