@@ -148,7 +148,7 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
             } else {
                 $tipoDiscapacidad = $_POST['tipo'];
             }
-            $respuesta = $estudiante->modificarEstudiante($_POST['id'], $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion']);            
+            $respuesta = $estudiante->modificarEstudiante($_POST['id'], $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion'], $_POST['pension']);            
             
             if ($respuesta) {    
                 $comentario = "";

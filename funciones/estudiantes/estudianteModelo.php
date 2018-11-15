@@ -33,7 +33,7 @@ class Estudiante extends php_conexion {
     }
 
     function listaRepresenAsigna($idAlumno) {
-        $dato = $this->realizarConsulta("SELECT r.cedula,r.nombre,r.apellido, ec.descripcion, pa.parentesco,r.direccion,r.telefono,r.correo,ar.tipo
+        $dato = $this->realizarConsulta("SELECT r.cedula,r.nombre,r.apellido, ec.descripcion, pa.idparentesco, pa.parentesco,r.direccion,r.telefono,r.correo,ar.tipo
 FROM autorizacion ar,alumno a,autorizado r,estado_civil ec,parentesco pa
 where ar.alumno_cedula=a.cedula and ar.autorizado_cedula=r.cedula and r.estado_civil_id=ec.estado_civil_id
 and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
@@ -93,7 +93,7 @@ and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
         return $this->realizarIngreso("insert into documento values('$direccion', '$nombre', '$cedula')");
     }
 
-    function modificarEstudiante($cedula_sin_modificar, $cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion) {
+    function modificarEstudiante($cedula_sin_modificar, $cedula, $nombres, $apellidos, $sexo, $direccion, $tiene_discapacidad, $porcentaje_discapacidad, $fecha_nacimiento, $lugar_nacimiento, $tipo_sangre, $user, $instituto, $tipoD, $observacion, $pension) {
 
         $dato = $this->realizarConsulta("SELECT * FROM alumno WHERE cedula='$cedula_sin_modificar'");
         if ($dato != null) {
@@ -101,7 +101,7 @@ and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
             // Actualizar alumno
             $this->realizarIngreso("update alumno set cedula='$cedula', nombres='$nombres', apellidos='$apellidos',
 					genero_id=$sexo, direccion='$direccion', fecha_nacimiento='$fecha_nacimiento',
-                                        lugar_id=$lugar_nacimiento, instituciones_id=$instituto,observacion='$observacion'
+                                        lugar_id=$lugar_nacimiento, instituciones_id=$instituto,observacion='$observacion',pension=$pension
                                         where cedula='$cedula_sin_modificar'");
             
             // Actualizar datos médicos de un alumno

@@ -182,7 +182,7 @@ $(document).ready(function () {
                         confirmButtonText: "OK"
                     }).then( result => {
                         if (data['data']['estado']=="success"){
-                            window.location.reload();
+                            window.location.href = 'estudiantes.php';
                         }                        
                     })                    
                 }
@@ -269,7 +269,7 @@ $(document).ready(function () {
                         <i class="glyphicon glyphicon-remove-sign"></i></button>'
                     ]).draw(false);
                     $("#formulario").append('<input type="hidden" name="dato[]" class="autorizado'+ counter +'" value="' + data['data'][i]['cedula']+ '">');
-                    $("#formulario").append('<input type="hidden" name="parentesco[]" class="autorizado'+ counter +'" value="' + data['data'][i]['parentesco'] + '">');
+                    $("#formulario").append('<input type="hidden" name="parentesco[]" class="autorizado'+ counter +'" value="' + data['data'][i]['idparentesco'] + '">');
                     $("#formulario").append('<input type="hidden" name="funcion[]" class="autorizado'+ counter +'" value="' + data['data'][i]['tipo'] + '">');                   
 
                     counter++;
