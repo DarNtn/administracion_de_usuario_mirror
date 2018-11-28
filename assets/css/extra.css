@@ -3,7 +3,7 @@ input[type="radio"].estado{
 }
 
 .ui-autocomplete {
-    z-index: 3000;
+    z-index: 3000 !important;
 }
 
 .estado + label{
