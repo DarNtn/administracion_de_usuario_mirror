@@ -6,11 +6,25 @@ class Curso extends php_conexion {
 
     public function get() {
         $respuesta = $this->realizarConsulta("
-            SELECT c.curso_id as id,c.nombre as salon,c.jornada as horario,c.cant_alumnos as numero,
-                   c.paralelo as para,c.estado_id as estado,n.nombre as nivel, c.nivel_id as nivelI 
-            FROM cursos c, nivel_educacion n 
-            WHERE c.nivel_id=n.nivel_id");
+            SELECT c.curso_id as id,c.nombre as curso,c.jornada as jornada,c.cant_alumnos as cantidad,
+                   c.paralelo as paralelo,e.nombre as estado,n.nombre as nivel, pl.anio_inicio as aInicio, pl.anio_fin as aFin
+            FROM cursos c, periodo_electivo pl, nivel_educacion n, estados e
+            WHERE c.nivel_id=n.nivel_id and c.estado_id = e.estado_id and c.periodo_electivo_periodo_id = pl.periodo_id");
         return $respuesta;
+    }
+    
+    public function getCursosAsignados() {
+        $respuesta = $this->realizarConsulta("
+            SELECT c.curso_id as id,c.nombre as curso,c.jornada as jornada,c.cant_alumnos as cantidad,
+                   c.paralelo as paralelo,e.nombre as estado,n.nombre as nivel, pl.anio_inicio as aInicio, pl.anio_fin as aFin, pr.nombres as nombre, pr.apellidos as apellido
+            FROM cursos c, periodo_electivo pl, nivel_educacion n, estados e, personal pr
+            WHERE c.nivel_id=n.nivel_id and c.estado_id = e.estado_id and c.periodo_electivo_periodo_id = pl.periodo_id and c.dirigente = pr.personal_id");
+        return $respuesta;
+    }
+    
+    public function asignarDirigente($idProfesor, $curso, $paralelo, $periodo){
+        $resultado = $this->realizarIngreso("UPDATE cursos SET dirigente='$idProfesor' WHERE nombre='$curso' and paralelo='$paralelo'");
+        return $this->mensajes('success', 'Registro exitoso');
     }
 
     public function getCurso($nombre, $paralelo) {

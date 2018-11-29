@@ -87,3 +87,9 @@ input:checked + .slider:before {
 input:checked + .slider {
     box-shadow:0 0 0 2px limeGreen,0 0 2px limeGreen;
 }
+
+.btn-line {
+    display: inline;
+    max-width: 60px;
+    min-width: 60px;
+}

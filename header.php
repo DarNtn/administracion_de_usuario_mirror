@@ -108,7 +108,7 @@
                                 <a href="#subAsignacion" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Asignación</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subAsignacion" class="collapse ">
                                     <ul class="nav">
-                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                        <li><a href="asignaciones.php"><i class="lnr lnr-code"></i>Dirigentes</a></li>
                                     </ul>
                                 </div>
                             </li>
