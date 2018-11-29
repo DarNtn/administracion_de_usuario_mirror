@@ -439,6 +439,16 @@ CREATE TABLE `estados` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `estado_civil`
+--
+
+LOCK TABLES `estado_civil` WRITE;
+/*!40000 ALTER TABLE `estado_civil` DISABLE KEYS */;
+INSERT  IGNORE INTO `estado_civil` (`estado_civil_id`, `descripcion`) VALUES (1,'Soltero(a)'),(2,'Casado(a)'),(3,'Viudo(a)'),(4,'Divorciado(a)'),(5,'Unión de Hecho');
+/*!40000 ALTER TABLE `estado_civil` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `estados`
 --
 

@@ -1,9 +1,4 @@
 <?php
-    //session_start();
-  // error_reporting(-1); // reports all errors
-  // ini_set("display_errors", "1"); // shows all errors
-  // ini_set("log_errors", 1);
-  // ini_set("error_log", "my-errors.log");
     if(!empty($_SESSION['tipo_usu'])){
         if($_SESSION['tipo_usu']=='a' or $_SESSION['tipo_usu']=='u'){
             header('location:inicio.php');
@@ -71,7 +66,7 @@
         <input type="hidden" name="opcion" value="iniciar">
         <input type="text" name="usuario" class="form-control input-lg" placeholder="Usuario" autocomplete="off"><br>
         <input type="password" name="contra" class="form-control input-lg" placeholder="Contraseña" autocomplete="off"><br>
-        <button class="form-control btn btn-primary input-lg" type="submit">IniciarRR</button>
+        <button class="form-control btn btn-primary input-lg" type="submit">Iniciar</button>
         <p>&nbsp;</p>
       </form>
     </div> <!-- /container -->
