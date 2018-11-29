@@ -3,10 +3,14 @@
     include_once('./funciones/conexion/php_conexion.php');
     $conexion = new php_conexion();
 
-    if ($_SESSION['tipo_usu'] == 'a') {
-        $titulo = 'Escuelita InnovaSystem';
-    } else {
-        $titulo = 'Usuario';
+    
+    switch($_SESSION['tipo_usu']){
+        case 'a':
+            $rol = 'ADMINISTRADOR';
+            break;
+        case 'p':
+            $rol = 'PROFESOR';
+            break;
     }
     
 ?>
@@ -22,6 +26,7 @@
         <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
         <!-- MAIN CSS -->
         <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="assets/css/header.css">
         <!-- Javascript -->
         <script src="assets/vendor/jquery/jquery.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -45,35 +50,25 @@
         <div id="wrapper">
             <!-- NAVBAR -->
             <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="brand">
-                    <a href="inicio.php"><img src="assets/img/pdf.png" alt="Logo" class="img-responsive logo" style="width: 110px; height: 30px"></a>
-                </div>
+                
                 <div class="container-fluid">
                     <div class="navbar-btn">
-                        <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+                        <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>    
+                    </div>
+                    <div class="navbar-btn" id="rol">
+                        <b><?php echo $rol; ?></b>
                     </div>
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav navbar-right">
-<!--                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-cogs" style="font-size:25px;line-height:30px"></i>
-                                    <span>Configuración</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="fa fa-window-maximize"></i> Patalla Inicio</a></li>
-                                    <li><a href="usuario.php"><i class="fa fa-users"></i> Usuarios</a></li>
-                                    <li><a href="#"><i class="fa fa-university"></i> Institución</a></li>
-                                </ul>
-                            </li>-->
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="assets/img/user.png" class="img-circle" alt="Avatar" style="width: 30px; height: 30px">
-                                    <span>Hola! <?php echo $_SESSION['username']; ?></span>
+                                    <span>Hola <?php echo $_SESSION['username']; ?>!</span>
                                     <i class="icon-submenu lnr lnr-chevron-down"></i>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="usuario_cambio_clave.php"><i class="lnr lnr-user"></i> <span>Cambio de Clave</span></a></li>
-<!--                                    <li><a href="#"><i class="lnr lnr-cog"></i> <span>Cambiar Clave</span></a></li>-->
+
                                     <li><a href="funciones/conexion/php_cerrar.php"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                                 </ul>
                             </li>
@@ -98,7 +93,8 @@
                                         <li><a href="estudiantes.php"><i class="lnr lnr-code"></i>Estudiantes</a></li>
                                         <li><a href="salones.php"><i class="lnr lnr-chart-bars"></i>Cursos</a></li>
                                         <li><a href="personal.php"><i class="lnr lnr-chart-bars"></i>Materias</a></li>
-                                        <li><a href="periodo.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>
+                                        <!--<li><a href="periodo.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>-->
+                                        <li><a href="profesor.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>
                                         <li><a href="administradores.php"><i class="lnr lnr-chart-bars"></i>Administradores</a></li>
                                     </ul>
                                 </div>
