@@ -45,6 +45,7 @@
         <script src="Plugins/SweetAlert2/sweetalert2.min.js" type="text/javascript"></script>
     </head>
 
+    
     <body>
         <!-- WRAPPER -->
         <div id="wrapper">
@@ -82,10 +83,8 @@
             <div id="sidebar-nav" class="sidebar">
                 <div class="sidebar-scroll">
                     <nav>
+                        <?php if($rol === "ADMINISTRADOR") : ?>
                         <ul class="nav">
-                            
-<!--                            <li><a href="inicio.php"><i class="lnr lnr-home"></i> <span>Inicio</span></a></li>  -->
-                            
                             <li>
                                 <a href="#subMant" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Inicio</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subMant" class="collapse ">
@@ -93,7 +92,6 @@
                                         <li><a href="estudiantes.php"><i class="lnr lnr-code"></i>Estudiantes</a></li>
                                         <li><a href="salones.php"><i class="lnr lnr-chart-bars"></i>Cursos</a></li>
                                         <li><a href="personal.php"><i class="lnr lnr-chart-bars"></i>Materias</a></li>
-                                        <!--<li><a href="periodo.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>-->
                                         <li><a href="profesor.php"><i class="lnr lnr-chart-bars"></i>Profesores</a></li>
                                         <li><a href="administradores.php"><i class="lnr lnr-chart-bars"></i>Administradores</a></li>
                                     </ul>
@@ -148,33 +146,11 @@
                                         <li><a ><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Plantillas Ingresadas</a></li>
                                         <li><a href="configuracion_mail.php"><i class="lnr lnr-code"></i>Configuración</a></li>
-                                        <!-- <li><a href=""><i class="lnr lnr-code"></i>Nueva Notificación</a></li> -->
                                     </ul>
                                 </div>
                             </li>
-<!--                        
-                            <li>
-                                <a href="#subPagos" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pagos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                                <div id="subPagos" class="collapse ">
-                                    <ul class="nav">
-                                        <li><a href="pagos.php" class="">Pagos</a></li>
-                                        <li><a href="#" class="">Generar ordenes</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#subMant" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Mantenimientos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                                <div id="subMant" class="collapse ">
-                                    <ul class="nav">
-                                        <li><a href="servicios.php"><i class="glyphicon glyphicon-edit"></i> Mant. Servicios</a></li>
-                                        <li><a href="periodo.php"><i class="glyphicon glyphicon-edit"></i> Mant. Periodo</a></li>
-                                        <li><a href="cursos.php"><i class="glyphicon glyphicon-edit"></i> Mant. Cursos</a></li>
-                                        <li><a href="personal.php"><i class="glyphicon glyphicon-edit"></i> Mant. Personal</a></li>
-                                        <li><a href="comunicados.php"><i class="glyphicon glyphicon-edit"></i> Comunicados</a></li>
-                                    </ul>
-                                </div>
-                            </li>-->
                         </ul>
+                        <?php endif; ?>
                     </nav>
                 </div>
             </div>
