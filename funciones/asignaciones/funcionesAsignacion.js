@@ -54,12 +54,10 @@ $(document).ready(function () {
                         data['data'][i]['nombre']+' '+data['data'][i]['apellido'],
                         '<div class="row"><button type="button" class="btn-line modificar btn btn-warning btn-sm" title="Administrar materias"><i class="glyphicon glyphicon-folder-open"></i></button>\n\
                         <button type="button" class="btn-line btn btn-warning btn-sm" title="Administrar estudiantes"><i class="glyphicon glyphicon-user"></i></button>\n\
-                        <button type="button" class="btn-line btn btn-warning btn-sm" title="Editar asignación"><i class="glyphicon glyphicon-edit"></i></button></div>',                        
+                        <button type="button" onclick="setModalEditar('+i+')" class="btn-line btn btn-warning btn-sm" title="Editar asignación"><i class="glyphicon glyphicon-edit"></i></button></div>',
                         data['data'][i]['id']
                     ]).draw(false);
                 }
-
-
             }
         });
     }
@@ -67,85 +65,128 @@ $(document).ready(function () {
     function refreshTablaCursos() {
         tblCursos.clear().draw();
         cargarTablaCursos();
-    }
-
-    $("#asignarDirigente").submit(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "funciones/asignaciones/asignacionControlador.php", // El script a dónde se realizará la petición.
-                    data: $("#asignarDirigente").serialize(), // Adjuntar los campos del formulario enviado.
-                    success: function (data)
-                    {
-                        refreshTablaCursos();
-                        swal({
-                            title: 'Mensaje',
-                            text: data['data']['mensaje'],
-                            type: data['data']['estado'],
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Cerrar'
-                        }).then(function () {
-                            if (data['data']['estado'] == "success") {
-                                document.getElementById("asignarDirigente").reset();
-                                $('#nuevo').modal('hide');
-                            }
-                        });
+    }        
+    
+    $('#jornada').change(function(){
+        var parametros = {"opcion": "cursosJornada", "jornada":this.value};
+        $.ajax({
+            type: "POST",
+            url: "funciones/asignaciones/asignacionControlador.php",
+            data: parametros,
+            success: function(data){
+                $('#curso option').each(function() {
+                    if ( $(this).val() !== '' ) {
+                        $(this).remove();
                     }
                 });
-        return false; // Evitar ejecutar el submit del formulario.
+                if (data['data']){
+                    for (var i = 0; i < data['data'].length; i++) {
+                        $('#curso').append($('<option>', {
+                            value: data['data'][i]['curso'],
+                            text: data['data'][i]['curso']
+                        }));
+                    }
+                } else{
+                    $('#curso').append('<option disabled value="-">No hay cursos sin asignar</option>');
+                }
+            }
+        });        
     });
-
-    $('#tblCursos tbody').on('click', '.modificar', function () {
-        var data = tblCursos.row($(this).parents('tr')).data();
-        cargarDatosCurso(data[9]);
-        $('#editar').modal('show');
-    });
-    function cargarDatosCurso(id) {
-        var parametros = {"opcion": "idCurso", "id": id};
+    
+    $('#curso').change(function(){        
+        var parametros = {"opcion": "paralelosCurso", "curso":this.innerText, "jornada": $('#jornada').val()};
         $.ajax({
+            type: "POST",
+            url: "funciones/asignaciones/asignacionControlador.php",
             data: parametros,
-            url: 'funciones/curso/cursoControlador.php',
-            type: 'POST',
-            success: function (data) {
-                $('#id').val(data['data'][0]['id']);
-                $('#nombre').val(data['data'][0]['salon']);
-                $('#nivel').val(data['data'][0]['nivelI']);
-                $('#jornada').val(data['data'][0]['horario']);
-                $('#paralelo').val(data['data'][0]['para']);
-                $('#cantidad').val(data['data'][0]['numero']);
-
-                if (data['data'][0]['estado'] == "2") {
-                    $('#estadoInactivoEd').prop("checked", true);
-                } else {
-                    $('#estadoActivoEd').prop("checked", true);
+            success: function(data){
+                $('#paralelo option').each(function() {
+                    if ( $(this).val() !== '' ) {
+                        $(this).remove();
+                    }
+                });
+                if (data['data']){
+                    for (var i = 0; i < data['data'].length; i++) {
+                        $('#paralelo').append($('<option>', {
+                            value: data['data'][i]['paralelo'],
+                            text: data['data'][i]['paralelo']
+                        }));
+                    }
+                } else{                    
+                    $('#paralelo').append('<option disabled value="-">No hay paralelos sin asignar</option>');
                 }
             }
         });
-    }
+    });
 
-    $("#editarCurso").submit(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "funciones/curso/cursoControlador.php", // El script a dónde se realizará la petición.
-                    data: $("#editarCurso").serialize(), // Adjuntar los campos del formulario enviado.
-                    success: function (data)
-                    {
-                        refreshTablaCursos();
-                        swal({
-                            title: 'Mensaje',
-                            text: data['data']['mensaje'],
-                            type: data['data']['estado'],
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Cerrar'
-                        }).then(function () {
-                            if (data['data']['estado'] == "success") {
-                                $('#editar').modal('hide');
-                            }
-                        });
+    $("#asignarDirigente").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "funciones/asignaciones/asignacionControlador.php", // El script a dónde se realizará la petición.
+            data: $("#asignarDirigente").serialize(), // Adjuntar los campos del formulario enviado.
+            success: function (data)
+            {
+                refreshTablaCursos();
+                swal({
+                    title: 'Mensaje',
+                    text: data['data']['mensaje'],
+                    type: data['data']['estado'],
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Cerrar'
+                }).then(function () {
+                    if (data['data']['estado'] == "success") {
+                        document.getElementById("asignarDirigente").reset();
+                        $('#nuevo').modal('hide');
                     }
                 });
+            }
+        });
         return false; // Evitar ejecutar el submit del formulario.
     });
+       
+
+    $("#cambiarDirigente").submit(function () {
+        toggleDisableEdit();
+        $.ajax({
+            type: "POST",
+            url: "funciones/asignaciones/asignacionControlador.php", // El script a dónde se realizará la petición.
+            data: $("#cambiarDirigente").serialize(), // Adjuntar los campos del formulario enviado.
+            success: function (data)
+            {
+                refreshTablaCursos();
+                swal({
+                    title: 'Mensaje',
+                    text: data['data']['mensaje'],
+                    type: data['data']['estado'],
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Cerrar'
+                }).then(function () {
+                    toggleDisableEdit();
+                    if (data['data']['estado'] == "success") {
+                        $('#editar').modal('hide');
+                    }
+                });
+            }
+        });
+        return false; // Evitar ejecutar el submit del formulario.
+    });
+    
+    function toggleDisableEdit(){
+        $('#Ejornada').prop('disabled', !$('#Ejornada').prop('disabled'));
+        $('#Ecurso').prop('disabled', !$('#Ecurso').prop('disabled'));
+        $('#Eparalelo').prop('disabled', !$('#Eparalelo').prop('disabled'));
+    }
 });
 
 
-
+function setModalEditar(index){
+    var data = tblCursos.row(index).data();
+    $('#jornada_edit').text(data[4]);
+    $('#jornada_edit').val(data[4]);
+    $('#curso_edit').text(data[1]);
+    $('#curso_edit').val(data[1]);
+    $('#paralelo_edit').text(data[3]);
+    $('#paralelo_edit').val(data[3]);    
+    
+    $('#editar').modal('show');    
+}

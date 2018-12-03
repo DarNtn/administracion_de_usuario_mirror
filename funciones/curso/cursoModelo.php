@@ -22,9 +22,46 @@ class Curso extends php_conexion {
         return $respuesta;
     }
     
-    public function asignarDirigente($idProfesor, $curso, $paralelo, $periodo){
-        $resultado = $this->realizarIngreso("UPDATE cursos SET dirigente='$idProfesor' WHERE nombre='$curso' and paralelo='$paralelo'");
-        return $this->mensajes('success', 'Registro exitoso');
+    public function getCursosbyJornada($jornada){
+        $respuesta = $this->realizarConsulta("SELECT curso_id as id, nombre as curso FROM cursos WHERE jornada='$jornada'");
+        
+        return $respuesta;
+    }
+    
+    public function getParalelosbyJornadaCurso($curso, $jornada){
+        $respuesta = $this->realizarConsulta("SELECT paralelo FROM cursos WHERE nombre='$curso' and jornada='$jornada' and dirigente=0");
+        
+        return $respuesta;
+    }
+    
+    public function getIdCurso($curso, $jornada, $paralelo, $idProfesor){          
+        $respuesta = $this->realizarConsulta("SELECT curso_id as id FROM cursos WHERE nombre='$curso' and jornada='$jornada' and paralelo='$paralelo' and dirigente='$idProfesor'");
+        
+        return $respuesta;
+    }
+    
+    public function asignarDirigente($idProfesor, $curso, $paralelo, $jornada){
+        $resultado = $this->realizarIngreso("UPDATE cursos SET dirigente='$idProfesor' WHERE nombre='$curso' and paralelo='$paralelo' and jornada='$jornada'");
+        if ($resultado > 0){
+            return $this->mensajes('success', 'Registro exitoso');
+        } else{
+            return $this->mensajes('error', 'No se pudo realizar el registro');
+        }        
+    }
+        
+    public function cambiarDirigente($jornada, $curso, $paralelo, $idProfesor) {
+        $idCurso = $this->getIdCurso($curso, $jornada, $paralelo, $idProfesor);
+        //$resultado = $this->realizarIngreso("UPDATE cursos SET dirigente='1' WHERE curso_id='$idCurso'");
+        if ($idCurso){
+            return $this->mensajes('warning', 'El profesor ya consta como dirigente');
+        } else {
+            $resultado = $this->realizarIngreso("UPDATE cursos SET dirigente='$idProfesor' WHERE nombre='$curso' and paralelo='$paralelo' and jornada='$jornada'");
+            if ($resultado > 0){
+                return $this->mensajes('success', 'Cambio de dirigente realizado');
+            } else {
+                return $this->mensajes('error', 'No se pudo realizar la edición');
+            }
+        }
     }
 
     public function getCurso($nombre, $paralelo) {
@@ -65,12 +102,12 @@ class Curso extends php_conexion {
             $resultado = $this->realizarIngreso("UPDATE cursos SET nombre='$nombre', jornada='$jornada', cant_alumnos='$cantidad',paralelo='$paralelo',estado_id='$estado',nivel_id='$nivel' where curso_id='$idCurso'");
             if ($resultado > 0) {
                 $this->historial(1, 'cursos', 'editar', $idCurso, 'edición de curso en el sistema');
-                return $this->mensajes('success', 'Usuario editado exitosamente');
+                return $this->mensajes('success', 'Curso editado exitosamente');
             } else {
                 return $this->mensajes('info', 'No hay cambios presentes');
             }
         } else {
-            return $this->mensajes('error', 'Usuario con registro no existente');
+            return $this->mensajes('error', 'Curso con registro no existente');
         }
     }
 

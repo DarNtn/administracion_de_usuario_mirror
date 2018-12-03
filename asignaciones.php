@@ -20,8 +20,8 @@ include_once './funciones/Link/dataTableLink.php';
         <div class="row">
             <div class="col-md-12">
                 <center><a href="#nuevo" role="button" class="btn btn-danger" data-toggle="modal">
-                        <strong><i class="glyphicon glyphicon-plus"></i> </strong><strong class="hidden-xs">Nueva Asignación</strong>
-                    </a></center>
+                    <strong><i class="glyphicon glyphicon-plus"></i> </strong><strong class="hidden-xs">Nueva Asignación</strong>
+                </a></center>
             </div>
         </div>
     </div>
@@ -57,37 +57,37 @@ include_once './funciones/Link/dataTableLink.php';
                     <input type="hidden" name="opcion" value="Asignar_dirigente"/>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="curso">Curso</label>
-                            <select class="form-control" name="curso" required="" title="Curso">
+                            <label for="jornada">Jornada</label>
+                            <select class="form-control" id="jornada" name="jornada" required="" title="Jornada">
+                                <option selected disabled style="display:none;" value="">Seleccione jornada</option>
                                 <?php
-                                $t_salon = $conexion->realizarConsulta("SELECT curso_id as id,nombre as curso FROM cursos where estado_id=1 and dirigente=0");
-                                if (sizeof($t_salon) == 0){
-                                    echo '<option disabled value="nulo">No hay cursos sin asignar</option>';
-                                } else{
-                                    for ($a = 0; $a < sizeof($t_salon); $a++) {
-                                        echo '<option value="' . $t_salon[$a]['curso'] . '">' . $t_salon[$a]['curso'] . '</option>';
-                                    }
-                                }
-                                
+                                $t_salon = $conexion->realizarConsulta("SELECT DISTINCT jornada FROM cursos where estado_id=1");                                                                
+                                for ($a = 0; $a < sizeof($t_salon); $a++) {
+                                    echo '<option value="' . $t_salon[$a]['jornada'] . '">' . $t_salon[$a]['jornada'] . '</option>';
+                                }                                                                
                                 ?>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="paralelo">Paralelo</label>
-                            <select class="form-control" name="paralelo" required="" title="Paralelo">
-                                <?php
-                                $t_salon = $conexion->realizarConsulta("SELECT DISTINCT paralelo as paralelo FROM cursos where estado_id=1");
-                                for ($a = 0; $a < sizeof($t_salon); $a++) {
-                                    echo '<option value="' . $t_salon[$a]['paralelo'] . '">' . $t_salon[$a]['paralelo'] . '</option>';
-                                }
-                                ?>
+                            <label for="curso">Curso</label>
+                            <select class="form-control" id="curso" name="curso" required="" title="Curso">
+                                <option selected disabled style="display:none;" value="">Seleccione curso</option>                                
+                                <option disabled value="-">Seleccionar jornada primero</option>
                             </select>
                         </div>
                     </div><br>
                     <div class="row">
                         <div class="col-md-6">
+                            <label for="paralelo">Paralelo</label>
+                            <select class="form-control" id="paralelo" name="paralelo" required="" title="Paralelo">
+                                <option selected disabled style="display:none;" value="">Seleccione paralelo</option>
+                                <option disabled value="-">Seleccionar curso primero</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
                             <label for="dirigente">Dirigente</label>
                             <select class="form-control" name="dirigente" required="" title="Dirigente">
+                                <option selected disabled style="display:none;" value="">Seleccione dirigente</option>
                                 <?php
                                 $t_profesor = $conexion->realizarConsulta("SELECT p.personal_id as id, p.nombres as nombre, p.apellidos as apellido 
                                                                             FROM personal p");
@@ -97,17 +97,18 @@ include_once './funciones/Link/dataTableLink.php';
                                 ?>
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <!--div class="col-md-4">
                             <label for="periodo">Periodo</label>
                             <select class="form-control" name="periodo" required="">
+                        
                                 <?php
-                                $t_periodos = $conexion->realizarConsulta("SELECT periodo_id as id, anio_inicio as inicio,anio_fin as fin FROM periodo_electivo where estado_id=1;");
+                                /*$t_periodos = $conexion->realizarConsulta("SELECT periodo_id as id, anio_inicio as inicio,anio_fin as fin FROM periodo_electivo where estado_id=1;");
                                 for ($c = 0; $c < sizeof($t_periodos); $c++) {
                                     echo '<option value="' . $t_periodos[$c]['id'] . '">' . $t_periodos[$c]['inicio'] . ' - ' . $t_periodos[$c]['fin'] . '</option>';
-                                }
+                                }*/
                                 ?>
                             </select>
-                        </div>
+                        </div-->
                     </div><br>                    
                     <br>
                     <div class="row">
@@ -140,55 +141,39 @@ include_once './funciones/Link/dataTableLink.php';
                     <input type="hidden" name="opcion" value="Cambiar_dirigente"/>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="Ecurso">Curso</label>
-                            <select disabled class="form-control" name="Ecurso" required="" title="Curso">
-                                <?php
-                                $t_salon = $conexion->realizarConsulta("SELECT curso_id as id, nombre as curso FROM cursos where curso_id = 1");
-                                if (sizeof($t_salon) == 0){
-                                    echo '<option disabled value="nulo">No hay cursos sin asignar</option>';
-                                } else{
-                                    echo '<option value="' . $t_salon[0]['id'] . '">' . $t_salon[0]['curso'] . '</option>';
-                                    
-                                }
-                                
-                                ?>
+                            <label for="Ejornada">Jornada</label>
+                            <select disabled class="form-control" id="Ejornada" name="Ejornada" required="">
+                                <option value="" id="jornada_edit"></option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="Eparalelo">Paralelo</label>
-                            <select disabled class="form-control" name="Eparalelo" required="" title="Paralelo">
-                                <?php
-                                $t_salon = $conexion->realizarConsulta("SELECT paralelo FROM cursos where curso_id = 1");
-                                echo '<option value="' . $t_salon[0]['paralelo'] . '">' . $t_salon[0]['paralelo'] . '</option>';
-                                
-                                ?>
+                            <label for="Ecurso">Curso</label>
+                            <select disabled class="form-control" id="Ecurso" name="Ecurso" required="" title="Curso">
+                                <option value="" id="curso_edit"></option>
                             </select>
-                        </div>
+                        </div>                        
                     </div><br>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="Edirigente">Dirigente</label>
-                            <select class="form-control" name="Edirigente" required="" title="Dirigente">
-                                <?php
-                                $t_profesor = $conexion->realizarConsulta("SELECT p.personal_id as id, p.nombres as nombre, p.apellidos as apellido 
-                                                                            FROM personal p");
-                                for ($b = 0; $b < sizeof($t_profesor); $b++) {
-                                    echo '<option value="' . $t_profesor[$b]['id'] . '">' . $t_profesor[$b]['nombre'] . ' ' . $t_profesor[$b]['apellido'] . '</option>';
-                                }
-                                ?>
+                            <label for="Eparalelo">Paralelo</label>
+                            <select disabled class="form-control" id="Eparalelo" name="Eparalelo" required="" title="Paralelo">
+                                <option value="" id="paralelo_edit"></option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="Eperiodo">Periodo</label>
-                            <select disabled class="form-control" name="Eperiodo" required="">
+                            <label for="Edirigente">Dirigente</label>
+                            <select class="form-control" id="Edirigente" name="Edirigente" required="" title="Dirigente">
+                                <option selected disabled style="display:none;" value="">Seleccione dirigente</option>
                                 <?php
-                                $t_periodos = $conexion->realizarConsulta("SELECT periodo_id as id, anio_inicio as inicio,anio_fin as fin FROM periodo_electivo where estado_id=1;");
-                                for ($c = 0; $c < sizeof($t_periodos); $c++) {
-                                    echo '<option value="' . $t_periodos[$c]['id'] . '">' . $t_periodos[$c]['inicio'] . ' - ' . $t_periodos[$c]['fin'] . '</option>';
+                                $profesor = $conexion->realizarConsulta("SELECT p.personal_id as id, p.nombres as nombre, p.apellidos as apellido 
+                                                                            FROM personal p");
+                                for ($b = 0; $b < sizeof($profesor); $b++) {
+                                    echo '<option value="' . $profesor[$b]['id'] . '">' . $profesor[$b]['nombre'] . ' ' . $profesor[$b]['apellido'] . '</option>';
                                 }
                                 ?>
                             </select>
                         </div>
+                        
                     </div><br>                    
                     <br>
                     <div class="row">
