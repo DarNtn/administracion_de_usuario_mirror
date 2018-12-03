@@ -8,7 +8,7 @@ $profesor = new Profesor();
 if ($_POST['opcion'] == "crearProfesor") {
     
     $respuesta = $profesor->crearProfesor(
-        $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], 0, 
+        $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['especialidad'], 
         $_POST['telefono'], $_POST['correo'], 0, $_POST['genero'], 
         $_POST['estadoCivil'], $_POST['direccion'], $_POST['fechaNacimiento'], 
         $_POST['fechaInicioLaboral'], $_POST['anosExperiencia'], 

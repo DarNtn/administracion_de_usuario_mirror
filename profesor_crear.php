@@ -156,16 +156,21 @@
                 <br>
                 <div class="row">
                     <!---Especialidad-->
-<!--                    <div class="col-lg-3">
+                    <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-plus-square"></i></span>
-                            <select class="form-control" id="especialidad" name="especialidad"></select>
+                            <select class="form-control" id="especialidad" name="especialidad" required="">
+                                <option value="">Especialidad</option>                                            
+                                <option value="1">Ciencias Naturales</option>
+                                <option value="2">Matemática</option>
+                                <option value="3">Física</option>
+                            </select>
                         </div>
-                    </div>                    -->
+                    </div>
                     <!---Género-->
                     <div class="col-lg-3">
                         <select class="form-control" id="genero" name="genero">
-                            <option value="">Escoja Genero</option>
+                            <option value="">Género</option>
                             <option value="1">Masculino</option>
                             <option value="2">Femenino</option>
                         </select><br>
@@ -204,28 +209,19 @@
                 <div class="row">
                     <!--Certificados-->
                     <div class="col-lg-12" >
-                        <ul class="list-group" id="contenedorDocumentos">
-                        </ul>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
-                                <div id="selectorDocumentos">
-                                    <!--<label for="exampleFormControlFile1">Example file input</label>-->
-                                    <input type="file" class="form-control-file" id="inputDocumento" name="documento-1">
-                                </div>
+                                <label class="input-group-btn">
+                                    <span class="btn" style="background: #55d9cb;color: white">
+                                        Curriculum&hellip; <input type="file" id="inputFotografia" name="curriculum" style="display: none;" accept=".pdf">
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control input" readonly>
                             </div>
-
                         </div><br>
                     </div>
                     <!--Fotografía-->
                     <div class="col-lg-12">
-                        <?php
-
-                            $dir = "/funciones/estudiantes/archivos/fotos/" . $id . ".jpg";
-                            echo '
-                                <div class="text-center">
-                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El estudiante no posee fotografía" />
-                                </div>'
-                        ?>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
@@ -241,6 +237,7 @@
             </fieldset>
             
             <br>
+            <hr>
             
             <fieldset class="scheduler-border">
                 <div class="row">
