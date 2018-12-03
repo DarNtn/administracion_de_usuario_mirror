@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/dario/Desktop/Software/Repo%207-11/administracion_usuarios/funciones/estudiantes/estudianteModelo.php</file>
-            <file>file:/C:/Users/dario/Desktop/Software/Repo%207-11/administracion_usuarios/funciones/estudiantes/filtroRepresentantes.php</file>
-            <file>file:/C:/Users/dario/Desktop/Software/Repo%207-11/administracion_usuarios/funciones/estudiantes/estudianteControlador.php</file>
-            <file>file:/C:/Users/dario/Desktop/Software/Repo%207-11/administracion_usuarios/crear_estudiante.php</file>
-            <file>file:/C:/Users/dario/Desktop/Software/Repo%207-11/administracion_usuarios/funciones/estudiantes/functionEstudiantesAcciones.js</file>
+            <file>file:/Users/bandrade/Documents/espol/software_II/administracion_usuarios/profesor_crear.php</file>
+            <file>file:/Users/bandrade/Documents/espol/software_II/administracion_usuarios/funciones/profesor/profesorModelo.php</file>
+            <file>file:/Users/bandrade/Documents/espol/software_II/administracion_usuarios/funciones/profesor/profesorFunciones.js</file>
+            <file>file:/Users/bandrade/Documents/espol/software_II/administracion_usuarios/funciones/profesor/profesorController.php</file>
         </group>
     </open-files>
 </project-private>
