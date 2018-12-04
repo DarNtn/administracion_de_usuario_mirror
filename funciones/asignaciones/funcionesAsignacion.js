@@ -1,5 +1,8 @@
 var tblCursos;
+var tblMaterias;
+var CursoEdit;
 $(document).ready(function () {
+    var materia_profesor = {}; // clave => id_materia, valor => id_profesor
     var column = [{
             "searchable": false,
             "orderable": false,
@@ -34,6 +37,28 @@ $(document).ready(function () {
     }).draw();
 
     refreshTablaCursos();
+    
+    var columnMat = [{        
+            "orderable": false,
+            "targets": 2,        
+            "searchable": false        
+        },{
+            "orderable": false,
+            "targets": 3,
+            "searchable": false,
+            "bVisible": false
+        }
+    ];
+
+    tblMaterias = inicializartable('#tblMaterias', columnMat, 0);
+    
+    $('#tblMaterias tbody').on('click', '#quitar', function () {        
+        materia_profesor[tblMaterias.row($(this).parents('tr')).data()[3]] = null;
+        tblMaterias
+                .row($(this).parents('tr'))
+                .remove()
+                .draw();
+    });
 
     function cargarTablaCursos() {
         var parametros = {"opcion": "listaCursos"};
@@ -52,7 +77,7 @@ $(document).ready(function () {
                         data['data'][i]['jornada'],
                         data['data'][i]['aInicio']+'-'+data['data'][i]['aFin'],
                         data['data'][i]['nombre']+' '+data['data'][i]['apellido'],
-                        '<div class="row"><button type="button" class="btn-line modificar btn btn-warning btn-sm" title="Administrar materias"><i class="glyphicon glyphicon-folder-open"></i></button>\n\
+                        '<div class="row"><button type="button" onclick="setModalMaterias('+i+')" class="btn-line modificar btn btn-warning btn-sm" title="Administrar materias"><i class="glyphicon glyphicon-folder-open"></i></button>\n\
                         <button type="button" class="btn-line btn btn-warning btn-sm" title="Administrar estudiantes"><i class="glyphicon glyphicon-user"></i></button>\n\
                         <button type="button" onclick="setModalEditar('+i+')" class="btn-line btn btn-warning btn-sm" title="Editar asignación"><i class="glyphicon glyphicon-edit"></i></button></div>',
                         data['data'][i]['id']
@@ -170,6 +195,70 @@ $(document).ready(function () {
         });
         return false; // Evitar ejecutar el submit del formulario.
     });
+        
+    $("#agregarMateria").submit(function(){
+        
+        if ($('#materia').val() in materia_profesor && materia_profesor[$('#materia').val()] !== null){
+            swal({
+                title: 'Mensaje',
+                text: 'La materia ya fue asignada, si desea cambiar al docente remueva la materia.',
+                type: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Cerrar'
+            });
+        } else {
+            materia_profesor[$('#materia').val()] = {
+                "idProfesor":$('#docente').val(), 
+                "profesor":$('#docente option:selected').text(), 
+                "materia":$('#materia option:selected').text()
+            };
+            
+            tblMaterias.row.add([
+                $('#materia option:selected').text(),
+                $('#docente option:selected').text(),
+                '<button type="button" id="quitar" class="btn btn-danger btn-sm" title="Quitar materia">\n\
+                                    <i class="glyphicon glyphicon-remove-sign"></i></button>',
+                $('#materia').val()
+            ]).draw(false);
+            
+        }
+        document.getElementById("agregarMateria").reset();   
+        return false;
+    });
+    
+    $('#guardar_materias').submit(function(){
+        if (tblMaterias.rows().data().length > 0){
+            $.ajax({
+                type: "POST",
+                url: "funciones/asignaciones/asignacionControlador.php",
+                data: {"opcion": "Asignar_materias", "materias": materia_profesor, "idCurso": CursoEdit},
+                success: function(data){
+                    swal({
+                        title: 'Mensaje',
+                        text: data['data']['mensaje'],
+                        type: data['data']['estado'],
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Cerrar'
+                    }).then(function () {
+                        toggleDisableEdit();
+                        if (data['data']['estado'] === "success") {
+                            $('#materias').modal('hide');
+                            CursoEdit = null;
+                        }
+                    });
+                }
+            });
+        } else {
+            swal({
+                title: 'Mensaje',
+                text: 'No hay registros para guardar',
+                type: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Cerrar'
+            });
+        }
+        return false;
+    });
     
     function toggleDisableEdit(){
         $('#Ejornada').prop('disabled', !$('#Ejornada').prop('disabled'));
@@ -189,4 +278,40 @@ function setModalEditar(index){
     $('#paralelo_edit').val(data[3]);    
     
     $('#editar').modal('show');    
+}
+
+function setModalMaterias(index){
+    var data = tblCursos.row(index).data();    
+    $('#curso-paralelo').text(data[1]+' - '+data[3]);
+    
+    var parametros = {"opcion": "materiasAsignadas", "idCurso": data[8]};
+    CursoEdit = data[8];
+    $.ajax({
+        type: "POST",
+        url: "funciones/asignaciones/asignacionControlador.php",
+        data: parametros,
+        success: function(data){
+            tblMaterias.data().clear().draw();
+            materia_profesor = {};
+            if (data['data'] !== null){
+                for (var i = 0; i < data['data'].length; i++) {
+                    tblMaterias.row.add([
+                        data['data'][i]['materia'],
+                        data['data'][i]['nombres'] + ' ' + data['data'][i]['apellidos'],
+                        '<button type="button" id="quitar" class="btn btn-danger btn-sm" title="Quitar materia">\n\
+                                        <i class="glyphicon glyphicon-remove-sign"></i></button>',
+                        data['data'][i]['id']
+                    ]).draw(false);
+                    materia_profesor[data['data'][i]['id']] = {
+                        "idProfesor": data['data'][i]['id_profesor'],
+                        "profesor": data['data'][i]['nombres'] + ' ' + data['data'][i]['apellidos'],
+                        "materia": data['data'][i]['materia']
+                    };
+                }
+            }
+        }
+    });
+    
+    
+    $('#materias').modal('show');    
 }

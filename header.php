@@ -16,8 +16,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <!-- VENDOR CSS -->
-        <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+        <!-- VENDOR CSS -->        
+        <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">        
         <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
         <!-- MAIN CSS -->
@@ -117,7 +117,7 @@
                                 <a href="#subHorario" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Horario de Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subHorario" class="collapse ">
                                     <ul class="nav">
-                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                        <li><a href="horarios.php"><i class="lnr lnr-code"></i>Gestor de horario</a></li>
                                     </ul>
                                 </div>
                             </li>

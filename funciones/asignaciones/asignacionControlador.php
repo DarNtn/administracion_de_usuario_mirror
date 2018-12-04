@@ -26,8 +26,28 @@ if ($_POST['opcion'] == "paralelosCurso") {
     echo ($curso->respuestaJson($curso->getParalelosbyJornadaCurso($_POST['curso'], $_POST['jornada'])));
 }
 
+if ($_POST['opcion'] == "materiasAsignadas") {
+    echo ($curso->respuestaJson($curso->getMateriasAsignadas($_POST['idCurso'])));
+}
+
 if ($_POST['opcion'] == "Asignar_dirigente") {
     echo $curso->asignarDirigente($_POST['dirigente'], $_POST['curso'], $_POST['paralelo'], $_POST['jornada']);
+}
+
+if ($_POST['opcion'] == "Asignar_materias") {       
+    $idCurso = $_POST['idCurso'];
+    $curso->eliminarAsignacionesMateria($idCurso);
+    
+    $lista = $_POST['materias'];
+    foreach ($lista as $i => $value){
+        if ($value != null){
+            $resultado = $curso->asignarMateria($i, $value['idProfesor'], $idCurso);
+            if ($resultado['estado'] == "error"){
+                echo $resultado;
+            }
+        }
+    }
+    echo $curso->mensajes('success', 'Asignaciones realizadas exitosamente');
 }
 
 if ($_POST['opcion'] == "Cambiar_dirigente") {

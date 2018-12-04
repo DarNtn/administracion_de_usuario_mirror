@@ -34,6 +34,33 @@ class Curso extends php_conexion {
         return $respuesta;
     }
     
+    public function getMateriasCurso($idCurso){
+        $respuesta = $this->realizarConsulta("SELECT m.id_materia as id, m.nombre as materia FROM cursos c, detalle_materia dm, materia m WHERE c.curso_id = '$idCurso' and c.curso_id = dm.id_curso and dm.id_materia = m.id_materia");
+        
+        return $respuesta;
+    }
+    
+    public function getMateriasAsignadas($idCurso){
+        $respuesta = $this->realizarConsulta("SELECT m.id_materia as id, m.nombre as materia, dm.id_profesor, p.nombres, p.apellidos FROM cursos c, detalle_materia dm, materia m, personal p WHERE c.curso_id = '$idCurso' and c.curso_id = dm.id_curso and dm.id_materia = m.id_materia and dm.id_profesor = p.personal_id");
+        
+        return $respuesta;
+    }
+    
+    public function asignarMateria($idMateria, $idProfesor, $idCurso){
+        $resultado = $this->realizarIngresoId("INSERT INTO detalle_materia (id_materia, id_profesor, id_curso) VALUES ('$idMateria', '$idProfesor', '$idCurso')");
+        if ($resultado > 0){
+            return $this->mensajes('success', 'Registro exitoso');
+        } else {
+            return $this->mensajes('error', 'No se pudo realizar el registro');
+        }
+    }
+    
+    public function eliminarAsignacionesMateria($idCurso){
+        $this->realizarIngreso("DELETE FROM detalle_materia WHERE id_curso = '$idCurso'");
+                
+    }
+
+
     public function getIdCurso($curso, $jornada, $paralelo, $idProfesor){          
         $respuesta = $this->realizarConsulta("SELECT curso_id as id FROM cursos WHERE nombre='$curso' and jornada='$jornada' and paralelo='$paralelo' and dirigente='$idProfesor'");
         
@@ -51,7 +78,7 @@ class Curso extends php_conexion {
         
     public function cambiarDirigente($jornada, $curso, $paralelo, $idProfesor) {
         $idCurso = $this->getIdCurso($curso, $jornada, $paralelo, $idProfesor);
-        //$resultado = $this->realizarIngreso("UPDATE cursos SET dirigente='1' WHERE curso_id='$idCurso'");
+        
         if ($idCurso){
             return $this->mensajes('warning', 'El profesor ya consta como dirigente');
         } else {

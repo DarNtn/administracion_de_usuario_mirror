@@ -194,6 +194,83 @@ include_once './funciones/Link/dataTableLink.php';
         </div>
     </div>
 </div>
+<!-- Fin del ModalEditar-->
+<!-- Inicio del ModalAdministrarMaterias-->
+<div id="materias" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content"> 
+            <div class="modal-body">
+
+                <center><h4 style="color: #55d9cb;">Gestionar Materias</h4></center>
+                <center><h4 id="curso-paralelo" style="color: #55d9cb;">Curso - Paralelo</h4></center>
+                <form id="agregarMateria" method="post">                    
+                    <div class="row" style="margin-left: 40px;">
+                        <div class="col-md-4">
+                            <label for="materia">Materia</label>
+                            <select class="form-control" id="materia" name="materia" required="">
+                                <option selected disabled style="display:none;" value="">Seleccione materia</option>
+                                <?php
+                                $r_materias = $conexion->realizarConsulta("SELECT DISTINCT id_materia as id, nombre as mat FROM materia");
+                                if (sizeof($r_materias) > 0){
+                                    for ($a = 0; $a < sizeof($r_materias); $a++) {
+                                        echo '<option value="' . $r_materias[$a]['id'] . '">' . $r_materias[$a]['mat'] . '</option>';
+                                    }
+                                } else {
+                                    echo '<option disabled value="-">No hay registros de materias</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="docente">Docente</label>
+                            <select class="form-control" id="docente" name="docente" required="" title="Docente">
+                                <option selected disabled style="display:none;" value="">Seleccione docente</option>
+                                <?php
+                                $profesor = $conexion->realizarConsulta("SELECT p.personal_id as id, p.nombres as nombre, p.apellidos as apellido 
+                                                                            FROM personal p");
+                                for ($b = 0; $b < sizeof($profesor); $b++) {
+                                    echo '<option value="' . $profesor[$b]['id'] . '">' . $profesor[$b]['nombre'] . ' ' . $profesor[$b]['apellido'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>     
+                        <div class="col-md-4"><br>
+                            <button type="submit" class="btn btn-info btn-sm" style="margin-left: 50px;" value="Agregar"><strong><i class="glyphicon glyphicon-plus"></i> </strong><strong class="hidden-xs">Agregar Materia</strong></button>
+                        </div>
+                    </div>
+                </form><br><br>
+                <div class="table-responsive" >
+                    <table id="tblMaterias" class="mdl-data-table" cellspacing="0" style="width:100%;white-space: pre-line !important;">
+                        <thead>                        
+                        <th><center>Materia</center></th>
+                        <th><center>Docente</center></th>
+                        <th class="noExport"><center>Acción</center></th>   
+                        <th>Id</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <form id="guardar_materias" method="POST">   
+                    <!--input type="hidden" value="Asignar_materias" name="opcion" /-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" id="btn_enviar" class="btn btn-info btn-block btn-sm" value="Guardar">
+                                <i class="fa fa-save"> </i> Guardar
+                            </button><br>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
+                                <i class="fa fa-trash"> </i> Cancelar
+                            </button><br>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Fin del ModalNuevo-->
 <?php
 include_once('footer.php');
