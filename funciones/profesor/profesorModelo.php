@@ -7,7 +7,7 @@ class Profesor extends php_conexion {
     function crearProfesor($cedula, $nombres, $apellidos, $especialidadId, 
             $telefono, $correo, $usuarioCreacion, $generoId, $estadoCivilId, 
             $direccion, $fechaNacimiento, $fechaInicioLaboral, $anosExperiencia, 
-            $nCargas, $curriculum, $foto, $usuario, $contrasena) {
+            $nCargas, $curriculum, $usuario, $contrasena) {
 
     // Se registra usuario y contraseña en la tabla usuario
     $idUsuarioIngresado = $this->realizarIngresoId("                                
@@ -20,7 +20,7 @@ class Profesor extends php_conexion {
                 $especialidadId, '$telefono', '$correo', '2018-02-22',
                 $usuarioCreacion, $generoId, $estadoCivilId, '$direccion',
                 '$fechaNacimiento', '$fechaInicioLaboral', $anosExperiencia,
-                $nCargas, $curriculum, $idUsuarioIngresado, $foto, '$cedula');
+                $nCargas, $curriculum, $idUsuarioIngresado, '', '$cedula');
         ");
         return $respuesta;
     }
@@ -29,26 +29,55 @@ class Profesor extends php_conexion {
 
     }
     
-    function getListaProfesores(){
+    function obtenerListaProfesores(){
         
         $respuesta= $this->realizarConsulta(" 
             
             select 
-
-            alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.pension, 
-            generos.sexo,
-            lugares.provincia, lugares.ciudad,
-            estados.nombre as 'estado', 
-            instituciones.nombre as 'institucion', 
-            datos_medicos.tiene_discapacidad, datos_medicos.porcentaje_discapacidad, tipo_discapacidad,
-            grupo_sanguineo.nombre as 'grupo_sanguineo'
-
-            from alumno alumno, generos generos, lugares lugares, estados estados, instituciones instituciones, datos_medicos datos_medicos, grupo_sanguineo grupo_sanguineo
-            where alumno.genero_id=generos.genero_id and alumno.cedula=datos_medicos.alumnos_cedula and alumno.instituciones_id=instituciones.institucion_id and alumno.lugar_id=lugares.lugar_id and datos_medicos.idgrupo_sanguineo=grupo_sanguineo.idgrupo_sanguineo and estados.estado_id=alumno.estado_id;
+                personal. cedula, personal.nombres, personal. apellidos, personal.mail as correo,
+                usuario.usuario,
+                estados.nombre as estado
+            from 
+                personal, usuario, estados
+            where 
+                personal.usuario_id = usuario.usuario_id and usuario.estado_id = estados.estado_id;
             
         ");
         
         return $respuesta;
         
     }
+ 
+    function obtenerProfesorPorCedula($cedula){
+    
+        $respuesta= $this->realizarConsulta(" 
+            
+            select 
+                personal.*,
+                usuario.usuario, usuario.clave,
+                estados.nombre as estado
+            from 
+                personal, usuario, estados
+            where 
+                personal.usuario_id = usuario.usuario_id and usuario.estado_id = estados.estado_id
+                and personal.cedula = '$cedula';
+            
+        ");
+        
+        return $respuesta;
+        
+    }
+    
+    function foto($id, $direccion) {
+        
+        return $this->realizarIngreso("UPDATE personal SET foto='$direccion' where cedula='$id'");
+        
+    }
+    
+    function curriculum($id, $direccion) {
+        
+        return $this->realizarIngreso("UPDATE personal SET curriculum_direccion='$direccion' where cedula='$id'");
+        
+    }
+    
 }

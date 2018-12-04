@@ -760,7 +760,7 @@ CREATE TABLE `personal` (
   `cargas` int(11) DEFAULT NULL,
   `curriculum_direccion` varchar(200) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL,
-  `foto` blob,
+  `foto` varchar(45),
   `cedula` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`personal_id`),
   KEY `profesores_generos_idx` (`genero_id`),

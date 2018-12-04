@@ -1,12 +1,15 @@
 <?php
     include_once('header.php');
     include_once './funciones/Link/dataTableLink.php';
-    $opcion = "";
-    if (!empty($_GET['id'])) {
-        $opcion = 'actualizarProfesor';
-    } else {
-        $opcion = 'crearProfesor';
+    
+    $opcion = "crearProfesor";
+    $id = "";
+    
+    if (!empty($_GET['id'])){
+        $opcion = 'editarProfesor';
+        $id = $_GET['id'];
     }
+        
 ?>
 
 <link rel="stylesheet" href="assets/css/extra.css"/>
@@ -36,19 +39,9 @@
 <!--Body-->
 <div class="panel">
     <div class="panel-body">
-        <?php
-            $opcion = "";
-            $id = "";
-            if (!empty($_GET['id'])) {
-                $opcion = 'actualizarProfesor';
-                $id = $_GET['id'];
-            } else {
-                $opcion = 'crearProfesor';
-            }
-        ?>
         <form id="formulario" enctype="multipart/form-data" method="post">
-            <input name="opcion" type="hidden" value="<?php echo $opcion; ?>"/>
-            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+            <input type="hidden" id="opcion" name="opcion" value="<?php echo $opcion; ?>"/>
+            <input type="hidden" id="id" value="<?php echo $id; ?>">
             
             <!--Datos personales-->
             <fieldset class="scheduler-border">
@@ -66,14 +59,14 @@
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input class="form-control" type="text" name="nombres" placeholder="Nombres" required="true"/>
+                            <input class="form-control" type="text" id="nombres" name="nombres" placeholder="Nombres" required="true"/>
                         </div><br>
                     </div>
                     <!--Apellidos-->
                     <div class="col-lg-3">
                         <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input class="form-control" type="text" name="apellidos" placeholder="Apellidos" required="true"/>
+                                <input class="form-control" type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required="true"/>
                         </div><br>
                     </div>
                     <!--Estado civil-->
@@ -96,15 +89,15 @@
                     <!--Fecha de Nacimiento-->
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input class="form-control" type="text" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" onfocus="(this.type = 'date')" onblur="calcularEdad(fechaNacimiento.value, '#edad');(this.type = 'text')" required="true"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input class="form-control" type="date" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" onblur="calcularEdad(fechaNacimiento.value, '#edad');" required=""/>
                         </div><br>
                     </div>
                     <!--Edad-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
-                                <input class="form-control" type="text" id="edad" placeholder="Edad" disabled="true"/>
+                                <input class="form-control" type="text" id="edad" name="edad" placeholder="Edad" disabled="true"/>
                         </div><br>
                     </div>
                     <!--Email-->
@@ -127,8 +120,8 @@
                     <!---Fecha desde que labora-->
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input class="form-control" type="text" id="fechaInicioLaboral" name="fechaInicioLaboral" placeholder="Fecha desde que labora" onfocus="(this.type = 'date')" onblur="(this.type = 'text')"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input class="form-control" type="date" id="fechaInicioLaboral" name="fechaInicioLaboral" placeholder="Fecha de nacimiento" required=""/>
                         </div>
                     </div>                    
                     <!---NCargas-->
@@ -207,13 +200,13 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Documentos</legend>
                 <div class="row">
-                    <!--Certificados-->
+                    <!--Curriculum-->
                     <div class="col-lg-12" >
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
                                     <span class="btn" style="background: #55d9cb;color: white">
-                                        Curriculum&hellip; <input type="file" id="inputFotografia" name="curriculum" style="display: none;" accept=".pdf">
+                                        Curriculum&hellip; <input type="file" id="inputCurriculum" name="curriculum" style="display: none;" accept=".pdf">
                                     </span>
                                 </label>
                                 <input type="text" class="form-control input" readonly>
@@ -222,6 +215,14 @@
                     </div>
                     <!--Fotografía-->
                     <div class="col-lg-12">
+                        <?php
+
+                            $dir = "/funciones/profesor/archivos/fotos/" . $id . ".jpg";
+                            echo '
+                                <div class="text-center">
+                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El estudiante no posee fotografía" />
+                                </div>'
+                        ?><br>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
@@ -252,5 +253,3 @@
         </form>
     </div>
 </div>
-
-                    
