@@ -1,8 +1,8 @@
 var tblCursos;
 var tblMaterias;
 var CursoEdit;
-$(document).ready(function () {
-    var materia_profesor = {}; // clave => id_materia, valor => id_profesor
+var materia_profesor = {}; // clave => id_materia, valor => id_profesor
+$(document).ready(function () {    
     var column = [{
             "searchable": false,
             "orderable": false,
@@ -93,17 +93,17 @@ $(document).ready(function () {
     }        
     
     $('#jornada').change(function(){
+        $('#curso').val(''); $('#paralelo').val('');
         var parametros = {"opcion": "cursosJornada", "jornada":this.value};
         $.ajax({
             type: "POST",
             url: "funciones/asignaciones/asignacionControlador.php",
             data: parametros,
             success: function(data){
-                $('#curso option').each(function() {
-                    if ( $(this).val() !== '' ) {
-                        $(this).remove();
-                    }
+                $('#curso option').each(function() {                    
+                    $(this).remove();                    
                 });
+                $('#curso').append('<option selected disabled style="display:none;" value="">Seleccione curso</option>');
                 if (data['data']){
                     for (var i = 0; i < data['data'].length; i++) {
                         $('#curso').append($('<option>', {
@@ -118,18 +118,18 @@ $(document).ready(function () {
         });        
     });
     
-    $('#curso').change(function(){        
-        var parametros = {"opcion": "paralelosCurso", "curso":this.innerText, "jornada": $('#jornada').val()};
+    $('#curso').change(function(){     
+        $('#paralelo').val('');
+        var parametros = {"opcion": "paralelosCurso", "curso":this.value, "jornada": $('#jornada').val()};
         $.ajax({
             type: "POST",
             url: "funciones/asignaciones/asignacionControlador.php",
             data: parametros,
             success: function(data){
-                $('#paralelo option').each(function() {
-                    if ( $(this).val() !== '' ) {
-                        $(this).remove();
-                    }
+                $('#paralelo option').each(function() {                    
+                    $(this).remove();                    
                 });
+                $('#paralelo').append('<option selected disabled style="display:none;" value="">Seleccione paralelo</option>');
                 if (data['data']){
                     for (var i = 0; i < data['data'].length; i++) {
                         $('#paralelo').append($('<option>', {
@@ -187,7 +187,7 @@ $(document).ready(function () {
                     confirmButtonText: 'Cerrar'
                 }).then(function () {
                     toggleDisableEdit();
-                    if (data['data']['estado'] == "success") {
+                    if (data['data']['estado'] === "success") {
                         $('#editar').modal('hide');
                     }
                 });
@@ -239,8 +239,7 @@ $(document).ready(function () {
                         type: data['data']['estado'],
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Cerrar'
-                    }).then(function () {
-                        toggleDisableEdit();
+                    }).then(function () {                        
                         if (data['data']['estado'] === "success") {
                             $('#materias').modal('hide');
                             CursoEdit = null;

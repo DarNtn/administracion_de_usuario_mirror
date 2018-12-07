@@ -62,90 +62,29 @@ include_once './funciones/Link/dataTableLink.php';
                     <div class="col-md-2"><center><strong>VIERNES</strong></center></div>
                 </div>
                 <div class="row extended">
-                    <div class="col-md-2" id="Lunes">
-                        <center><button class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                    <div class="col-md-2">
+                        <center><button class="btn btn-default round addHora" value="Lunes" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                        <div id="Lunes"></div>
                     </div>
-                    <div class="col-md-2" id="Martes">
-                        <center><button class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                    <div class="col-md-2">
+                        <center><button class="btn btn-default round addHora" value="Martes"  title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                        <div id="Martes"></div>
                     </div>
-                    <div class="col-md-2" id="Miercoles">
-                        <center><button class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                    <div class="col-md-2">
+                        <center><button class="btn btn-default round addHora" value="Miercoles" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                        <div id="Miercoles"></div>
                     </div>
-                    <div class="col-md-2" id="Jueves">
-                        <center><button class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                    <div class="col-md-2">
+                        <center><button class="btn btn-default round addHora" value="Jueves" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                        <div id="Jueves"></div>
                     </div>
-                    <div class="col-md-2" id="Viernes">
-                        <center><button class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                    <div class="col-md-2">
+                        <center><button class="btn btn-default round addHora" value="Viernes" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                        <div id="Viernes"></div>
                     </div>
                 </div>
-                <form id="guardarHorario" method="post">
-                    <input type="hidden" name="opcion" value="Guardar_horario"/>                    
+                <form id="guardarHorario" method="post">                                      
                     <br>                    
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="submit" id="btn_enviar" class="btn btn-info btn-block btn-sm" value="Guardar">
-                                <i class="fa fa-save"> </i> Guardar
-                            </button><br>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
-                                <i class="fa fa-trash"> </i> Cancelar
-                            </button><br>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fin del ModalNuevo-->
-<!-- Inicio del ModalEditar-->
-<div id="editar" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content"> 
-            <div class="modal-body">
-
-                <center><h4 style="color: #55d9cb;">Cambiar dirigente</h4></center>                
-                <form id="cambiarDirigente" method="post">
-                    <input type="hidden" name="opcion" value="Cambiar_dirigente"/>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="Ejornada">Jornada</label>
-                            <select disabled class="form-control" id="Ejornada" name="Ejornada" required="">
-                                <option value="" id="jornada_edit"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="Ecurso">Curso</label>
-                            <select disabled class="form-control" id="Ecurso" name="Ecurso" required="" title="Curso">
-                                <option value="" id="curso_edit"></option>
-                            </select>
-                        </div>                        
-                    </div><br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="Eparalelo">Paralelo</label>
-                            <select disabled class="form-control" id="Eparalelo" name="Eparalelo" required="" title="Paralelo">
-                                <option value="" id="paralelo_edit"></option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="Edirigente">Dirigente</label>
-                            <select class="form-control" id="Edirigente" name="Edirigente" required="" title="Dirigente">
-                                <option selected disabled style="display:none;" value="">Seleccione dirigente</option>
-                                <?php
-                                $profesor = $conexion->realizarConsulta("SELECT p.personal_id as id, p.nombres as nombre, p.apellidos as apellido 
-                                                                            FROM personal p");
-                                for ($b = 0; $b < sizeof($profesor); $b++) {
-                                    echo '<option value="' . $profesor[$b]['id'] . '">' . $profesor[$b]['nombre'] . ' ' . $profesor[$b]['apellido'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        
-                    </div><br>                    
                     <br>
                     <div class="row">
                         <div class="col-md-6">

@@ -39,15 +39,21 @@ if ($_POST['opcion'] == "Asignar_materias") {
     $curso->eliminarAsignacionesMateria($idCurso);
     
     $lista = $_POST['materias'];
+    $flag = true;
     foreach ($lista as $i => $value){
         if ($value != null){
             $resultado = $curso->asignarMateria($i, $value['idProfesor'], $idCurso);
-            if ($resultado['estado'] == "error"){
-                echo $resultado;
+            if (!$resultado){
+                $flag = false;
             }
         }
     }
-    echo $curso->mensajes('success', 'Asignaciones realizadas exitosamente');
+    if ($flag){
+        echo $curso->mensajes('success', 'Asignaciones realizadas exitosamente');
+    }else{
+        echo $curso->mensajes('error', 'Lo sentimos, no se pudo realizar el registro');
+    }
+    
 }
 
 if ($_POST['opcion'] == "Cambiar_dirigente") {

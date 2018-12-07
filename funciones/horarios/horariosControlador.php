@@ -21,3 +21,13 @@ if ($_POST['opcion'] == "listaCursos") {
 if ($_POST['opcion'] == "materiasCurso") {
     echo ($curso->respuestaJson($curso->getMateriasCurso($_POST['idCurso'])));
 }
+
+if ($_POST['opcion'] == "Guardar_horario"){
+    $horasDesde = $_POST['horasDesde'];
+    $horasHasta = $_POST['horasHasta'];
+    $materias = $_POST['materias'];
+    
+    for ($a = 0; $a < $materias.length; $a++){
+        
+    }
+}

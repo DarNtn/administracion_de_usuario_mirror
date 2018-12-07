@@ -23,7 +23,8 @@ class Curso extends php_conexion {
     }
     
     public function getCursosbyJornada($jornada){
-        $respuesta = $this->realizarConsulta("SELECT curso_id as id, nombre as curso FROM cursos WHERE jornada='$jornada'");
+        //$respuesta = $this->realizarConsulta("SELECT curso_id as id, nombre as curso FROM cursos WHERE jornada='$jornada'");
+        $respuesta = $this->realizarConsulta("SELECT DISTINCT nombre as curso FROM cursos WHERE jornada='$jornada'");
         
         return $respuesta;
     }
@@ -49,9 +50,9 @@ class Curso extends php_conexion {
     public function asignarMateria($idMateria, $idProfesor, $idCurso){
         $resultado = $this->realizarIngresoId("INSERT INTO detalle_materia (id_materia, id_profesor, id_curso) VALUES ('$idMateria', '$idProfesor', '$idCurso')");
         if ($resultado > 0){
-            return $this->mensajes('success', 'Registro exitoso');
+            return true;
         } else {
-            return $this->mensajes('error', 'No se pudo realizar el registro');
+            return false;
         }
     }
     
