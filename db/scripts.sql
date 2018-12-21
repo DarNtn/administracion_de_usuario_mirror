@@ -3,6 +3,8 @@ use administracion_colegio;
 describe alumno;
 describe estados;
 describe documento;
+describe personal; 
+describe usuario;
 
 select * from actividad;
 select * from adjunto;
@@ -37,7 +39,18 @@ select * from usuario;
 INSERT INTO datos_medicos VALUES(1,22,'$tipoD','$cedula', 5);
 INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', 0, '', '2018-02-22', 0, '', '2018-02-22', '', 0, 0, '', 0, 0);
 insert into documento values('link', 'name', '0930703707');
+INSERT INTO personal VALUES(1, '$nombres', '$apellidos',
+                1, '$telefono', '$correo', '2018-02-22', 2, 2,
+                2, '$direccion', '2018-02-22', '2018-02-22',
+                3, 3, 'direccion', 2, 1,
+                '$cedula');
 
+INSERT INTO personal VALUES(NULL, '$nombres', '$apellidos',
+                    0, '$telefono', '$correo', '2018-02-22',
+                    0, 0, 0, '$direccion',
+                    '2018-02-22', '2018-02-22', 0,
+                    0, 0, 0, 0, '$cedula');
+                    
 # Get 
 select 
 alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.pension, 
