@@ -138,16 +138,6 @@
                             <input class="form-control" type="text" id="direccion" name="direccion" placeholder="Dirección" required=""/>
                         </div>
                     </div>
-                    <!--Teléfono-->
-                    <div class="col-lg-3">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
-                            <input class="form-control" type="text" id="telefono" name="telefono" placeholder="Teléfono" required=""/>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
                     <!---Especialidad-->
                     <div class="col-lg-3">
                         <div class="input-group">
@@ -160,6 +150,10 @@
                             </select>
                         </div>
                     </div>
+                </div>
+                
+                <br>
+                <div class="row">
                     <!---Género-->
                     <div class="col-lg-3">
                         <select class="form-control" id="genero" name="genero">
@@ -169,8 +163,33 @@
                         </select><br>
                     </div>                    
                 </div>
-            </fieldset> 
+            </fieldset>  
+            <br/>
             
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Contacto</legend> 
+                
+                <div class="row" id="contenedorTelefonos">
+                    
+                    <div class="col-lg-3" style="margin-top: 15px">
+                        <label class="input-group-btn" onClick="añadirTextFieldTelefono()">
+                            <span class="btn" style="background: #55d9cb;color: white; width: 100%">
+                                Añadir Teléfono
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!--Teléfono-->
+                    <div class="col-lg-3" style="margin-top: 15px">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
+                            <input class="form-control telefono" type="text" id="telefono" name="telefono" placeholder="Teléfono" required=""/>
+                        </div>
+                    </div>
+                    
+                </div>
+            </fieldset>
+            <br/>
             <br/>
             
             <!--Cuenta-->
@@ -220,7 +239,7 @@
                             $dir = "/funciones/profesor/archivos/fotos/" . $id . ".jpg";
                             echo '
                                 <div class="text-center">
-                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El estudiante no posee fotografía" />
+                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El profesor no posee fotografía" />
                                 </div>'
                         ?><br>
                         <div class="input-group-datos input-group-icon">
@@ -239,6 +258,8 @@
             
             <br>
             <hr>
+            <br>
+            <br>
             
             <fieldset class="scheduler-border">
                 <div class="row">

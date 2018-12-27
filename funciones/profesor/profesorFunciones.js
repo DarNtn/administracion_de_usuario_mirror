@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     mostrarProfesores();
     registrarProfesor();
     modificarProfesor();
@@ -106,12 +106,15 @@ function mostrarProfesores(){
 function registrarProfesor(){
     
     $("form#formulario").submit(function (event) {
-        //disable the default form submission
+
         event.preventDefault();
+
+        // Registrar numeros telefonicos
+//        registrarTelefonos();
         
         // Obtener los datos del formulario
         var formData = new FormData($(this)[0]);
-
+        
         $.ajax({
             type: "POST",
             url: "funciones/profesor/profesorControlador.php",
@@ -137,6 +140,42 @@ function registrarProfesor(){
     
 }
 
+function registrarTelefonos(){
+    
+    var contenedorTelefonos = $(".telefono");
+    var nTelefonos = contenedorTelefonos.length;
+    var telefonos = []
+    
+    for(var i=0; i<nTelefonos; i++){
+        telefonos.push(contenedorTelefonos[i].value)
+    }
+    
+    var parametros = {"cedula": "1301234488", "opcion": "ingresarTelefonos"};
+    console.log(telefonos);
+    
+    $.ajax({
+        type: "POST",
+        url: "funciones/profesor/profesorControlador.php",
+        data: parametros, 
+        enctype: 'multipart/form-data',
+        contentType: false,
+        processData: false,
+        success: function (data){
+            swal({
+                title: 'Mensaje',
+                text: data['data']['mensaje'],
+                type: data['data']['estado'],
+                confirmButtonText: "OK"
+            }).then( result => {
+                if (data['data']['estado'] === "success"){
+                    window.location.href = 'profesor_crear.php';
+                }                        
+            });                    
+        }
+    });
+    
+}
+
 function clickEditarProfesor(tabla){
     
     $('#example tbody').on('click', '#editarBtn', function () {
@@ -158,7 +197,7 @@ function clickDeshabilitarProfesor(tabla){
 //         }).always(function() {
 //            refresh();
 //            });
-        console.log("asafasffsaafaffs");
+        console.log("Pendiente");
     });
     
 }
@@ -214,5 +253,40 @@ function mostrarFotografia(){
             document.getElementById("imgFotografia").src=fileContent;
         }
     });
+    
+}
+
+function añadirTextFieldTelefono(){
+
+    var div = document.createElement("div");
+    div.classList.add('col-lg-3');
+    div.setAttribute("style", "margin-top: 15px");
+    
+    var div2 = document.createElement("div");
+    div2.classList.add('input-group');
+
+    var span = document.createElement("span");
+    span.classList.add('input-group-addon');
+    
+    var i = document.createElement("i");
+    i.classList.add('fa');
+    i.classList.add('fa-mobile');
+    i.classList.add('fa-fw');
+    
+    var input = document.createElement("input");
+    input.classList.add('form-control');
+    input.classList.add('telefono');
+    input.setAttribute("type", "text");
+    input.setAttribute("id", "telefono");
+    input.setAttribute("name", "telefono");
+    input.setAttribute("placeholder", "telefono");
+
+    span.appendChild(i);
+    div2.appendChild(span);
+    div2.appendChild(input);
+    div.appendChild(div2);
+
+    var contenedor = document.getElementById('contenedorTelefonos');
+    contenedor.appendChild(div);        
     
 }
