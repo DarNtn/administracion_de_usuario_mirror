@@ -1,4 +1,13 @@
 .DS_Store
 *.log
 funciones/conexion/php_conexion.php
-TODO
+
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
