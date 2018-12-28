@@ -46,5 +46,3 @@ INSERT INTO `usuario` VALUES ('admin','admin','a',1,1);
 INSERT INTO `usuario` VALUES ('profesor','profesor','p',2,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
-usuario
