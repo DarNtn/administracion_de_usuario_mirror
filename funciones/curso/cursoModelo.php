@@ -30,7 +30,7 @@ class Curso extends php_conexion {
     }
     
     public function getParalelosbyJornadaCurso($curso, $jornada){
-        $respuesta = $this->realizarConsulta("SELECT paralelo FROM cursos WHERE nombre='$curso' and jornada='$jornada' and dirigente=0");
+        $respuesta = $this->realizarConsulta("SELECT paralelo FROM cursos WHERE nombre='$curso' and jornada='$jornada' and dirigente is null");
         
         return $respuesta;
     }
