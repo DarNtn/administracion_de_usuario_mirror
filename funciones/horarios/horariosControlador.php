@@ -9,11 +9,6 @@ if ($_POST['opcion'] == "idCurso") {
     echo ($curso->respuestaJson($curso->getId($idCurso)));
 }
 
-//if ($_POST['opcion'] == "cedulaUsuario") {
-//    $cedula=$_POST['cedula'];
-//    echo ($curso->respuestaJson($curso->getCedula($cedula)));
-//}
-
 if ($_POST['opcion'] == "listaCursos") {
     echo ($curso->respuestaJson($curso->get()));
 }
@@ -22,12 +17,36 @@ if ($_POST['opcion'] == "materiasCurso") {
     echo ($curso->respuestaJson($curso->getMateriasCurso($_POST['idCurso'])));
 }
 
+if ($_POST['opcion'] == "getHorario") {
+    echo ($curso->getHorarioCurso($_POST['idCurso']));
+}
+
 if ($_POST['opcion'] == "Guardar_horario"){
-    $horasDesde = $_POST['horasDesde'];
-    $horasHasta = $_POST['horasHasta'];
-    $materias = $_POST['materias'];
-    
-    for ($a = 0; $a < $materias.length; $a++){
+    $dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+    $horario = $_POST['horario'];
+    $cursoID = $_POST['curso'];    
+    $valido = true;
+    $respuesta = null;
         
+    for ($a = 0; $a < count($dias); $a++){
+        if (array_key_exists($dias[$a], $horario)){
+            $clases = $horario[$dias[$a]];        
+        
+            for ($b = 0; $b < count($clases); $b++){
+                $respuesta = $curso->disponibilidadProf($cursoID, $clases[$b], $dias[$a]);
+                if ($respuesta['estado'] == 'error'){
+                    $valido = false;
+                    break;
+                }
+            }            
+        }  
+        if (!$valido){
+            break;
+        }
     }
+    if ($valido){
+        $curso->guardarHorarioCurso($horario, $cursoID);
+    }
+    
+    $curso->mensajes($respuesta['estado'], $respuesta['mensaje']);
 }

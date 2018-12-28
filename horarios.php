@@ -52,8 +52,7 @@ include_once './funciones/Link/dataTableLink.php';
             <div class="modal-body">
 
                 <center><h4 style="color: #55d9cb;">Gestor de Horario</h4></center>
-                <center><h4 id="curso-name" style="color: #55d9cb;">Curso - Paralelo</h4></center>
-                <span style="display:none;" id="idCurso"></span>
+                <center><h4 id="curso-name" style="color: #55d9cb;">Curso - Paralelo</h4></center>                
                 <div class="row extended">
                     <div class="col-md-2"><center><strong>LUNES</strong></center></div>
                     <div class="col-md-2"><center><strong>MARTES</strong></center></div>
@@ -61,29 +60,30 @@ include_once './funciones/Link/dataTableLink.php';
                     <div class="col-md-2"><center><strong>JUEVES</strong></center></div>
                     <div class="col-md-2"><center><strong>VIERNES</strong></center></div>
                 </div>
-                <div class="row extended">
-                    <div class="col-md-2">
-                        <center><button class="btn btn-default round addHora" value="Lunes" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
-                        <div id="Lunes"></div>
+                
+                <form id="guardarHorario" method="post"> 
+                    <div class="row extended">
+                        <div class="col-md-2">
+                            <center><button class="btn btn-default round addHora" value="Lunes" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                            <div id="Lunes"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <center><button class="btn btn-default round addHora" value="Martes"  title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                            <div id="Martes"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <center><button class="btn btn-default round addHora" value="Miercoles" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                            <div id="Miercoles"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <center><button class="btn btn-default round addHora" value="Jueves" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                            <div id="Jueves"></div>
+                        </div>
+                        <div class="col-md-2">
+                            <center><button class="btn btn-default round addHora" value="Viernes" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                            <div id="Viernes"></div>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <center><button class="btn btn-default round addHora" value="Martes"  title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
-                        <div id="Martes"></div>
-                    </div>
-                    <div class="col-md-2">
-                        <center><button class="btn btn-default round addHora" value="Miercoles" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
-                        <div id="Miercoles"></div>
-                    </div>
-                    <div class="col-md-2">
-                        <center><button class="btn btn-default round addHora" value="Jueves" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
-                        <div id="Jueves"></div>
-                    </div>
-                    <div class="col-md-2">
-                        <center><button class="btn btn-default round addHora" value="Viernes" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
-                        <div id="Viernes"></div>
-                    </div>
-                </div>
-                <form id="guardarHorario" method="post">                                      
                     <br>                    
                     <br>
                     <div class="row">

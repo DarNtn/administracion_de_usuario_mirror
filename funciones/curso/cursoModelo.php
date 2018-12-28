@@ -91,6 +91,67 @@ class Curso extends php_conexion {
             }
         }
     }
+    
+    public function disponibilidadProf($idCurso, $clase, $dia){
+        $materia = $clase['materia'];
+        $desde = $clase['desde'];
+        $hasta = $clase['hasta'];        
+        $idProf = null;
+        $retorno = array('estado' => "success", 'mensaje' => "El horario se registró exitosamente");
+        $respuesta = $this->realizarConsulta("SELECT id_profesor as idP FROM detalle_materia WHERE id_materia = '$materia' AND id_curso = '$idCurso'");
+        if ($respuesta){
+            $idProf = $respuesta[0]['idP'];
+            
+            $respuesta = $this->realizarConsulta("SELECT h.hora_inicio, h.hora_fin FROM detalle_materia dm, horario h WHERE dm.id_detalle_materia = h.id_detalle_materia AND id_profesor = '$idProf' AND NOT id_curso='$idCurso' AND dia='$dia'");
+            if ($respuesta){
+                for ($a = 0; $a < count($respuesta); $a++){
+                    if (! ($desde >= $respuesta[$a]['hora_fin'] || $hasta <= $respuesta[$a]['hora_inicio'])){                    
+                        $profesor = $this->realizarConsulta("SELECT nombres, apellidos FROM personal WHERE personal_id='$idProf'")[0];
+                        $retorno = array('estado' => "error", 'mensaje' => "No se pudo registrar el horario debido a un cruce de horas en el horario del profesor " . $profesor['nombres'] . " " . $profesor['apellidos'] . " en el día " . $dia);
+                        break;
+                    }
+                }
+            }
+        }
+        return $retorno;
+    }
+    
+    public function getHorarioCurso($idCurso){
+        $respuesta = $this->realizarConsulta("SELECT * FROM horario h, detalle_materia dm WHERE h.id_detalle_materia = dm.id_detalle_materia AND dm.id_curso = '$idCurso'");
+        $horario = array("Lunes" => array(), "Martes" => array(), "Miercoles" => array(), "Jueves" => array(), "Viernes" => array());
+        if ($respuesta){
+            for ($a = 0; $a < count($respuesta); $a++){                
+                $horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "hasta" => $respuesta[$a]['hora_fin'], "materia" => $respuesta[$a]['id_materia']);
+            }                        
+        }
+        
+        return $this->respuestaJson($horario);
+    }
+    
+    public function guardarHorarioCurso($horario, $idCurso){
+        $dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+        
+        $this->borrarHorarios($idCurso);
+        for ($a = 0; $a < count($dias); $a++){
+            $dia = $dias[$a];
+            if (array_key_exists($dia, $horario)){
+                $clases = $horario[$dia];        
+
+                for ($b = 0; $b < count($clases); $b++){
+                    $clase = $clases[$b];
+                    $materia = $clase['materia'];
+                    $h_inicio = $clase['desde'];
+                    $h_fin = $clase['hasta'];
+                    $respuesta = $this->realizarConsulta("SELECT id_detalle_materia as id FROM detalle_materia WHERE id_curso='$idCurso' AND id_materia='$materia'")[0]['id'];
+                    $this->realizarIngreso("INSERT INTO horario (dia, hora_inicio, hora_fin, id_detalle_materia) VALUES ('$dia', '$h_inicio', '$h_fin', '$respuesta')");
+                }     
+            }                   
+        }
+    }
+    
+    public function borrarHorarios($idCurso){
+        $this->realizarIngreso("DELETE FROM horario WHERE id_horario in (SELECT id FROM (SELECT id_horario as id FROM horario h, detalle_materia dm WHERE dm.id_detalle_materia = h.id_detalle_materia AND dm.id_curso = '$idCurso') AS c)");
+    }
 
     public function getCurso($nombre, $paralelo) {
         $respuesta = $this->realizarConsulta("
