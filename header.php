@@ -151,6 +151,44 @@
                             </li>
                         </ul>
                         <?php endif; ?>
+                        
+                        <?php if($rol === "PROFESOR") : ?>
+                        <ul class="nav">
+                            <li>
+                                <a href="#subCursos" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Cursos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subCursos" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="cursos_prof.php"><i class="lnr lnr-code"></i>Ver Cursos</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#subHorario" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Horario de Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subHorario" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="horario_prof.php"><i class="lnr lnr-code"></i>Ver Horario</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#comunicados" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Comunicados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="comunicados" class="collapse">
+                                    <ul class="nav">
+                                        <li><a href="comunicados.php"><i class="lnr lnr-code"></i>Nueva Notificación</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Nueva Citación</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Plantillas Ingresadas</a></li>
+                                        <li><a href="configuracion_mail.php"><i class="lnr lnr-code"></i>Configuración</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <?php endif; ?>
                     </nav>
                 </div>
             </div>
