@@ -29,14 +29,15 @@ include_once './funciones/Link/dataTableLink.php';
 <!-- Fin del Cabecera-->
 <!-- Inicio del Tabla-->
 <div class="table-responsive" >
+    <span id="idProf" style="display:none"><?php echo $_SESSION['username'] ?></span>
     <table id="tblHorario" class="mdl-data-table" cellspacing="0" style="width:100%;white-space: pre-line !important;">
         <thead>
-        <th>HORA</th>
-        <th>LUNES</th>
-        <th>MARTES</th>
-        <th>MIÉRCOLES</th>
-        <th>JUEVES</th>        
-        <th>VIERNES</th>
+        <th id='columna0'>HORA</th>
+        <th id='columna1'>LUNES</th>
+        <th id='columna2'>MARTES</th>
+        <th id='columna3'>MIÉRCOLES</th>
+        <th id='columna4'>JUEVES</th>        
+        <th id='columna5'>VIERNES</th>
         </thead>
         <tbody>
         </tbody>

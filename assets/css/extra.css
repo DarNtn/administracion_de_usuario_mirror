@@ -51,3 +51,12 @@ input[type="radio"]{
     color: gray;
     margin-bottom: 1em;
 }
+
+#tblHorario td, th{
+    border: 1px gray solid;
+    text-align: center !important;
+}
+
+#tblHorario thead{
+    background-color: #d9edf7;
+}

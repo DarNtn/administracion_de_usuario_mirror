@@ -22,8 +22,7 @@ if ($_POST['opcion'] == "getHorario") {
 }
 
 if ($_POST['opcion'] == "getHorarioProf") {
-    //echo ($curso->getHorarioProf($_SESSION['username']));
-    echo ($curso->getHorarioProf("profesor"));
+    echo ($curso->getHorarioProf($_POST['idProf']));    
 }
 
 if ($_POST['opcion'] == "Guardar_horario"){

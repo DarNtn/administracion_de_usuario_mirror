@@ -128,26 +128,27 @@ class Curso extends php_conexion {
         return $this->respuestaJson($horario);
     }
     
-    public function getHorarioProf($profesor){
+    public function getHorarioProf($profesor){         
         $idProf = $this->realizarConsulta("SELECT p.personal_id FROM personal p, usuario u WHERE p.usuario_id = u.usuario_id AND u.usuario = '$profesor'");
         $idProf = $idProf? $idProf[0]['personal_id'] : 0;
-        $respuesta = $this->realizarConsulta("SELECT hora_inicio, hora_fin, id_materia, nombre, paralelo FROM horario h, detalle_materia dm, cursos c WHERE h.id_detalle_materia = dm.id_detalle_materia AND c.curso_id = dm.id_curso AND dm.id_profesor = '$idProf'");
+        $respuesta = $this->realizarConsulta("SELECT dia, hora_inicio, hora_fin, id_materia, nombre, paralelo, min(hora_inicio) as minimo, max(hora_fin) as maximo FROM horario h, detalle_materia dm, cursos c WHERE h.id_detalle_materia = dm.id_detalle_materia AND c.curso_id = dm.id_curso AND dm.id_profesor = '$idProf'");
         $horario = array("Lunes" => array(), "Martes" => array(), "Miercoles" => array(), "Jueves" => array(), "Viernes" => array());
         if ($respuesta){
+            $minimo = $respuesta[0]['minimo'];
+            $maximo = $respuesta[0]['maximo'];
             for ($a = 0; $a < count($respuesta); $a++){                
                 $duracion = new DateTime($respuesta[$a]['hora_fin']);
                 $duracion = $duracion->diff(new DateTime($respuesta[$a]['hora_inicio']));
-                $duracion = $duracion->hours * 60 + $duracion->minutes;
-                $horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "duracion" => $duracion, "materia" => $respuesta[$a]['id_materia'], "curso" => $respuesta[$a]['nombre'] . $respuesta[$a]['paralelo']);
+                $duracion = $duracion->h * 60 + $duracion->i;
+                $horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "duracion" => $duracion, "materia" => $respuesta[$a]['id_materia'], "curso" => $respuesta[$a]['nombre'] . ' ' . $respuesta[$a]['paralelo']);
             }                        
         }
         
-        return $this->respuestaJson($horario);
+        return $this->respuestaJson(array("horario" => $horario, "minimo" => $minimo, "maximo" => $maximo));
     }
     
     public function guardarHorarioCurso($horario, $idCurso){
-        $dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
-        // NO ESTA GUARDANDO EL HORARIO!!!
+        $dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];        
         $this->borrarHorarios($idCurso);
         for ($a = 0; $a < count($dias); $a++){
             $dia = $dias[$a];

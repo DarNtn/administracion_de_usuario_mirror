@@ -1,6 +1,7 @@
 function inicializartable(tabla,column,ordenColumn,grupo,pieTotal){
-return $(tabla).DataTable({
+return $(tabla).DataTable({    
             columnDefs: column,
+            "pageLength": tabla=='#tblHorario'? 25: 10,
             "drawCallback": function (settings) {
                 if(grupo!=null){
                     var api = this.api();

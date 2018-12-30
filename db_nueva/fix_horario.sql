@@ -32,6 +32,9 @@ ADD CONSTRAINT `detalle_materia_ibfk_3`
   
   
 ALTER TABLE `administracion_colegio`.`horario` 
+CHANGE COLUMN `id_horario` `id_horario` INT(11) NOT NULL AUTO_INCREMENT ;  
+  
+ALTER TABLE `administracion_colegio`.`horario` 
 DROP FOREIGN KEY `horario_ibfk_1`;
 
 ALTER TABLE `administracion_colegio`.`horario` 
