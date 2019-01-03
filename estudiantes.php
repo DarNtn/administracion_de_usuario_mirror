@@ -48,6 +48,3 @@ include_once './funciones/Link/dataTableLink.php';
         </tbody>
     </table>
 </div>
-<!-- Fin del Cabecera-->
-<?php
-include_once('footer.php');

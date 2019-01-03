@@ -1,12 +1,15 @@
 <?php
     include_once('header.php');
     include_once './funciones/Link/dataTableLink.php';
-    $opcion = "";
-    if (!empty($_GET['id'])) {
-        $opcion = 'actualizarProfesor';
-    } else {
-        $opcion = 'crearProfesor';
+    
+    $opcion = "crearProfesor";
+    $id = "";
+    
+    if (!empty($_GET['id'])){
+        $opcion = 'editarProfesor';
+        $id = $_GET['id'];
     }
+        
 ?>
 
 <link rel="stylesheet" href="assets/css/extra.css"/>
@@ -36,19 +39,9 @@
 <!--Body-->
 <div class="panel">
     <div class="panel-body">
-        <?php
-            $opcion = "";
-            $id = "";
-            if (!empty($_GET['id'])) {
-                $opcion = 'actualizarProfesor';
-                $id = $_GET['id'];
-            } else {
-                $opcion = 'crearProfesor';
-            }
-        ?>
         <form id="formulario" enctype="multipart/form-data" method="post">
-            <input name="opcion" type="hidden" value="<?php echo $opcion; ?>"/>
-            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+            <input type="hidden" id="opcion" name="opcion" value="<?php echo $opcion; ?>"/>
+            <input type="hidden" id="id" value="<?php echo $id; ?>">
             
             <!--Datos personales-->
             <fieldset class="scheduler-border">
@@ -66,14 +59,14 @@
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input class="form-control" type="text" name="nombres" placeholder="Nombres" required="true"/>
+                            <input class="form-control" type="text" id="nombres" name="nombres" placeholder="Nombres" required="true"/>
                         </div><br>
                     </div>
                     <!--Apellidos-->
                     <div class="col-lg-3">
                         <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input class="form-control" type="text" name="apellidos" placeholder="Apellidos" required="true"/>
+                                <input class="form-control" type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required="true"/>
                         </div><br>
                     </div>
                     <!--Estado civil-->
@@ -83,7 +76,7 @@
                             <select class="form-control" id="estadoCivil" name="estadoCivil" required="">
                                 <option value="">Estado civil</option>                                            
                                 <?php
-                                $estados = $conexion->realizarConsulta("SELECT * FROM estado_civil;");
+                                $estados = $conexion->realizarConsulta("select * from estado_civil;");
                                 for ($pa = 0; $pa < sizeof($estados); $pa++) {
                                     echo '<option value="' . $estados[$pa]['estado_civil_id'] . '">' . $estados[$pa]['descripcion'] . '</option>';
                                 }
@@ -96,15 +89,15 @@
                     <!--Fecha de Nacimiento-->
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input class="form-control" type="text" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" onfocus="(this.type = 'date')" onblur="calcularEdad(fechaNacimiento.value, '#edad');(this.type = 'text')" required="true"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input class="form-control" type="date" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de nacimiento" onblur="calcularEdad(fechaNacimiento.value, '#edad');" required=""/>
                         </div><br>
                     </div>
                     <!--Edad-->
                     <div class="col-lg-3">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar-check-o"></i></span>
-                                <input class="form-control" type="text" id="edad" placeholder="Edad" disabled="true"/>
+                                <input class="form-control" type="text" id="edad" name="edad" placeholder="Edad" disabled="true"/>
                         </div><br>
                     </div>
                     <!--Email-->
@@ -127,8 +120,8 @@
                     <!---Fecha desde que labora-->
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            <input class="form-control" type="text" id="fechaInicioLaboral" name="fechaInicioLaboral" placeholder="Fecha desde que labora" onfocus="(this.type = 'date')" onblur="(this.type = 'text')"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <input class="form-control" type="date" id="fechaInicioLaboral" name="fechaInicioLaboral" placeholder="Fecha de nacimiento" required=""/>
                         </div>
                     </div>                    
                     <!---NCargas-->
@@ -145,34 +138,58 @@
                             <input class="form-control" type="text" id="direccion" name="direccion" placeholder="Dirección" required=""/>
                         </div>
                     </div>
-                    <!--Teléfono-->
+                    <!---Especialidad-->
                     <div class="col-lg-3">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
-                            <input class="form-control" type="text" id="telefono" name="telefono" placeholder="Teléfono" required=""/>
+                            <span class="input-group-addon"><i class="fa fa-plus-square"></i></span>
+                            <select class="form-control" id="especialidad" name="especialidad" required="">
+                                <option value="">Especialidad</option>                                            
+                                <option value="1">Ciencias Naturales</option>
+                                <option value="2">Matemática</option>
+                                <option value="3">Física</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+                
                 <br>
                 <div class="row">
-                    <!---Especialidad-->
-<!--                    <div class="col-lg-3">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-plus-square"></i></span>
-                            <select class="form-control" id="especialidad" name="especialidad"></select>
-                        </div>
-                    </div>                    -->
                     <!---Género-->
                     <div class="col-lg-3">
                         <select class="form-control" id="genero" name="genero">
-                            <option value="">Escoja Genero</option>
+                            <option value="">Género</option>
                             <option value="1">Masculino</option>
                             <option value="2">Femenino</option>
                         </select><br>
                     </div>                    
                 </div>
-            </fieldset> 
+            </fieldset>  
+            <br/>
             
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Contacto</legend> 
+                
+                <div class="row" id="contenedorTelefonos">
+                    
+                    <div class="col-lg-3" style="margin-top: 15px">
+                        <label class="input-group-btn" onClick="añadirTextFieldTelefono()">
+                            <span class="btn" style="background: #55d9cb;color: white; width: 100%">
+                                Añadir Teléfono
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!--Teléfono-->
+                    <div class="col-lg-3" style="margin-top: 15px">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
+                            <input class="form-control telefono" type="text" id="telefono" name="telefono" placeholder="Teléfono" required=""/>
+                        </div>
+                    </div>
+                    
+                </div>
+            </fieldset>
+            <br/>
             <br/>
             
             <!--Cuenta-->
@@ -202,30 +219,29 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Documentos</legend>
                 <div class="row">
-                    <!--Certificados-->
+                    <!--Curriculum-->
                     <div class="col-lg-12" >
-                        <ul class="list-group" id="contenedorDocumentos">
-                        </ul>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
-                                <div id="selectorDocumentos">
-                                    <!--<label for="exampleFormControlFile1">Example file input</label>-->
-                                    <input type="file" class="form-control-file" id="inputDocumento" name="documento-1">
-                                </div>
+                                <label class="input-group-btn">
+                                    <span class="btn" style="background: #55d9cb;color: white">
+                                        Curriculum&hellip; <input type="file" id="inputCurriculum" name="curriculum" style="display: none;" accept=".pdf">
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control input" readonly>
                             </div>
-
                         </div><br>
                     </div>
                     <!--Fotografía-->
                     <div class="col-lg-12">
                         <?php
 
-                            $dir = "/funciones/estudiantes/archivos/fotos/" . $id . ".jpg";
+                            $dir = "/funciones/profesor/archivos/fotos/" . $id . ".jpg";
                             echo '
                                 <div class="text-center">
-                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El estudiante no posee fotografía" />
+                                    <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El profesor no posee fotografía" />
                                 </div>'
-                        ?>
+                        ?><br>
                         <div class="input-group-datos input-group-icon">
                             <div class="input-group">
                                 <label class="input-group-btn">
@@ -241,6 +257,9 @@
             </fieldset>
             
             <br>
+            <hr>
+            <br>
+            <br>
             
             <fieldset class="scheduler-border">
                 <div class="row">
@@ -255,5 +274,3 @@
         </form>
     </div>
 </div>
-
-                    
