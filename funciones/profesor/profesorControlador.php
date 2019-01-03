@@ -53,7 +53,9 @@ if ($_POST['opcion'] == "crearProfesor") {
 }
 
 if ($_POST['opcion'] == "ingresarTelefonos") {
+    
     //TODO
+    
 }
 
 if ($_GET['opcion'] == "obtenerListaProfesores") {
