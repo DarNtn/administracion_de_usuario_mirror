@@ -53,17 +53,7 @@ if ($_POST['opcion'] == "crearProfesor") {
 }
 
 if ($_POST['opcion'] == "ingresarTelefonos") {
-    
-//    $telefonos = $_POST['telefonos'];
-//    $cedula = $_POST['cedula'];
-//    
-//    echo $profesor->mensajes("success", $telefonos); 
-//    
-//    for ($i = 0; $i <= count($telefonos); $i++) {
-//        echo $i;
-//    }
-    //echo $profesor->mensajes("success", "Profesor registrado exitosamente");
-    return "HOLA";
+    //TODO
 }
 
 if ($_GET['opcion'] == "obtenerListaProfesores") {

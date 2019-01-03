@@ -76,7 +76,7 @@
                             <select class="form-control" id="estadoCivil" name="estadoCivil" required="">
                                 <option value="">Estado civil</option>                                            
                                 <?php
-                                $estados = $conexion->realizarConsulta("SELECT * FROM estado_civil;");
+                                $estados = $conexion->realizarConsulta("select * from estado_civil;");
                                 for ($pa = 0; $pa < sizeof($estados); $pa++) {
                                     echo '<option value="' . $estados[$pa]['estado_civil_id'] . '">' . $estados[$pa]['descripcion'] . '</option>';
                                 }
