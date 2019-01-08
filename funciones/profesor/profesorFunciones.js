@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
-    mostrarProfesores();
-    //registrarProfesor();
+    var tabla = mostrarProfesores();
+    registrarProfesor();
     modificarProfesor();
     mostrarFotografia();
+    deshabilitarProfesor(tabla)
     
 });
 
@@ -101,6 +102,7 @@ function mostrarProfesores(){
     clickEditarProfesor(tabla);
     clickDeshabilitarProfesor(tabla);
     
+    return tabla;
 }
 
 function registrarProfesor(){
@@ -110,7 +112,7 @@ function registrarProfesor(){
         event.preventDefault();
 
         // Registrar numeros telefonicos
-//        registrarTelefonos();
+        // registrarTelefonos();
         
         // Obtener los datos del formulario
         var formData = new FormData($(this)[0]);
@@ -288,5 +290,22 @@ function añadirTextFieldTelefono(){
 
     var contenedor = document.getElementById('contenedorTelefonos');
     contenedor.appendChild(div);        
+    
+}
+
+function deshabilitarProfesor(tabla){
+    
+    $('#example tbody').on( 'click', '#deshabilitarBtn', function () {
+        var data = tabla.row( $(this).parents('tr') ).data();
+        console.log(data['estado']);
+        var parametros={ "opcion":"deshabilitarProfesor", "cedula":data['cedula'], "estado":data['estado'] };
+        $.ajax({
+           type: "POST",
+           url: "funciones/profesor/profesorControlador.php",
+           data: parametros
+        }).always(function() {
+            window.location.href = 'profesor.php';
+        });
+    });
     
 }

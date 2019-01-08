@@ -79,5 +79,16 @@ class Profesor extends php_conexion {
         return $this->realizarIngreso("UPDATE personal SET curriculum_direccion='$direccion' where cedula='$id'");
         
     }
-    
+ 
+    function deshabilitarProfesor($cedula, $estado){
+        
+        $usuario_id = $this->realizarConsulta("select usuario_id from personal where cedula='$cedula'");
+        $usuario_id = $usuario_id[0]['usuario_id'];
+                
+        if ($estado == "Activo") {
+            return $this->realizarIngreso("UPDATE usuario SET estado_id=2 where usuario_id='$usuario_id'");
+        } elseif ($estado == "Inactivo") {
+            return $this->realizarIngreso("UPDATE usuario SET estado_id=1 where usuario_id='$usuario_id'");
+        }
+    }
 }
