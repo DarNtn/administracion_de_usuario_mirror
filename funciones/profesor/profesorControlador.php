@@ -58,13 +58,13 @@ if ($_POST['opcion'] == "ingresarTelefonos") {
     
 }
 
-if ($_GET['opcion'] == "obtenerListaProfesores") {
+if ($_POST['opcion'] == "obtenerListaProfesores") {
     
     echo $profesor->respuestaJson($profesor->obtenerListaProfesores());
 
 }
 
-if ($_GET['opcion'] == "obtenerProfesorPorCedula") {
+if ($_POST['opcion'] == "obtenerProfesorPorCedula") {
     
     echo $profesor->respuestaJson($profesor->obtenerProfesorPorCedula($_GET['cedula']));
 

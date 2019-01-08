@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     mostrarProfesores();
-    registrarProfesor();
+    //registrarProfesor();
     modificarProfesor();
     mostrarFotografia();
     
@@ -16,7 +16,7 @@ function mostrarProfesores(){
         "ajax": {
             "url": "funciones/profesor/profesorControlador.php",
             "data":parametros,
-            "type": "GET"
+            "type": "POST"
         },
         "columns": [
             {
@@ -214,7 +214,7 @@ function modificarProfesor(){
         var parametros = {"cedula": cedula, "opcion": "obtenerProfesorPorCedula"};
         
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "funciones/profesor/profesorControlador.php", 
             data: parametros, 
             success: function (data){
