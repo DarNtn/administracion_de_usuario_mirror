@@ -187,23 +187,6 @@ function clickEditarProfesor(tabla){
     
 }
 
-function clickDeshabilitarProfesor(tabla){
-
-    $('#example tbody').on('click', '#deshabilitarBtn', function () {
-        var data = tabla.row( $(this).parents('tr') ).data();
-//        var parametros={"opcion":"estadoAlumno","id":data['alumno_id'],"estado":data['estado_id']};
-//        $.ajax({
-//           type: "POST",
-//           url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
-//           data: parametros// Adjuntar los campos del formulario enviado.
-//         }).always(function() {
-//            refresh();
-//            });
-        console.log("Pendiente");
-    });
-    
-}
-
 function modificarProfesor(){
     
     var opcion = $('#opcion').val();
@@ -297,7 +280,6 @@ function deshabilitarProfesor(tabla){
     
     $('#example tbody').on( 'click', '#deshabilitarBtn', function () {
         var data = tabla.row( $(this).parents('tr') ).data();
-        console.log(data['estado']);
         var parametros={ "opcion":"deshabilitarProfesor", "cedula":data['cedula'], "estado":data['estado'] };
         $.ajax({
            type: "POST",

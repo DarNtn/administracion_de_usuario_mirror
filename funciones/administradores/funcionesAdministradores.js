@@ -48,12 +48,11 @@ $(document).ready(function () {
                     var estado = data['data'][i]['estado_id'];
                     tblAdministradores.row.add([
                         '',
-                        data['data'][i]['usuario'],
                         data['data'][i]['nombre'],
                         data['data'][i]['apellido'],
+                        data['data'][i]['usuario'],
                         data['data'][i]['correo'],
                         data['data'][i]['cedula'],
-                        data['data'][i]['clave'],
                         function () {
                             if (estado === '1') {
                                 return '<span class="label label-success">ACTIVO</span>';
@@ -61,9 +60,10 @@ $(document).ready(function () {
                                 return '<span class="label label-danger">INACTIVO</span>';
                             }
                         },
-                        '<button href="#editar" id="' +  data['data'][i]['usuario_id'] + '_' +  data['data'][i]['admin_id'] + '" type="button" class="modificar btn btn-warning btn-sm"  data-toggle="modal" title="Modificar"><i class="glyphicon glyphicon-edit" id=" ' +  data['data'][i]['usuario_id'] + '_' +  data['data'][i]['admin_id'] + '"></i></button>',
-                        data['data'][i]['usuario_id'],
-                        data['data'][i]['admin_id']
+                        '<button href="#estado" id="cambiarEstado" type="button" class="btn btn-xs" data-toggle="modal" title="Estado">\
+                            <i class="glyphicon glyphicon-off" id=" ' +  data['data'][i]['usuario_id'] + "_" + estado + '"></i>\
+                        </button>',
+                        '<button href="#editar" id="' +  data['data'][i]['usuario_id'] + '_' +  data['data'][i]['admin_id'] + '" type="button" class="modificar btn btn-warning btn-sm"  data-toggle="modal" title="Modificar"><i class="glyphicon glyphicon-edit" id=" ' +  data['data'][i]['usuario_id'] + '_' +  data['data'][i]['admin_id'] + '"></i></button>'
                     ]).draw(false);
                 }
                 modificar ()
@@ -114,24 +114,6 @@ $(document).ready(function () {
         }
         return false; // Evitar ejecutar el submit del formulario.
     });
-//     var formData = new FormData($(this)[0]);
-//         var fotoRaw = document.getElementById("imgFotografia").src
-//         var byteCharacters = window.btoa(fotoRaw)
-// //         console.log(byteCharacters)
-//         console.log('aaa')
-// //         var byteCharacters = atob(fotoRaw);
-// //         URL.createObjectURL(new Blob([fotoRaw] , {type:'text/plain'}));
-//         var byteNumbers = new Array(byteCharacters.length);
-//         for (var i = 0; i < byteCharacters.length; i++) {
-//             byteNumbers[i] = byteCharacters.charCodeAt(i);
-//         }
-//         var byteArray = new Uint8Array(byteNumbers);
-//         var blob = new Blob([byteArray], {type: 'image/*'});
-//         formData.append('fotoRaw', blob);
-//         console.log(formData)
-//         for (var pair of formData.entries()) {
-//             console.log(pair[0]+ ', ' + pair[1]); 
-//         }
 
     function cargarDatosUsuario(id) {
         var parametros = {"opcion": "idUsuario", "id": id};
@@ -152,6 +134,24 @@ $(document).ready(function () {
             }
         });
     }
+
+    // Funcion para cambiar estado de adminsitrador
+    $('#tblAdministradores tbody').on('click', '#cambiarEstado', function () {
+        
+        var data = $(this).children().attr('id').split("_")
+        var usuarioId = data[0]
+        var estadoId = data[1]
+        
+        var parametros={ "opcion": "cambiarEstado", "usuarioId": usuarioId, "estadoId": estadoId };
+        $.ajax({
+           type: "POST",
+           url: "funciones/administradores/administradoresControlador.php",
+           data: parametros
+        }).always(function() {
+            refreshTablaUsuarios()
+        });
+        
+    });
 
     function modificar () {
       $('.modificar').on("click", function (event) {
