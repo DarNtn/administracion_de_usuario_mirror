@@ -69,3 +69,10 @@ if ($_POST['opcion'] == "obtenerProfesorPorCedula") {
     echo $profesor->respuestaJson($profesor->obtenerProfesorPorCedula($_GET['cedula']));
 
 }
+
+if ($_POST['opcion'] == "deshabilitarProfesor") {
+    
+    echo $profesor->deshabilitarProfesor($_POST['cedula'], $_POST['estado']);
+    
+
+}

@@ -6,6 +6,7 @@ describe estados;
 describe documento;
 describe personal; 
 describe usuario;
+describe administrador;
 
 select * from actividad;
 select * from adjunto;

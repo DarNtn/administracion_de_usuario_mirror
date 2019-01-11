@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
-    mostrarProfesores();
-    //registrarProfesor();
+    var tabla = mostrarProfesores();
+    registrarProfesor();
     modificarProfesor();
     mostrarFotografia();
+    deshabilitarProfesor(tabla)
     
 });
 
@@ -99,8 +100,8 @@ function mostrarProfesores(){
     } ).draw();
     
     clickEditarProfesor(tabla);
-    clickDeshabilitarProfesor(tabla);
     
+    return tabla;
 }
 
 function registrarProfesor(){
@@ -110,7 +111,7 @@ function registrarProfesor(){
         event.preventDefault();
 
         // Registrar numeros telefonicos
-//        registrarTelefonos();
+        // registrarTelefonos();
         
         // Obtener los datos del formulario
         var formData = new FormData($(this)[0]);
@@ -182,23 +183,6 @@ function clickEditarProfesor(tabla){
         var data = tabla.row( $(this).parents('tr') ).data();
         window.location.href = 'profesor_crear.php?id=' + data['cedula'];
     } );
-    
-}
-
-function clickDeshabilitarProfesor(tabla){
-
-    $('#example tbody').on('click', '#deshabilitarBtn', function () {
-        var data = tabla.row( $(this).parents('tr') ).data();
-//        var parametros={"opcion":"estadoAlumno","id":data['alumno_id'],"estado":data['estado_id']};
-//        $.ajax({
-//           type: "POST",
-//           url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
-//           data: parametros// Adjuntar los campos del formulario enviado.
-//         }).always(function() {
-//            refresh();
-//            });
-        console.log("Pendiente");
-    });
     
 }
 
@@ -288,5 +272,21 @@ function añadirTextFieldTelefono(){
 
     var contenedor = document.getElementById('contenedorTelefonos');
     contenedor.appendChild(div);        
+    
+}
+
+function deshabilitarProfesor(tabla){
+    
+    $('#example tbody').on( 'click', '#deshabilitarBtn', function () {
+        var data = tabla.row( $(this).parents('tr') ).data();
+        var parametros={ "opcion":"deshabilitarProfesor", "cedula":data['cedula'], "estado":data['estado'] };
+        $.ajax({
+           type: "POST",
+           url: "funciones/profesor/profesorControlador.php",
+           data: parametros
+        }).always(function() {
+            window.location.href = 'profesor.php';
+        });
+    });
     
 }

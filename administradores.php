@@ -117,15 +117,15 @@ estado_id
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
+                    <!--<br>-->
+<!--                    <div class="row">
                       <div class="col-lg-12">
                            <?php
-                          $dir = "/funciones/administradores/archivos/fotos/" . $id . ".jpg";
-                          echo '
-                              <div class="text-center">
-                                  <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El administrador no posee fotografía" />
-                              </div>'
+//                          $dir = "/funciones/administradores/archivos/fotos/" . $id . ".jpg";
+//                          echo '
+//                              <div class="text-center">
+//                                  <img src="' . $dir . '" width="200" height="170" id="imgFotografia" class="rounded mx-auto d-block" alt="El administrador no posee fotografía" />
+//                              </div>'
                           ?>
                           <div class="input-group-datos input-group-icon">
                               <div class="input-group">
@@ -139,9 +139,9 @@ estado_id
                         </div>
                       </div>
                     </div>
-                    <br>
-                    <br>
-                    <br>
+                    <br>-->
+<!--                    <br>
+                    <br>-->
                     <br>
                     <div class="row">
                         <div class="col-md-6">
@@ -257,15 +257,14 @@ estado_id
     <table id="tblAdministradores" class="mdl-data-table" cellspacing="0" style="width: 100%">
         <thead>
         <th>N°</th>
-        <th>Usuario</th>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Usuario</th>
         <th>Correo</th>
         <th>Cedula</th>
-        <th class="noExport">Clave</th>
-        <th class="noExport">Estado</th>
-        <th>Usuario id</th>
-        <th>Admin id</th>
+        <th>Estado</th>
+        <th>Cambiar Estado</th>
+        <th>Editar</th>
         </thead>
         <tbody></tbody>
     </table>
@@ -298,4 +297,3 @@ echo '
 <br>
 <br> -->
 <?php
-include_once('footer.php');
