@@ -80,9 +80,9 @@ $(document).ready(function () {
         e.preventDefault()
         var formData = new FormData($(this)[0]);
         var data = $("#registarAdministrador").serialize()
-        var fotoRaw = document.getElementById("imgFotografia").src
-        data = data + '&fotoRaw=' + " '" + fotoRaw  +"'"
-        console.log(data)
+        //var fotoRaw = document.getElementById("imgFotografia").src
+        //data = data + '&fotoRaw=' + " '" + fotoRaw  +"'"
+        //console.log(data)
         if (validarCedula($("#ced").val())) {
             if (validar_clave($("#clave").val(), $("#re-clave").val())) {
                 $.ajax({
@@ -94,7 +94,7 @@ $(document).ready(function () {
                     // processData: false,
                     success: function (data)
                     {
-                      document.getElementById("imgFotografia").removeAttribute("src")
+                        //document.getElementById("imgFotografia").removeAttribute("src")
                         refreshTablaUsuarios();
                         swal({
                             title: 'Mensaje',

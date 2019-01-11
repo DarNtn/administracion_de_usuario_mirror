@@ -26,7 +26,7 @@ class Usuario extends php_conexion {
         return $respuesta;
     }
 
-    public function set ($usuario, $clave, $estado_id, $nombre, $apellido, $correo, $cedula, $foto) {
+    public function set ($usuario, $clave, $estado_id, $nombre, $apellido, $correo, $cedula) {
         $tipo = 'a'; // esto estara por default, ya que en la db esta todavia
         $cedulaYaExiste = $this->getCedula($cedula); // FIX
 
@@ -35,7 +35,7 @@ class Usuario extends php_conexion {
             
             if ($usuarioId > 0) {
               $fueadminCreado = $this->realizarIngresoId("INSERT INTO administrador (nombre, apellido, correo, foto, cedula, usuarios_usuario_id) VALUES('$nombre', '$apellido', '$correo', 1010, '$cedula', $usuarioId)");
-              if ($fueadminCreado > 0) {
+              if($fueadminCreado > 0) {
                 //$this->historial(1, 'usuarios', 'insertar', $usuarioId, 'registro de un usuario en el sistema');
                 //$mail = new mailEnviar();
                 //list($estado, $mensaje) = $mail->enviar($correo, $usuario, $clave); // TODO: validar cuando no envie el correo y hacer rollback cuando no se guarde el usuario

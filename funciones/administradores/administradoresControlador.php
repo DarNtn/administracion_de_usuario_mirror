@@ -20,7 +20,7 @@ if ($_POST['opcion'] == "idUsuario") {
 if($_POST['opcion']=="Guardar_administrador"){
     
     echo $usuario->set( $_POST['usuario'], $_POST['clave'], $_POST['estado_id'], $_POST['nombre'],
-                        $_POST['apellido'], $_POST['correo'], $_POST['cedula'], $_POST['fotoRaw'] );
+                        $_POST['apellido'], $_POST['correo'], $_POST['cedula']);
 }
 
 if($_POST['opcion']=="cambiarEstado"){
