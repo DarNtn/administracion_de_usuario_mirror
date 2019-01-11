@@ -100,7 +100,6 @@ function mostrarProfesores(){
     } ).draw();
     
     clickEditarProfesor(tabla);
-    clickDeshabilitarProfesor(tabla);
     
     return tabla;
 }
