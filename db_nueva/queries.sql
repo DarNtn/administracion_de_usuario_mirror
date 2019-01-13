@@ -7,6 +7,7 @@ describe documento;
 describe personal; 
 describe usuario;
 describe administrador;
+describe cursos; 
 
 select * from actividad;
 select * from adjunto;

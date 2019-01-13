@@ -8,15 +8,17 @@ $(document).ready(function () {
         }
         , {
             "orderable": false,
+            "targets": 4
+        }, {
+            "orderable": false,
             "targets": 5
         }, {
             "orderable": false,
-            "targets": 6
-        }, {
-            "orderable": false,
-            "targets": 7,
-            "bVisible": false,
+            "targets": 6,
             "searchable": false
+        }, {
+            "targets": 8,
+            "bVisible": false
         }
     ];//opciones que tendran las columnas en la tabla
 
@@ -44,13 +46,27 @@ $(document).ready(function () {
             success: function (data) {
 
                 for (var i = 0; i < data['data'].length; i++) {
-                    var estado = data['data'][i]['estado'];
+                    
+                    var estado = data['data'][i]['estado_id'];
+                    var jornada = data['data'][i]['jornada'];
+                    var ano_inicio = data['data'][i]['anio_inicio']
+                    var ano_fin = data['data'][i]['anio_fin']
+                    
                     tblSalones.row.add([
                         '',
-                        data['data'][i]['nombre'],
+                        function () {
+                            return ano_inicio + ' - ' + ano_fin
+                        },
+                        data['data'][i]['nivel'],
                         data['data'][i]['paralelo'],
-                        data['data'][i]['profesor'],
-                        data['data'][i]['periodo'],
+                        function () {
+                            if (jornada === '1') {
+                                return 'Matutina';
+                            } else {
+                                return 'Vespertina';
+                            }
+                        },
+                        data['data'][i]['nEstudiantes'],
                         function () {
                             if (estado === '1') {
                                 return '<span class="label label-success">ACTIVO</span>';
@@ -59,7 +75,7 @@ $(document).ready(function () {
                             }
                         },
                         '<button type="button" class="modificar btn btn-warning btn-sm" title="Modificar"><i class="glyphicon glyphicon-edit"></i></button>',
-                        data['data'][i]['id']
+                        data['data'][i]['curso_id']
                     ]).draw(false);
                 }
 
@@ -88,6 +104,7 @@ $(document).ready(function () {
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Cerrar'
                 }).then(function () {
+                    refreshTablaSalones()
                     if (data['data']['estado'] == "success") {
                         document.getElementById("registarSalon").reset();
                         $('#nuevo').modal('hide');
@@ -99,9 +116,12 @@ $(document).ready(function () {
     });
 
     $('#tblSalones tbody').on('click', '.modificar', function () {
+        
         var data = tblSalones.row($(this).parents('tr')).data();
-        cargarDatosSalon(data[7]);
+        var curso_id = data[8]
+        cargarDatosSalon(curso_id);        
         $('#editar').modal('show');
+        
     });
     function cargarDatosSalon(id) {
         var parametros = {"opcion": "idSalon", "id": id};
@@ -110,15 +130,17 @@ $(document).ready(function () {
             url: 'funciones/salon/salonControlador.php',
             type: 'POST',
             success: function (data) {
-                $('#id').val(data['data'][0]['salon_id']);
-                $('#curso').val(data['data'][0]['curso_id']);
-                $('#periodo').val(data['data'][0]['periodo_id']);
-                $('#profesor').val(data['data'][0]['ids'].split(','));
-                if (data['data'][0]['estado_id'] == "2") {
-                    $('#estadoInactivoEd').prop("checked", true);
-                } else {
-                    $('#estadoActivoEd').prop("checked", true);
-                }
+                $('#periodoModificar').val(data['data'][0]['periodo_electivo_periodo_id']);
+                $('#jornadaModificar').val(data['data'][0]['jornada']);
+                $('#nivelModificar').val(data['data'][0]['nivel_id']);
+                $('#paraleloModificar').val(data['data'][0]['paralelo']);
+                $('#nEstudiantesModificar').val(data['data'][0]['cant_alumnos']);
+                $('#idModificar').val(id);
+//                if (data['data'][0]['estado_id'] == "2") {
+//                    $('#estadoInactivoEd').prop("checked", true);
+//                } else {
+//                    $('#estadoActivoEd').prop("checked", true);
+//                }
             }
         });
     }
