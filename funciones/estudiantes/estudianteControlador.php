@@ -148,7 +148,7 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
             } else {
                 $tipoDiscapacidad = $_POST['tipo'];
             }
-            $respuesta = $estudiante->modificarEstudiante($_POST['id'], $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion']);            
+            $respuesta = $estudiante->modificarEstudiante($_POST['id'], $_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['genero'], $_POST['direccion'], $_POST['tiene_discapacidad'], $porcentaje, $_POST['fechaNac'], $_POST['lugar_nacimiento'], $_POST['tipo_sangre'], $_SESSION['user'], $_POST['tipoI'], $tipoDiscapacidad, $_POST['observacion'], $_POST['pension']);            
             
             if ($respuesta) {    
                 $comentario = "";
@@ -182,10 +182,11 @@ if ($_POST['opcion'] == "Modificar_estudiante2") {
                     $estudiante->eliminarRepresentantes($_POST['id']);
                     $dto = $_POST['dato'];
                     $parent = $_POST['parentesco'];
+                    $funcion = $_POST['funcion'];
                     $n = count($dto);
                     $i = 0;
                     while ($i < $n) {
-                        $estudiante->asignarRepresentante($_POST['id'], $dto[$i], $parent[$i], $_POST['funcion']);
+                        $estudiante->asignarRepresentante($_POST['id'], $dto[$i], $parent[$i], $funcion[$i]);
                         $i++;
                     }
                     echo $estudiante->mensajes("success", "Alumno modificado exitosamente" . $comentario);

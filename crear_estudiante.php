@@ -10,21 +10,12 @@
 ?>
 
 <link rel="stylesheet" href="assets/css/extra.css"/>
+<link rel="stylesheet" href="assets/css/jquery-ui.css"/>
 <script src="funciones/estudiantes/functionEstudiantesAcciones.js" type="text/javascript"></script>
 <script src="assets/js/ValidarCedula.js" type="text/javascript"></script>
 <script src="assets/js/calcularEdad.js" type="text/javascript"></script>
 <script src="assets/js/inputfile.js" type="text/javascript"></script>
 <script src="assets/vendor/jquery/jquery-ui.js" type="text/javascript"></script>
-<script>
-    $(function() {
-        $('#buscarR').autocomplete({
-            source: "funciones/estudiantes/filtroRepresentantes.php",//['marciano', 'marcia','martillo','peluche','pera'] 
-            select: function(){
-                
-            }
-        });
-    });
-</script>
 
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
@@ -343,7 +334,7 @@
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-vcard fa-fw"></i></span>
-                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" onblur="datos(cedulaR.value);" required=""/>
+                                        <input class="form-control" type="text" id="cedulaR" name="cedula" placeholder="Cédula" required=""/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -365,12 +356,13 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
                                         <select class="form-control" id="tipoC" name="tipoC" required="">
-                                            <option value="">Estado civil</option>
-                                            <option value="1">Soltero(a)</option>
-                                            <option value="2">Casado(a)</option>
-                                            <option value="3">Viudo(a)</option>
-                                            <option value="4">Divorciado(a)</option>
-                                            <option value="5">Unión de Hecho</option>
+                                            <option value="">Estado civil</option>                                            
+                                            <?php
+                                            $estados = $conexion->realizarConsulta("SELECT * FROM estado_civil;");
+                                            for ($pa = 0; $pa < sizeof($estados); $pa++) {
+                                                echo '<option value="' . $estados[$pa]['estado_civil_id'] . '">' . $estados[$pa]['descripcion'] . '</option>';
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>

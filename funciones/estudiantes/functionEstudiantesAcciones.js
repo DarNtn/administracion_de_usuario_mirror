@@ -31,7 +31,7 @@ $(document).ready(function () {
                 "orderable": false,
                 "targets": 9
             }],
-        "order": [[1, 'asc']],
+        "order": [[0, 'asc']],
         lengthChange: false,
         "language": {
             "zeroRecords": "No hay resultados - lo sentimos",
@@ -42,6 +42,7 @@ $(document).ready(function () {
     });
 
     $('#example tbody').on('click', '#delete', function () {
+        $('.autorizado'+$(this).parents('tr').children()[0].innerHTML).remove();
         t
                 .row($(this).parents('tr'))
                 .remove()
@@ -102,45 +103,48 @@ $(document).ready(function () {
         event.preventDefault();
         //grab all form data  
         var formData = new FormData($("form#formularioRepresentante")[0]);
-        console.log("FormData:");
-        console.log(formData);
+
         if (validarCedula($("#cedulaR").val())) {
-            $.ajax({                
-                type: "POST",
-                url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
-                data: formData, // Adjuntar los campos del formulario enviado.
-                enctype: 'multipart/form-data',
-                contentType: false,
-                processData: false,
-                success: function (data)
-                {
-                    if (data['data']['estado'] == "success") {
-                        t.row.add([
-                            counter,
-                            $('#cedulaR').val(),
-                            $('#nombresR').val(),
-                            $('#apellidosR').val(),
-                            $('#tipoC option:selected').text(),
-                            $('#parentesco option:selected').text(),
-                            $('#direccionR').val(),
-                            $('#telefono').val(),
-                            $('#mail').val(),
-                            $('input:radio[name=funcion]:checked').val(),
-                            '<button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar">\n\
-                                <i class="glyphicon glyphicon-remove-sign"></i></button>'
-                        ]).draw(false);
-                        $("#formulario").append('<input type="hidden" name="dato[]" value="' + $('#cedulaR').val()+ '">');
-                        $("#formulario").append('<input type="hidden" name="parentesco[]" value="' + $('#parentesco').val() + '">');
-                        $("#formulario").append('<input type="hidden" name="funcion[]" value="' + $('input:radio[name=funcion]:checked').val() + '">');
-                        counter++;
-                        document.getElementById("formularioRepresentante").reset();
-                        //$('#nuevo').modal('hide');                        
-                        swal('Mensaje', "Registro existoso\n "+data['data']['mensaje'], "success");
-                    } else {
-                        swal('Mensaje', data['data']['mensaje'], data['data']['estado']);
+            if (counter <= 1 || validarExistente($("#cedulaR").val(), $('input:radio[name=funcion]:checked').val())){
+                $.ajax({                
+                    type: "POST",
+                    url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
+                    data: formData, // Adjuntar los campos del formulario enviado.
+                    enctype: 'multipart/form-data',
+                    contentType: false,
+                    processData: false,
+                    success: function (data)
+                    {
+                        if (data['data']['estado'] == "success") {
+                            t.row.add([
+                                counter,
+                                $('#cedulaR').val(),
+                                $('#nombresR').val(),
+                                $('#apellidosR').val(),
+                                $('#tipoC option:selected').text(),
+                                $('#parentesco option:selected').text(),
+                                $('#direccionR').val(),
+                                $('#telefono').val(),
+                                $('#mail').val(),
+                                $('input:radio[name=funcion]:checked').val(),
+                                '<button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar">\n\
+                                    <i class="glyphicon glyphicon-remove-sign"></i></button>'
+                            ]).draw(false);
+                            $("#formulario").append('<input type="hidden" name="dato[]" value="' + $('#cedulaR').val()+ '">');
+                            $("#formulario").append('<input type="hidden" name="parentesco[]" value="' + $('#parentesco').val() + '">');
+                            $("#formulario").append('<input type="hidden" name="funcion[]" value="' + $('input:radio[name=funcion]:checked').val() + '">');
+                            counter++;
+                            document.getElementById("formularioRepresentante").reset();
+                                                 
+                            swal('Mensaje', "Registro existoso", "success");
+                        } else {
+                            swal('Mensaje', data['data']['mensaje'], data['data']['estado']);
+                        }
                     }
-                }
-            });
+                });
+            } else{
+                swal('Mensaje', $('#nombresR').val()+ " " +$('#apellidosR').val()+ " ya consta en el registro con la función de "+$('input:radio[name=funcion]:checked').val(), 'warning');
+            }
         }
         return false; // Evitar ejecutar el submit del formulario.
     });
@@ -178,7 +182,7 @@ $(document).ready(function () {
                         confirmButtonText: "OK"
                     }).then( result => {
                         if (data['data']['estado']=="success"){
-                            window.location.reload();
+                            window.location.href = 'estudiantes.php';
                         }                        
                     })                    
                 }
@@ -206,7 +210,7 @@ $(document).ready(function () {
     function datosAlumno(id) {
         var parametros = {"id": id,
             "opcion": "buscarAlumno"};
-        //buscarRepresentantes(id);
+        buscarRepresentantes(id);
         $.ajax({
             type: "POST",
             url: "funciones/estudiantes/estudianteControlador.php", // El script a dónde se realizará la petición.
@@ -260,8 +264,14 @@ $(document).ready(function () {
                         data['data'][i]['direccion'],
                         data['data'][i]['telefono'],
                         data['data'][i]['correo'],
-                        '<input type="hidden" name="dato[]" value="' + data['data'][i]['id'] + '"><input type="hidden" name="parentesco[]" value="' + data['data'][i]['idparentesco'] + '"><button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar"><i class="glyphicon glyphicon-remove-sign"></i></button>'
+                        data['data'][i]['tipo'],                        
+                        '<button type="button" id="delete" class="btn btn-danger btn-sm" title="Eliminar">\n\
+                        <i class="glyphicon glyphicon-remove-sign"></i></button>'
                     ]).draw(false);
+                    $("#formulario").append('<input type="hidden" name="dato[]" class="autorizado'+ counter +'" value="' + data['data'][i]['cedula']+ '">');
+                    $("#formulario").append('<input type="hidden" name="parentesco[]" class="autorizado'+ counter +'" value="' + data['data'][i]['idparentesco'] + '">');
+                    $("#formulario").append('<input type="hidden" name="funcion[]" class="autorizado'+ counter +'" value="' + data['data'][i]['tipo'] + '">');                   
+
                     counter++;
                 }
             }
@@ -290,9 +300,19 @@ $(document).ready(function () {
         a.appendChild(span);
         
         var contenedor = document.getElementById('contenedorDocumentos');
-        contenedor.appendChild(a);
-        
+        contenedor.appendChild(a);        
     }
+    
+    $('#buscarR').autocomplete({
+        source: "funciones/estudiantes/filtroRepresentantes.php",
+        minLength: 2,
+        select: function(event, ui){
+            datos(ui.item.value);            
+        },
+        classes: {
+            "ui-autocomplete": "highlight"
+        }
+    });
                             
 });
 
@@ -331,4 +351,14 @@ function datos(cedula) {
         }
     });
 
+}
+
+function validarExistente(cedulaR, funcion){
+    var filas = $("#example").children()[1].children;
+    for (var i=0; i<filas.length; i++){        
+        if (filas[i].children[1].innerHTML==cedulaR && filas[i].children[9].innerHTML==funcion){
+            return false;
+        }
+    }
+    return true;
 }

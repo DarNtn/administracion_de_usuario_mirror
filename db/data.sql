@@ -439,6 +439,16 @@ CREATE TABLE `estados` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `estado_civil`
+--
+
+LOCK TABLES `estado_civil` WRITE;
+/*!40000 ALTER TABLE `estado_civil` DISABLE KEYS */;
+INSERT  IGNORE INTO `estado_civil` (`estado_civil_id`, `descripcion`) VALUES (1,'Soltero(a)'),(2,'Casado(a)'),(3,'Viudo(a)'),(4,'Divorciado(a)'),(5,'Unión de Hecho');
+/*!40000 ALTER TABLE `estado_civil` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `estados`
 --
 
@@ -750,7 +760,7 @@ CREATE TABLE `personal` (
   `cargas` int(11) DEFAULT NULL,
   `curriculum_direccion` varchar(200) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL,
-  `foto` blob,
+  `foto` varchar(45),
   `cedula` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`personal_id`),
   KEY `profesores_generos_idx` (`genero_id`),
@@ -796,6 +806,7 @@ CREATE TABLE `usuario` (
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` VALUES ('admin','admin','a',1,1);
+INSERT INTO `usuario` VALUES ('profesor','profesor','p',2,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

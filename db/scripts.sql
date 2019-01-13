@@ -3,6 +3,8 @@ use administracion_colegio;
 describe alumno;
 describe estados;
 describe documento;
+describe personal; 
+describe usuario;
 
 select * from actividad;
 select * from adjunto;
@@ -17,7 +19,7 @@ select * from cursos;
 select * from datos_medicos;
 select * from detalle_materia;
 select * from documento;
-select * from estado_civil;
+select * from estdo_civil;
 select * from estados;
 select * from factura;
 select * from generos;
@@ -37,19 +39,28 @@ select * from usuario;
 INSERT INTO datos_medicos VALUES(1,22,'$tipoD','$cedula', 5);
 INSERT INTO alumno VALUES('$cedula', '$nombres', '$apellidos', 0, '', '2018-02-22', 0, '', '2018-02-22', '', 0, 0, '', 0, 0);
 insert into documento values('link', 'name', '0930703707');
+INSERT INTO personal VALUES(1, '$nombres', '$apellidos',
+                1, '$telefono', '$correo', '2018-02-22', 2, 2,
+                2, '$direccion', '2018-02-22', '2018-02-22',
+                3, 3, 'direccion', 2, 1,
+                '$cedula');
 
+INSERT INTO personal VALUES(NULL, '$nombres', '$apellidos',
+                    0, '$telefono', '$correo', '2018-02-22',
+                    0, 0, 0, '$direccion',
+                    '2018-02-22', '2018-02-22', 0,
+                    0, 0, 0, 0, '$cedula');
+                    
 # Get 
 select 
-alumno.cedula, alumno.nombres, alumno.apellidos, alumno.direccion, alumno.fecha_nacimiento, alumno.foto_direccion, alumno.observacion, alumno.pension, 
-generos.sexo,
-lugares.provincia, lugares.ciudad,
-estados.nombre as 'estado', 
-instituciones.nombre as 'institucion',
-cursos.nombre as 'curso', 
-datos_medicos.tiene_discapacidad, datos_medicos.porcentaje_discapacidad, tipo_discapacidad,
-grupo_sanguineo.nombre as 'grupo_sanguineo'
-from alumno alumno, generos generos, lugares lugares, estados estados, instituciones instituciones, cursos cursos, datos_medicos datos_medicos, grupo_sanguineo grupo_sanguineo
-where alumno.genero_id=generos.genero_id and alumno.cedula=datos_medicos.alumnos_cedula and alumno.instituciones_id=instituciones.institucion_id and alumno.lugar_id=lugares.lugar_id and datos_medicos.idgrupo_sanguineo=grupo_sanguineo.idgrupo_sanguineo and estados.estado_id=alumno.estado_id;
+personal. cedula, personal.nombres, personal. apellidos, personal.mail as correo,
+usuario.usuario,
+estados.nombre as estado
+from personal, usuario, estados
+where personal.usuario_id = usuario.usuario_id and usuario.estado_id = estados.estado_id;
+
+
+
 
 ###########
 select estado_id from estados where nombre='Activo';
