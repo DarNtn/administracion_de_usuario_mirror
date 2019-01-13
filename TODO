@@ -1,0 +1,20 @@
+
+Todo:
+  ☐ probar enviar archivo en crear usuario
+  ☐ enviar archivo y editar. Como se lo guarda?
+  ☐ Yo como administrador, quiero gestionar una bandeja de entrada para visualizar cualquier tipo de notificaciones que sean recibidas para la administración de la institución.
+    Leer los correos de la bandeja de entrada del correo. Limitarlo solo a correo gmail pues
+
+
+ramas
+bandeja_entrada
+customizar_correo
+
+
+Arreglar la pagina de inicio los numeros bien centrados
+Borra lo de pagos pendientes
+
+
+esas ramas bandeja_entrada y customizar_correo ya están en master? 
+Si ya están, borralas. 
+Si no están, has el PR

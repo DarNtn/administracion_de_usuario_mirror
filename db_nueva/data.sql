@@ -7,3 +7,4 @@ INSERT INTO `lugares` VALUES (1,'','Escoja lugar de Nacimiento'),(2,'AZUAY','CHO
 INSERT INTO `parentesco` VALUES (1,'Padre'),(2,'Madre'),(3,'Tio/a'),(4,'Abuelo/a');
 INSERT INTO `usuario` VALUES ('admin','admin','a',1,1);
 INSERT INTO `usuario` VALUES ('profesor','profesor','p',2,1);
+insert into configuracion(correo,clave) values ("darichiliao@gmail.com", "Believer1980");
