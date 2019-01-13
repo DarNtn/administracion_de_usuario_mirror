@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`personal` (
     FOREIGN KEY (`estado_civil_id`)
     REFERENCES `administracion_colegio`.`estado_civil` (`estado_civil_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
@@ -149,16 +149,16 @@ COLLATE = latin1_spanish_ci;
 -- Table `administracion_colegio`.`cursos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `administracion_colegio`.`cursos` (
-  `curso_id` INT(11) NOT NULL,
+  `curso_id` INT(11) NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
   `jornada` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `cant_alumnos` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
+  `cant_alumnos` INT NOT NULL,
   `paralelo` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
   `estado_id` INT(11) NOT NULL,
   `nivel_id` INT(11) NOT NULL,
-  `usuario_creacion` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
+  `usuario_creacion` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL,
   `fecha_creacion` DATE NOT NULL,
-  `dirigente` INT(11) NOT NULL,
+  `dirigente` INT(11) NULL,
   `periodo_electivo_periodo_id` INT(11) NOT NULL,
   PRIMARY KEY (`curso_id`),
   INDEX `estado_id` (`estado_id` ASC) VISIBLE,
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`usuario` (
   `estado_id` INT(11) NOT NULL,
   PRIMARY KEY (`usuario_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`administrador` (
   `nombre` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
   `apellido` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
   `correo` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `foto` BLOB NULL,
+  `foto` BLOB NULL DEFAULT NULL,
   `cedula` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
   `usuarios_usuario_id` INT(11) NOT NULL,
   PRIMARY KEY (`admin_id`),
@@ -271,6 +271,7 @@ CREATE TABLE IF NOT EXISTS `administracion_colegio`.`administrador` (
     FOREIGN KEY (`usuarios_usuario_id`)
     REFERENCES `administracion_colegio`.`usuario` (`usuario_id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
