@@ -1,4 +1,5 @@
 var tblCursos;
+var tblHorario;
 var CursoID;
 $(document).ready(function () {
     var column = [{
@@ -16,8 +17,35 @@ $(document).ready(function () {
             "bVisible": false,
             "searchable": false
         }];//opciones que tendran las columnas en la tabla
+    
+    var columnH = [{
+            "searchable": false,
+            "orderable": false,
+            "targets": 0            
+        },        
+        {
+            "orderable": false,
+            "targets": 1            
+        }, {
+            "orderable": false,
+            "targets": 2
+        },        
+        {
+            "orderable": false,
+            "targets": 3       
+        },        
+        {
+            "orderable": false,
+            "targets": 4       
+        },        
+        {
+            "orderable": false,
+            "targets": 5       
+        }];
 
-    tblCursos = inicializartable('#tblCursos', column,0);
+    tblHorario = inicializartablesencilla('#tblHorario', columnH, 0)
+    tblCursos = inicializartable('#tblCursos', column,0);    
+    
 
     tblCursos.buttons().container()
             .appendTo('#example_wrapper .col-sm-6:eq(0)');
@@ -29,7 +57,7 @@ $(document).ready(function () {
         });
     }).draw();
 
-    refreshTablaCursos();
+    refreshTablaCursos();    
 
     function cargarTablaCursos() {
         var parametros = {"opcion": "listaCursos"};
@@ -60,6 +88,12 @@ $(document).ready(function () {
         tblCursos.clear().draw();
         cargarTablaCursos();
     }        
+    
+    $('#agregarFila').click(function(){
+        agregarFilaHorario();
+    });
+    
+    
             
     $('.addHora').click(function(e) {
         var element = $('#'+e.target.value);        
@@ -197,10 +231,62 @@ $(document).ready(function () {
     
 });
 
+function agregarFilaHorario(){
+    var fila = $('<tr></tr>');
+        
+    var desde = $('<input required style="min-width:110px;" type="time" name="desde[]" value="--:--" />');
+    var hasta = $('<input required style="min-width:110px;" type="time" name="hasta[]" value="--:--" />');    
+    var divalert = $('<div class="alert" style="margin:0;"></div>');
+    var materia = $('<select required id="materia" name="materia[]" style="max-width:110px;"></select>');
+    materia.append($('<option selected disabled style="display:none;" value="">Seleccionar...</option>'));
+    //materia.append($('<option value="6">Seleccionar...1</option>'));
+    //materia.append($('<option value="7">Seleccionar...2</option>'));
+
+    var parametros = {"opcion":"materiasCurso", "idCurso":CursoID};
+    $.ajax({
+        type: "POST",
+        url: "funciones/horarios/horariosControlador.php",
+        data: parametros,
+        success: function(data){
+            if (data['data']){
+                for (var i = 0; i < data['data'].length; i++) {
+                    /*
+                    materia.append($('<option>', {
+                        value: data['data'][i]['id'],
+                        text: data['data'][i]['materia']
+                    }));
+                    */
+                    materia.append($('<option value="'+data['data'][i]['id']+'">'+data['data'][i]['materia']+'</option>'));
+                }
+            } else {
+                materia.append($('<option disabled value="-">Sin registros</option>'));
+            }
+        }
+    });
+    
+    divalert.append($('<label for="desde">Desde:</label>'));
+    divalert.append(desde);
+    divalert.append($('<label for="hasta">Hasta:</label>'));
+    divalert.append(hasta);
+    
+    console.log("Materia: ",materia, "Len: ", materia.children()," Clone: ",materia.clone());
+    fila.append($('<td></td>').append(divalert));
+    for (var i=0; i<5; i++){
+        var mat = $('<td></td>');
+        var divmat = $('<div id="mat'+i+'"></div>');
+        divmat.append($('<label for="materia">Materia:</label>'));
+        divmat.append(materia.clone());
+        fila.append(mat.append(divmat));
+        fila.append(mat);
+    }
+    
+    tblHorario.row.add(fila).draw(false);
+}
+
 
 function setModalHorario(index){
     var data = tblCursos.row(index).data();    
-    CursoID = data[7];
+    CursoID = data[7];    
     var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
     $('#curso-name').text(data[1]+' - '+data[3]);    
     
@@ -260,6 +346,7 @@ function setModalHorario(index){
         }
     });
     //
-    
+    tblHorario.clear().draw();
+    agregarFilaHorario();
     $('#editor').modal('show');    
 }

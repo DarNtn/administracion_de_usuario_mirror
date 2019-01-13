@@ -203,7 +203,7 @@ $(document).ready(function () {
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
     
-    if (id != null) {
+    if (id) {
         datosAlumno(id);
     }
 

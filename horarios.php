@@ -52,6 +52,54 @@ include_once './funciones/Link/dataTableLink.php';
             <div class="modal-body">
 
                 <center><h4 style="color: #55d9cb;">Gestor de Horario</h4></center>
+                <center><h4 id="curso-name" style="color: #55d9cb;">Curso - Paralelo</h4></center>                                  
+                
+                <center><button id="agregarFila" class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
+                <form id="guardarHorario" method="post">
+                    <div class="table-responsive" >                    
+                        <table id="tblHorario" class="mdl-data-table" cellspacing="0" style="width:100%;white-space: pre-line !important;">
+                            <thead>
+                            <th id='columna0'>HORA</th>
+                            <th id='columna1'>LUNES</th>
+                            <th id='columna2'>MARTES</th>
+                            <th id='columna3'>MIÉRCOLES</th>
+                            <th id='columna4'>JUEVES</th>        
+                            <th id='columna5'>VIERNES</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>                    
+                    
+                    <br>                    
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" id="btn_enviar" class="btn btn-info btn-block btn-sm" value="Guardar">
+                                <i class="fa fa-save"> </i> Guardar
+                            </button><br>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
+                                <i class="fa fa-trash"> </i> Cancelar
+                            </button><br>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin del ModalNuevo-->
+
+<!-- Inicio del ModalNuevo->
+<div id="editor" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content"> 
+            <div class="modal-body">
+
+                <center><h4 style="color: #55d9cb;">Gestor de Horario</h4></center>
                 <center><h4 id="curso-name" style="color: #55d9cb;">Curso - Paralelo</h4></center>                
                 <div class="row extended">
                     <div class="col-md-2"><center><strong>LUNES</strong></center></div>

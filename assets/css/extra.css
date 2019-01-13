@@ -1,4 +1,4 @@
-input[type="radio"]{
+input[type="radio"].estado{
     display: none;
 }
 .estado + label{
@@ -52,9 +52,11 @@ input[type="radio"]{
     margin-bottom: 1em;
 }
 
-#tblHorario td, th{
+#tblHorario td, #tblHorario th{
     border: 1px gray solid;
     text-align: center !important;
+    margin: 0px;
+    padding: 0px;
 }
 
 #tblHorario thead{

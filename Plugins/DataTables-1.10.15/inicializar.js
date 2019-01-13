@@ -97,7 +97,10 @@ return $(tabla).DataTable({
             columnDefs: column,
             "order": [[ordenColumn, 'asc']],
             lengthChange: false,
-            bFilter:false
+            bFilter:false,
+            "paging":   false,
+            "ordering": false,
+            "info":     false
         });
 
 }

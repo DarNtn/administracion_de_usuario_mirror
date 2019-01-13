@@ -40,7 +40,7 @@ and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
         return $dato;
     }
 
-    function crearRepresentante($cedula, $nombres, $apellidos, $direccion, $sexo, $telefono, $email, $civil, $cuenta) {
+    function crearRepresentante($cedula, $nombres, $apellidos, $direccion, $sexo, $telefono, $email, $civil, $cuenta, $fechaNac) {
         $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$cedula'");
         if ($dato == null) {
             $cuenta_id = null;           
@@ -48,10 +48,10 @@ and ar.parentesco_id=pa.idparentesco and a.cedula='$idAlumno';");
                 $comprobacion = $this->realizarConsulta("SELECT * FROM usuario WHERE usuario='$cuenta[0]'");                
                 if ($comprobacion == null) {
                     $cuenta_id = $this->realizarIngresoId("INSERT INTO usuario (usuario, clave, tipo, estado_id) VALUES('$cuenta[0]','$cuenta[1]','r',1)");
-                    $this->realizarIngresoId("INSERT INTO autorizado (cedula,nombre,apellido,genero_id,direccion,telefono,correo,estado_civil_id,usuario_usuario_id) VALUES('$cedula','$nombres','$apellidos',$sexo,'$direccion','$telefono','$email',$civil,$cuenta_id)");
+                    $this->realizarIngresoId("INSERT INTO autorizado (cedula,nombre,apellido,genero_id,direccion,telefono,correo,estado_civil_id,usuario_id,fechaNac) VALUES('$cedula','$nombres','$apellidos',$sexo,'$direccion','$telefono','$email',$civil,$cuenta_id,'$fechaNac')");
                 }
             } else{
-                $this->realizarIngresoId("INSERT INTO autorizado (cedula,nombre,apellido,genero_id,direccion,telefono,correo,estado_civil_id) VALUES('$cedula','$nombres','$apellidos',$sexo,'$direccion','$telefono','$email',$civil)");
+                $this->realizarIngresoId("INSERT INTO autorizado (cedula,nombre,apellido,genero_id,direccion,telefono,correo,estado_civil_id,fechaNac) VALUES('$cedula','$nombres','$apellidos',$sexo,'$direccion','$telefono','$email',$civil,'$fechaNac')");
             }
             
             $dato = $this->realizarConsulta("SELECT * FROM autorizado WHERE cedula='$cedula'");
