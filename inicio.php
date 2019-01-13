@@ -30,7 +30,7 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="">
                                 <i class="fa fa-tasks fa-3x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
@@ -47,7 +47,7 @@
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="">
                                 <i class="fa fa-users fa-3x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
@@ -58,23 +58,6 @@
                          <div class="row">
                             <div class="col-xs-12" style="font-size: 18px;margin-top: 10px;">Profesores</div></div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6" align="center">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <i class="fa fa-usd fa-3x"></i>
-                            </div>
-                            <div class="col-xs-9 text-right">
-                                <div class="huge" style="font-size: 40px;line-height: 40px;">1000 <?php // echo $t_pagos;  ?></div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12" style="font-size: 18px;margin-top: 10px;">Pagos Pendientes</div></div>
-                    </div>
-
                 </div>
             </div>
         </div>  

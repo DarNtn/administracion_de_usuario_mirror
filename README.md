@@ -76,4 +76,10 @@ https://github.com/phpbrew/phpbrew
 https://getcomposer.org/
 
 
+<<<<<<< Updated upstream
 <?php echo php_ini_loaded_file(); ?>
+=======
+### Configurar mail
+
+https://phppot.com/php/gmail-email-inbox-using-php-with-imap/
+>>>>>>> Stashed changes
