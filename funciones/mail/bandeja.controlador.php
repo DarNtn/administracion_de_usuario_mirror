@@ -14,7 +14,9 @@ require_once '../conexion/php_conexion.php';
 $responses = new php_conexion();
 
 $metodo = $_SERVER["REQUEST_METHOD"];
-$ruta = implode("/", array_slice(explode("/", $_SERVER["REQUEST_URI"]), 5));
+$stra = explode(".php",$_SERVER["REQUEST_URI"]);
+$count = count(explode("/",$stra[0]));
+$ruta = implode("/", array_slice(explode("/", $_SERVER["REQUEST_URI"]),$count));
 $datos = json_decode(file_get_contents("php://input"));
 
 switch($metodo){
