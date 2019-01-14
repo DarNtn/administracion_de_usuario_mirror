@@ -53,7 +53,7 @@ include_once './funciones/Link/dataTableLink.php';
         <div class="modal-content"> 
             <div class="modal-body">
 
-                <center><h4 style="color: #55d9cb;">Registro de Curso</h4></center>
+                <center><h4 style="color: #55d9cb;">Registro de Cursoo</h4></center>
                 <form id="registarCurso" method="post">
                     <input type="hidden" name="opcion" value="Guardar_cursos"/>
                     <div class="row">
@@ -66,10 +66,10 @@ include_once './funciones/Link/dataTableLink.php';
                         <div class="col-md-6">
                             <select class="form-control" name="nivel" required="">
                                 <?php
-                                $t_nivel = $conexion->realizarConsulta("SELECT nivel_id as id,nombre as estado FROM nivel_educacion");
-                                for ($a = 0; $a < sizeof($t_nivel); $a++) {
-                                    echo '<option value="' . $t_nivel[$a]['id'] . '">' . $t_nivel[$a]['estado'] . '</option>';
-                                }
+//                                $t_nivel = $conexion->realizarConsulta("SELECT nivel_id as id,nombre as estado FROM nivel_educacion");
+//                                for ($a = 0; $a < sizeof($t_nivel); $a++) {
+//                                    echo '<option value="' . $t_nivel[$a]['id'] . '">' . $t_nivel[$a]['estado'] . '</option>';
+//                                }
                                 ?>
                             </select><br>
                         </div>
