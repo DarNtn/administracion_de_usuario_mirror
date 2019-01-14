@@ -208,19 +208,9 @@ $(document).ready(function () {
 });
 
 function agregarFilaHorario(){
-    var fila = $('<tr></tr>');
+    var fila = $('<tr></tr>');            
         
-    var desde = $('<input required style="min-width:90px;" type="time" name="desde[]" value="--:--" />');
-    var hasta = $('<input required style="min-width:90px;" type="time" name="hasta[]" value="--:--" />');    
-    var divalert = $('<div class="" style="margin:7 0;"></div>');
-    
-    
-    divalert.append($('<label for="desde">Desde:</label>'));
-    divalert.append(desde);
-    divalert.append($('<label for="hasta">Hasta:</label>'));
-    divalert.append(hasta);
-        
-    fila.append($('<td></td>').append(divalert));
+    fila.append($('<td></td>').append(createInputHoras()));
     for (var i=0; i<5; i++){
         var mat = $('<td></td>');
         var divmat = $('<div id="mat'+i+'"></div>');
@@ -233,11 +223,23 @@ function agregarFilaHorario(){
     tblHorario.row.add(fila).draw(false);
 }
 
-function createSelectMaterias(){
-    var materia = $('<select required id="materia" name="materia[]" style="max-width:110px;"></select>');
-    materia.append($('<option selected disabled style="display:none;" value="">Seleccionar...</option>'));
-    //materia.append($('<option value="6">Seleccionar...1</option>'));
-    //materia.append($('<option value="7">Seleccionar...2</option>'));
+function createInputHoras(inicio="--:--", fin="--:--"){
+    var desde = $('<input required style="min-width:90px;" type="time" name="desde[]" value="'+inicio+'" />');
+    var hasta = $('<input required style="min-width:90px;" type="time" name="hasta[]" value="'+fin+'" />');    
+    var divalert = $('<div class="" style="margin:7 0;"></div>');
+    
+    
+    divalert.append($('<label for="desde">Desde:</label>'));
+    divalert.append(desde);
+    divalert.append($('<label for="hasta">Hasta:</label>'));
+    divalert.append(hasta);
+        
+    return divalert;
+}
+
+function createSelectMaterias(value=""){    
+    var materia = $('<select required name="materia[]" style="max-width:110px;"></select>');
+    materia.append($('<option selected disabled style="display:none;" value="">Seleccionar...</option>'));    
 
     var parametros = {"opcion":"materiasCurso", "idCurso":CursoID};
     $.ajax({
@@ -246,20 +248,18 @@ function createSelectMaterias(){
         data: parametros,
         success: function(data){
             if (data['data']){
-                for (var i = 0; i < data['data'].length; i++) {
-                    /*
-                    materia.append($('<option>', {
-                        value: data['data'][i]['id'],
-                        text: data['data'][i]['materia']
-                    }));
-                    */
-                    materia.append($('<option value="'+data['data'][i]['id']+'">'+data['data'][i]['materia']+'</option>'));
+                for (var i = 0; i < data['data'].length; i++) {                
+                    if (value==data['data'][i]['id']){
+                        materia.append($('<option value="'+data['data'][i]['id']+'" selected>'+data['data'][i]['materia']+'</option>'));
+                    } else {
+                        materia.append($('<option value="'+data['data'][i]['id']+'">'+data['data'][i]['materia']+'</option>'));
+                    }
                 }
             } else {
                 materia.append($('<option disabled value="-">Sin registros</option>'));
             }
         }
-    });
+    });        
     
     return materia;
 }
@@ -275,59 +275,32 @@ function setModalHorario(index){
         $('#'+dia).children().remove();        
     });
     
-    // CARGAR HORARIO DEL CURSO ALMACENADO EN LA BASE
-    var materia = $('<select required id="materia" name="materia[]" style="max-width:110px;"></select>');;
-    var parametros = {"opcion":"materiasCurso", "idCurso":CursoID};
-    $.ajax({
-        type: "POST",
-        url: "funciones/horarios/horariosControlador.php",
-        data: parametros,
-        success: function(data){
-            if (data['data']){
-                for (var i = 0; i < data['data'].length; i++) {
-                    materia.append($('<option>', {
-                        value: data['data'][i]['id'],
-                        text: data['data'][i]['materia']
-                    }));
-                }
-            }
-        }
-    });
-    
+    // CARGAR HORARIO DEL CURSO ALMACENADO EN LA BASE  
+    tblHorario.clear().draw();
     $.ajax({
         type: "POST",
         url: "funciones/horarios/horariosControlador.php",
         data: {"opcion": "getHorario", "idCurso":CursoID},
-        success: function(horario){
-            if (horario){
-                dias.forEach(function(dia){                    
-                    var clases = horario['data'][dia];
-                    if (clases.length > 0){
-                        clases.forEach(function(clase){                            
-                            var desde = $('<input required style="min-width:110px;" type="time" name="desde[]" value="'+clase['desde']+'" />');
-                            var hasta = $('<input required style="min-width:110px;" type="time" name="hasta[]" value="'+clase['hasta']+'" />');
-                            var closebtn = $('<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>');
-                            var divalert = $('<div class="alert alert-info alert-dismissible"></div>');                            
-                            var mat = materia.clone();
-                            mat.val(clase['materia']);
-                            
-                            divalert.append(closebtn);
-                            divalert.append($('<label for="desde">Desde:</label>'));
-                            divalert.append(desde);
-                            divalert.append($('<label for="hasta">Hasta:</label>'));
-                            divalert.append(hasta);
-                            divalert.append($('<label for="materia">Materia:</label>'));
-                            divalert.append(mat);
-                            
-                            $('#'+dia).append(divalert);
-                        });
-                    }
+        success: function (data) {
+            if (data){
+                var horario = data['data']['horario'];                    
+
+                $.each( horario, function( hora, clases ) {
+                    var inicio = hora.split(' - ')[0];
+                    var fin = hora.split(' - ')[1];
+                    var fila = $('<tr></tr>');
+                    fila.append($('<td></td>').append(createInputHoras(inicio, fin)));
+                    fila.append($('<td></td>').append(createSelectMaterias(clases['Lunes']['materia'])));
+                    fila.append($('<td></td>').append(createSelectMaterias(clases['Martes']['materia'])));
+                    fila.append($('<td></td>').append(createSelectMaterias(clases['Miercoles']['materia'])));
+                    fila.append($('<td></td>').append(createSelectMaterias(clases['Jueves']['materia'])));
+                    fila.append($('<td></td>').append(createSelectMaterias(clases['Viernes']['materia'])));
+
+                    tblHorario.row.add(fila).draw(false);
                 });
             }
         }
-    });
-    //
-    tblHorario.clear().draw();
-    agregarFilaHorario();
+    });    
+    
     $('#editor').modal('show');    
 }

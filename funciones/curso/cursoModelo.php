@@ -118,14 +118,15 @@ class Curso extends php_conexion {
     
     public function getHorarioCurso($idCurso){
         $respuesta = $this->realizarConsulta("SELECT * FROM horario h, detalle_materia dm WHERE h.id_detalle_materia = dm.id_detalle_materia AND dm.id_curso = '$idCurso' ORDER BY hora_inicio ASC");
-        $horario = array("Lunes" => array(), "Martes" => array(), "Miercoles" => array(), "Jueves" => array(), "Viernes" => array());
+        $horario = array();
         if ($respuesta){
             for ($a = 0; $a < count($respuesta); $a++){                
-                $horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "hasta" => $respuesta[$a]['hora_fin'], "materia" => $respuesta[$a]['id_materia']);
+                //$horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "hasta" => $respuesta[$a]['hora_fin'], "materia" => $respuesta[$a]['id_materia']);
+                $horario[substr($respuesta[$a]['hora_inicio'],0,5) . " - " . substr($respuesta[$a]['hora_fin'],0,5)][$respuesta[$a]['dia']]["materia"] = $respuesta[$a]['id_materia'];
             }                        
         }
         
-        return $this->respuestaJson($horario);
+        return $this->respuestaJson(array("horario" => $horario));
     }
     
     public function getHorarioProf($profesor){         
