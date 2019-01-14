@@ -48,4 +48,22 @@ class Profesor extends php_conexion {
         return $this->respuestaJson(array("mensaje" => $mensaje[0], "adjunto" => $adjunto[0]));
     }
     
+    function getCitaciones($idProf){
+        $consulta = $this->realizarConsulta("SELECT * FROM personal WHERE personal_id = '$idProf'");
+        if ($consulta){
+            $citaciones = $this->realizarConsulta("SELECT c.nombre as curso, c.paralelo, m.asunto, m.contenido, ci.fecha, ci.hora, ci.duración, mc.id_mensaje_curso as id FROM mensaje_curso mc, mensaje m, citacion ci, cursos c WHERE mc.mensaje = m.id_mensaje AND mc.curso = c.curso_id AND mc.mensaje = ci.id_citacion AND mc.profesor = '$idProf'");
+            
+            return $citaciones;            
+        }
+        return null;
+    }
+    
+    function getCitacion($idCitacion){
+        $adjunto = $this->realizarConsulta("SELECT * FROM adjunto a, mensaje_curso mc WHERE mc.mensaje = a.mensaje_id AND mc.id_mensaje_curso = '$idCitacion'");  
+        $mensaje = $this->realizarConsulta("SELECT m.asunto, m.contenido, m.fecha FROM mensaje m, mensaje_curso mc WHERE mc.mensaje = m.id_mensaje AND mc.id_mensaje_curso = '$idCitacion'");
+        $citacion = $this->realizarConsulta("SELECT c.nombre as curso, c.paralelo, ci.fecha, ci.hora, ci.duración FROM mensaje_curso mc, citacion ci WHERE mc.mensaje = ci.id_citacion AND mc.curso = c.curso_id AND mc.id_mensaje_curso = '$idCitacion'");
+        
+        return $this->respuestaJson(array("mensaje" => $mensaje[0], "adjunto" => $adjunto[0], "citacion" => $citacion[0]));
+    }
+    
 }
