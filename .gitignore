@@ -3,6 +3,7 @@
 funciones/conexion/php_conexion.php
 
 ### NetBeans ###
+nbproject/private/
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash

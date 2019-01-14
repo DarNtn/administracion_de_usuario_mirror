@@ -94,7 +94,7 @@ $(document).ready(function () {
     });
     
     
-            
+    /* 
     $('.addHora').click(function(e) {
         var element = $('#'+e.target.value);        
         
@@ -135,6 +135,7 @@ $(document).ready(function () {
         element.append(divalert);
                 
     });
+    */
     
     $('#guardarHorario').submit(function(){        
         var horario = generarHorario();
@@ -163,6 +164,7 @@ $(document).ready(function () {
     });
     
     
+    /*
     function generarHorario(){
         var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
         var horario = {Lunes:[], Martes:[], Miercoles:[], Jueves:[], Viernes:[]};
@@ -180,7 +182,26 @@ $(document).ready(function () {
         
         return horario;
     }
+    */
+   
+   function generarHorario(){
+        var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+        var horario = {Lunes:[], Martes:[], Miercoles:[], Jueves:[], Viernes:[]};
+        var filasTbl = $('#tblHorario tr');
+        
+        for (var i=1; i<filasTbl.length; i++){
+            var desde = filasTbl[i].cells[0].childNodes[0].childNodes[1].value;
+            var hasta = filasTbl[i].cells[0].childNodes[0].childNodes[3].value;
+            for (var j=1; j<=5; j++){
+                var mat = filasTbl[i].cells[j].childNodes[0].childNodes[1].value
+                horario[dias[j-1]].push({desde: desde, hasta: hasta, materia: mat});
+            }
+        }                
+        
+        return horario;
+    }
     
+    /*
     function validarHorario(horario){        
         var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
         var constraints = [];
@@ -228,15 +249,84 @@ $(document).ready(function () {
         }
         return correcto;
     }
+    */
+   
+   function validarHorario(horario){        
+        var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+        var constraints = [];
+        var correcto = true;        
+        var dia = 'Lunes';
+        for (var k=0; k<horario[dia].length; k++){
+            var clase = horario[dia][k];
+            if (clase['desde']<clase['hasta']){
+                if (k==0){
+                    constraints.push([clase['desde'],clase['hasta']]);
+                } else {
+                    let size = constraints.length;
+                    for (var i=0; i<size; i++){
+                        var lim = constraints[i];                        
+                        if (clase['hasta']<=lim[0] || clase['desde']>=lim[1]){
+                            constraints.push([clase['desde'],clase['hasta']]);
+                        } else {
+                            correcto = false;
+                            swal({
+                                title: 'Mensaje',
+                                text: 'Existe cruce en la hora de inicio y finalización',
+                                type: 'error',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Cerrar'
+                            });
+                            break;
+                        }
+                    } 
+                }                           
+            } else {
+                correcto = false;
+                swal({
+                    title: 'Mensaje',
+                    text: 'La hora de inicio no puede ser mayor o igual a la hora de salida',
+                    type: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Cerrar'
+                });
+            }
+            if (!correcto){
+                break;
+            }
+        }
+                            
+        return correcto;
+    }
     
 });
 
 function agregarFilaHorario(){
     var fila = $('<tr></tr>');
         
-    var desde = $('<input required style="min-width:110px;" type="time" name="desde[]" value="--:--" />');
-    var hasta = $('<input required style="min-width:110px;" type="time" name="hasta[]" value="--:--" />');    
-    var divalert = $('<div class="alert" style="margin:0;"></div>');
+    var desde = $('<input required style="min-width:90px;" type="time" name="desde[]" value="--:--" />');
+    var hasta = $('<input required style="min-width:90px;" type="time" name="hasta[]" value="--:--" />');    
+    var divalert = $('<div class="" style="margin:7 0;"></div>');
+    
+    
+    divalert.append($('<label for="desde">Desde:</label>'));
+    divalert.append(desde);
+    divalert.append($('<label for="hasta">Hasta:</label>'));
+    divalert.append(hasta);
+        
+    fila.append($('<td></td>').append(divalert));
+    for (var i=0; i<5; i++){
+        var mat = $('<td></td>');
+        var divmat = $('<div id="mat'+i+'"></div>');
+        divmat.append($('<label for="materia">Materia:</label>'));
+        divmat.append(createSelectMaterias());
+        fila.append(mat.append(divmat));
+        fila.append(mat);
+    }
+    
+    tblHorario.row.add(fila).draw(false);
+}
+
+function createSelectMaterias(){
     var materia = $('<select required id="materia" name="materia[]" style="max-width:110px;"></select>');
     materia.append($('<option selected disabled style="display:none;" value="">Seleccionar...</option>'));
     //materia.append($('<option value="6">Seleccionar...1</option>'));
@@ -264,23 +354,7 @@ function agregarFilaHorario(){
         }
     });
     
-    divalert.append($('<label for="desde">Desde:</label>'));
-    divalert.append(desde);
-    divalert.append($('<label for="hasta">Hasta:</label>'));
-    divalert.append(hasta);
-    
-    console.log("Materia: ",materia, "Len: ", materia.children()," Clone: ",materia.clone());
-    fila.append($('<td></td>').append(divalert));
-    for (var i=0; i<5; i++){
-        var mat = $('<td></td>');
-        var divmat = $('<div id="mat'+i+'"></div>');
-        divmat.append($('<label for="materia">Materia:</label>'));
-        divmat.append(materia.clone());
-        fila.append(mat.append(divmat));
-        fila.append(mat);
-    }
-    
-    tblHorario.row.add(fila).draw(false);
+    return materia;
 }
 
 
