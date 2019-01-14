@@ -62,3 +62,7 @@ input[type="radio"].estado{
 #tblHorario thead{
     background-color: #d9edf7;
 }
+
+.align-left {
+    text-align: left !important;
+}
