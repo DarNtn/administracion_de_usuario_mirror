@@ -4,26 +4,32 @@ $(document).ready(function () {
     var column = [{
             "searchable": false,
             "orderable": false,
-            "targets": 0            
+            "targets": 0,
+            "className": "col-md-1"
         },        
         {
             "orderable": false,
-            "targets": 1            
+            "targets": 1,
+            "className": "col-md-2"
         }, {
             "orderable": false,
-            "targets": 2
+            "targets": 2,
+            "className": "col-md-2"
         },        
         {
             "orderable": false,
-            "targets": 3       
+            "targets": 3,
+            "className": "col-md-2"
         },        
         {
             "orderable": false,
-            "targets": 4       
+            "targets": 4,
+            "className": "col-md-2"
         },        
         {
             "orderable": false,
-            "targets": 5       
+            "targets": 5,
+            "className": "col-md-2"
         }];
 
     tblHorario = inicializartable('#tblHorario', column,0);        
@@ -47,25 +53,32 @@ $(document).ready(function () {
             type: 'POST',
             success: function (data) {
                 if (data){
-                    var horario = data['data']['horario'];
-                    var minimo = data['data']['minimo'];
-                    var maximo = data['data']['maximo'];
-                    generarHorarioBase('07:30:00', '13:00:00');
-                    dias.forEach(function(dia){                    
-                        var clases = horario[dia];
-                        if (clases.length > 0){
-                            clases.forEach(function(clase){                            
-                                //var desde = clase['desde'];
-                                //var hasta = clase['hasta'];
-                                
-                            });
-                        }
+                    var horario = data['data']['horario'];                    
+                    
+                    $.each( horario, function( hora, clases ) {                                                                        
+                        var fila = $('<tr></tr>');
+                        fila.append($('<td></td>').append(hora));
+                        fila.append(clases['Lunes']? crearCellClase(clases['Lunes']['materia'], clases['Lunes']['curso']): $('<td></td>'));
+                        fila.append(clases['Martes']? crearCellClase(clases['Martes']['materia'], clases['Martes']['curso']): $('<td></td>'));
+                        fila.append(clases['Miercoles']? crearCellClase(clases['Miercoles']['materia'], clases['Miercoles']['curso']): $('<td></td>'));
+                        fila.append(clases['Jueves']? crearCellClase(clases['Jueves']['materia'], clases['Jueves']['curso']): $('<td></td>'));
+                        fila.append(clases['Viernes']? crearCellClase(clases['Viernes']['materia'], clases['Viernes']['curso']): $('<td></td>'));
+                        
+                        tblHorario.row.add(fila).draw(false);
                     });
                 }
             }
         });
     }
     
+    function crearCellClase(materia, curso){
+        var cell = $('<div style="padding: 5px"></div>');
+        cell.append('<div class="row"><label>Materia:</label> '+materia+'</div>');        
+        cell.append('<div class="row"><label>Curso:</label> '+curso+'</div>');        
+        return $('<td></td>').append(cell);
+    }
+    
+    /*
     function generarHorarioBase(minimo, maximo){
         var i=1;
         while (minimo < maximo){
@@ -100,4 +113,5 @@ $(document).ready(function () {
         
         return (horas<10? '0'+horas: horas) + ':' + (minutos<10? '0'+minutos: minutos) + ':00';
     }
+    */
 });

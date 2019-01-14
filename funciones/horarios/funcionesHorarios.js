@@ -92,50 +92,7 @@ $(document).ready(function () {
     $('#agregarFila').click(function(){
         agregarFilaHorario();
     });
-    
-    
-    /* 
-    $('.addHora').click(function(e) {
-        var element = $('#'+e.target.value);        
         
-        var desde = $('<input required style="min-width:110px;" type="time" name="desde[]" value="--:--" />');
-        var hasta = $('<input required style="min-width:110px;" type="time" name="hasta[]" value="--:--" />');
-        var closebtn = $('<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>');
-        var divalert = $('<div class="alert alert-info alert-dismissible"></div>');
-        var materia = $('<select required id="materia" name="materia[]" style="max-width:110px;"></select>');
-        materia.append($('<option selected disabled style="display:none;" value="">Seleccionar...</option>'));
-        
-        var parametros = {"opcion":"materiasCurso", "idCurso":CursoID};
-        $.ajax({
-            type: "POST",
-            url: "funciones/horarios/horariosControlador.php",
-            data: parametros,
-            success: function(data){
-                if (data['data']){
-                    for (var i = 0; i < data['data'].length; i++) {
-                        materia.append($('<option>', {
-                            value: data['data'][i]['id'],
-                            text: data['data'][i]['materia']
-                        }));
-                    }
-                } else {
-                    materia.append($('<option disabled value="-">Sin registros</option>'));
-                }
-            }
-        });
-                
-        divalert.append(closebtn);
-        divalert.append($('<label for="desde">Desde:</label>'));
-        divalert.append(desde);
-        divalert.append($('<label for="hasta">Hasta:</label>'));
-        divalert.append(hasta);
-        divalert.append($('<label for="materia">Materia:</label>'));
-        divalert.append(materia);
-        
-        element.append(divalert);
-                
-    });
-    */
     
     $('#guardarHorario').submit(function(){        
         var horario = generarHorario();
@@ -199,57 +156,7 @@ $(document).ready(function () {
         }                
         
         return horario;
-    }
-    
-    /*
-    function validarHorario(horario){        
-        var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
-        var constraints = [];
-        var correcto = true;
-        for (var j=0; j<dias.length; j++){
-            var dia = dias[j];
-            for (var k=0; k<horario[dia].length; k++){
-                var clase = horario[dia][k];
-                if (clase['desde']<clase['hasta']){
-                    for (var i=0; i<constraints.length; i++){
-                        var lim = constraints[i];
-                        if (clase['hasta']<=lim[0] || clase['desde']>=lim[1]){
-                            constraints.push([clase['desde'],clase['hasta']]);
-                        } else {
-                            correcto = false;
-                            swal({
-                                title: 'Mensaje',
-                                text: 'Existe cruce de horarios en el día '+dia,
-                                type: 'error',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Cerrar'
-                            });
-                            break;
-                        }
-                    }            
-                } else {
-                    correcto = false;
-                    swal({
-                        title: 'Mensaje',
-                        text: 'La hora de inicio no puede ser mayor o igual a la hora de salida',
-                        type: 'error',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Cerrar'
-                    });
-                }
-                if (!correcto){
-                    break;
-                }
-            }
-            if (!correcto){
-                break;
-            } else {
-                constraints = [];
-            }            
-        }
-        return correcto;
-    }
-    */
+    } 
    
    function validarHorario(horario){        
         var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
