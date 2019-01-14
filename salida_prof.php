@@ -14,7 +14,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <center><img src="assets/img/curse.png" class="img-circle img-polaroid" width="70" height="65"></center>
             </div>
             <div class="col-md-8">
-                <center><h5>Bandeja de Entrada</h5></center>
+                <center><h5>Bandeja de Salida</h5></center>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@ include_once './funciones/Link/dataTableLink.php';
         <thead>
         <th></th>
         <th style="text-align: left">Curso</th>
-        <th style="text-align: left">Remitente</th>
+        <th style="text-align: left">Destinatario</th>
         <th></th>
         <th style="text-align: left">Fecha</th>                
         <th style="text-align: left" class="noExport">Acción</th>        
@@ -47,7 +47,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <form id="mensajeview">                    
                     <div class="row" style="margin: 5 0;">
                         <div class="col-md-4">
-                            <label>Remitente: </label>
+                            <label>Destinatario: </label>
                         </div>
                         <div class="col-md-8">
                             <input disabled class="form-control" type="text" id='remitente'/>

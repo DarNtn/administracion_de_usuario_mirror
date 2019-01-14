@@ -41,8 +41,9 @@ class Profesor extends php_conexion {
     }
     
     function getMensaje($idMensaje){
-        $adjunto = $this->realizarConsulta("SELECT * FROM adjunto WHERE mensaje_id='$idMensaje'");        
-        $mensaje = $this->realizarConsulta("SELECT * FROM mensaje WHERE id_mensaje = '$idMensaje'");     
+        $adjunto = $this->realizarConsulta("SELECT * FROM adjunto WHERE mensaje_id='$idMensaje'");  
+        $mensaje = $this->realizarConsulta("SELECT c.nombre as curso, c.paralelo, a.nombre as autnombre, a.apellido as autapellido, m.id_mensaje, m.asunto, m.contenido, m.fecha FROM mensaje_autorizado ma, mensaje m, autorizado a, alumno al, cursos c WHERE ma.id_mensaje = m.id_mensaje AND ma.cedula_autorizado = a.cedula AND ma.cedula_alumno = al.cedula AND al.curso_id = c.curso_id AND m.id_mensaje = '$idMensaje'");
+        //$mensaje = $this->realizarConsulta("SELECT * FROM mensaje WHERE id_mensaje = '$idMensaje'");     
                 
         return $this->respuestaJson(array("mensaje" => $mensaje[0], "adjunto" => $adjunto[0]));
     }

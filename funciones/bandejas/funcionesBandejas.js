@@ -65,7 +65,7 @@ function abrirMensaje(i){
         success: function (data){
             var mensaje = data['data']['mensaje'];
             var adjunto = data['data']['adjunto'];
-            //$('#remitente').val(mensaje['remitente']);
+            $('#remitente').val(mensaje['autnombre']+" "+mensaje['autapellido']);
             $('#asunto').val(mensaje['asunto']);
             $('#contenido').text(mensaje['contenido']);
         }
