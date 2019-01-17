@@ -30,9 +30,10 @@ class Profesor extends php_conexion {
     }
     
     
-    function getMensajesEntrada($idProf){
-        $consulta = $this->realizarConsulta("SELECT * FROM personal WHERE personal_id = '$idProf'");
+    function getMensajesEntrada($uProf){
+        $consulta = $this->realizarConsulta("SELECT p.personal_id as id FROM personal p, usuario u WHERE p.usuario_id = u.usuario_id AND u.usuario = '$uProf'");
         if ($consulta){
+            $idProf = $consulta[0]['id'];
             $mensajes = $this->realizarConsulta("SELECT c.nombre as curso, c.paralelo, a.nombre as autnombre, a.apellido as autapellido, m.id_mensaje, m.asunto, m.contenido, m.fecha FROM mensaje_autorizado ma, mensaje m, autorizado a, alumno al, cursos c WHERE ma.id_mensaje = m.id_mensaje AND ma.cedula_autorizado = a.cedula AND ma.cedula_alumno = al.cedula AND al.curso_id = c.curso_id AND ma.profesor_id = '$idProf'");
             
             return $mensajes;            

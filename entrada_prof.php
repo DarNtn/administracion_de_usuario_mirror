@@ -7,9 +7,8 @@ include_once './funciones/Link/dataTableLink.php';
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">
-
+        <input hidden id="username" value="<?php echo $_SESSION['username']; ?>" />
         <div class="row">
-
             <div class="col-md-2">
                 <center><img src="assets/img/curse.png" class="img-circle img-polaroid" width="70" height="65"></center>
             </div>

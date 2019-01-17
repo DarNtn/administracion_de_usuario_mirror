@@ -118,28 +118,7 @@ $(document).ready(function () {
             });
         }        
         return false;
-    });
-    
-    
-    /*
-    function generarHorario(){
-        var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
-        var horario = {Lunes:[], Martes:[], Miercoles:[], Jueves:[], Viernes:[]};
-        
-        dias.forEach(function(dia){
-            if ($("#"+dia).children().length > 0){
-                var desde = $("#"+dia+" input[name='desde[]']");
-                var hasta = $("#"+dia+" input[name='hasta[]']");
-                var materia = $("#"+dia+" select");
-                for (var i=0; i<desde.length; i++){
-                    horario[dia].push({desde:desde[i].value, hasta:hasta[i].value, materia:materia[i].value});                    
-                }
-            }
-        });
-        
-        return horario;
-    }
-    */
+    });        
    
    function generarHorario(){
         var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
@@ -150,7 +129,7 @@ $(document).ready(function () {
             var desde = filasTbl[i].cells[0].childNodes[0].childNodes[1].value;
             var hasta = filasTbl[i].cells[0].childNodes[0].childNodes[3].value;
             for (var j=1; j<=5; j++){
-                var mat = filasTbl[i].cells[j].childNodes[0].childNodes[1].value
+                var mat = filasTbl[i].cells[j].childNodes[0].childNodes[1].value;
                 horario[dias[j-1]].push({desde: desde, hasta: hasta, materia: mat});
             }
         }                
@@ -203,8 +182,7 @@ $(document).ready(function () {
         }
                             
         return correcto;
-    }
-    
+    }    
 });
 
 function agregarFilaHorario(){
@@ -249,7 +227,7 @@ function createSelectMaterias(value=""){
         success: function(data){
             if (data['data']){
                 for (var i = 0; i < data['data'].length; i++) {                
-                    if (value==data['data'][i]['id']){
+                    if (value===data['data'][i]['id']){
                         materia.append($('<option value="'+data['data'][i]['id']+'" selected>'+data['data'][i]['materia']+'</option>'));
                     } else {
                         materia.append($('<option value="'+data['data'][i]['id']+'">'+data['data'][i]['materia']+'</option>'));
@@ -271,10 +249,6 @@ function setModalHorario(index){
     var dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
     $('#curso-name').text(data[1]+' - '+data[3]);    
     
-    dias.forEach(function(dia){
-        $('#'+dia).children().remove();        
-    });
-    
     // CARGAR HORARIO DEL CURSO ALMACENADO EN LA BASE  
     tblHorario.clear().draw();
     $.ajax({
@@ -290,12 +264,13 @@ function setModalHorario(index){
                     var fin = hora.split(' - ')[1];
                     var fila = $('<tr></tr>');
                     fila.append($('<td></td>').append(createInputHoras(inicio, fin)));
-                    fila.append($('<td></td>').append(createSelectMaterias(clases['Lunes']['materia'])));
-                    fila.append($('<td></td>').append(createSelectMaterias(clases['Martes']['materia'])));
-                    fila.append($('<td></td>').append(createSelectMaterias(clases['Miercoles']['materia'])));
-                    fila.append($('<td></td>').append(createSelectMaterias(clases['Jueves']['materia'])));
-                    fila.append($('<td></td>').append(createSelectMaterias(clases['Viernes']['materia'])));
-
+                    dias.forEach(function(dia){
+                        var divmat = $('<div id="mat'+clases[dia]['materia']+'"></div>');
+                        divmat.append($('<label for="materia">Materia:</label>'));
+                        divmat.append(createSelectMaterias(clases[dia]['materia']));
+                        fila.append($('<td></td>').append(divmat));
+                    });
+                    
                     tblHorario.row.add(fila).draw(false);
                 });
             }

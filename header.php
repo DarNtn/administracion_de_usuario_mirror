@@ -139,8 +139,8 @@
                                 <div id="comunicados" class="collapse">
                                     <ul class="nav">
                                         <li><a href="comunicados.php"><i class="lnr lnr-code"></i>Nueva Notificación</a></li>
-                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
-                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
+                                        <li><a href="entrada_admin.php"><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
+                                        <li><a href="salida_admin.php"><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Nueva Citación</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>

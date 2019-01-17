@@ -45,7 +45,7 @@ $(document).ready(function () {
                         citaciones[i]['asunto']+" "+citaciones[i]['asunto'],
                         citaciones[i]['materia'],
                         citaciones[i]['fecha'],
-                        '',
+                        citaciones[i]['hora'],
                         '<div class="row"><button type="button" onclick="abrirCitacion('+i+')" class="btn-line btn btn-warning btn-sm" title="Ver mensaje"><i class="glyphicon glyphicon-eye-open"></i></button>\n\
                         <button hidden type="button" onclick="borrarMensaje('+i+')" class="btn-line btn btn-danger btn-sm" title="Borrar mensaje"><i class="glyphicon glyphicon-trash"></i></button></div>',
                         citaciones[i]['id']

@@ -3,7 +3,7 @@ include_once('header.php');
 include_once './funciones/Link/dataTableLink.php';
 ?>
 <link rel="stylesheet" href="assets/css/extra.css"/>
-<script src="funciones/bandejas/funcionesBandejas.js" type="text/javascript"></script>
+<script src="funciones/administradores/funcionesBandejas.js" type="text/javascript"></script>
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">
@@ -13,7 +13,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <center><img src="assets/img/curse.png" class="img-circle img-polaroid" width="70" height="65"></center>
             </div>
             <div class="col-md-8">
-                <center><h5>Bandeja de Salida</h5></center>
+                <center><h5>Bandeja de Entrada</h5></center>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@ include_once './funciones/Link/dataTableLink.php';
         <thead>
         <th></th>
         <th style="text-align: left">Curso</th>
-        <th style="text-align: left">Destinatario</th>
+        <th style="text-align: left">Remitente</th>
         <th></th>
         <th style="text-align: left">Fecha</th>                
         <th style="text-align: left" class="noExport">Acción</th>        
@@ -46,7 +46,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <form id="mensajeview">                    
                     <div class="row" style="margin: 5 0;">
                         <div class="col-md-4">
-                            <label>Destinatario: </label>
+                            <label>Remitente: </label>
                         </div>
                         <div class="col-md-8">
                             <input disabled class="form-control" type="text" id='remitente'/>

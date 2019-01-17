@@ -3,7 +3,7 @@ include_once('header.php');
 include_once './funciones/Link/dataTableLink.php';
 ?>
 <link rel="stylesheet" href="assets/css/extra.css"/>
-<script src="funciones/bandejas/funcionesBandejas.js" type="text/javascript"></script>
+<script src="funciones/administradores/funcionesBandejas.js" type="text/javascript"></script>
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">

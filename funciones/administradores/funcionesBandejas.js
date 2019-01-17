@@ -33,7 +33,7 @@ $(document).ready(function () {
     
     function refreshTablaEntrada(){
         $.ajax({
-            url: 'funciones/bandejas/bandejaControlador.php',
+            url: 'funciones/administradores/administradoresControlador.php',
             type:'POST',
             data: {"opcion": "mensajesEntrada", "user": $('#username').val()},
             success: function(data){
@@ -62,7 +62,7 @@ $(document).ready(function () {
 
 function abrirMensaje(i){        
     $.ajax({
-        url: 'funciones/bandejas/bandejaControlador.php',
+        url: 'funciones/administradores/administradoresControlador.php',
         type: 'POST',
         data: {"opcion":"getMensaje", "id": tblEntrada.row(i).data()[6]},
         success: function (data){

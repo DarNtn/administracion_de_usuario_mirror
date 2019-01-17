@@ -14,6 +14,8 @@ DROP FOREIGN KEY `detalle_materia_ibfk_1`,
 DROP FOREIGN KEY `detalle_materia_ibfk_2`,
 DROP FOREIGN KEY `detalle_materia_ibfk_3`;
 
+-- EN DETALLE_MATERIA Y EN HORARIO SETEAR EL ON-DELETE DE LOS FOREIGN KEYS
+
 ALTER TABLE `administracion_colegio`.`detalle_materia` 
 CHANGE COLUMN `materia_id` `id_materia` INT(11) NOT NULL ,
 CHANGE COLUMN `personal_personal_id` `id_profesor` INT(11) NOT NULL ,

@@ -6,8 +6,8 @@ require_once('../profesor/profesorModelo.php');
 $profesor = new Profesor();
 
 if ($_POST['opcion'] == "mensajesEntrada") {
-    $idProf = $_POST['id'];
-    echo ($profesor->respuestaJson($profesor->getMensajesEntrada($idProf)));
+    $uProf = $_POST['user'];
+    echo ($profesor->respuestaJson($profesor->getMensajesEntrada($uProf)));
 }
 
 if ($_POST['opcion'] == "getMensaje") {    
