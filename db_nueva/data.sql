@@ -9,3 +9,6 @@ INSERT INTO `usuario` VALUES ('admin','admin','a',1,1);
 INSERT INTO `usuario` VALUES ('profesor','profesor','p',2,1);
 INSERT INTO `periodo_electivo` (`periodo_id`, `anio_inicio`, `anio_fin`, `estado_id`, `fecha_inicio_periodo`, `fecha_fin_periodo`) VALUES (1,'2017','2018',1,'2017-05-02','2018-02-23');
 INSERT INTO `nivel_educacion` (`nivel_id`, `nombre`, `descripcion`) VALUES (1,'Octavo',''),(2,'Noveno',''),(3,'Décimo',''),(4,'Primero de Bachillerato',''),(5,'Segundo de Bachillerato',''),(6,'Tercero de Bachillerato','');
+
+CREATE TABLE `configuracion` (`correo` VARCHAR(40) NULL,`clave` VARCHAR(45) NULL);
+insert into configuracion(correo,clave) values ("darichiliao@gmail.com", "Believer1980");
