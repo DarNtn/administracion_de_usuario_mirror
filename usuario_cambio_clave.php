@@ -2,6 +2,7 @@
 include_once('header.php');
 include_once './funciones/Link/dataTableLink.php';
 ?>
+<script src="funciones/contrasena/funcionesContrasena.js" type="text/javascript"></script>
 <div class="col-sm-6 col-sm-offset-3">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -13,35 +14,29 @@ include_once './funciones/Link/dataTableLink.php';
         </center>
         </div>
         <div class="panel-body">
-        <?php 
-	//if(!empty($_POST['c1']) and !empty($_POST['c2']) and !empty($_POST['contra'])){
-		//cambioClave($_POST['c1'],$_POST['c2'],$_SESSION['user'],$_POST['contra']);
-	//}
-	?>
+            <?php
+                $id = "";
+                if (!empty($_GET['id'])) {
+                    $id = $_GET['id'];
+                }
+            ?>
+            <input type="hidden" id="username" value="<?php echo $_SESSION['username']?>">
+            <input type="hidden" id="tipoUsuario" value="<?php echo $_SESSION['tipo_usu']?>">
             
-            <form name="form1" method="post" action="" style="margin: auto" onSubmit="return validar_clave(c1.value,c2.value);">
-              <div class="col-md-8 col-md-offset-2">
-            <label><strong>Contraseña Antigua: </strong></label><br>
-            <input type="password" class="form-control" name="contra" required><br>
+            <div class="col-md-8 col-md-offset-2">
+                <label><strong>Contraseña Antigua: </strong></label><br>
+                <input type="password" class="form-control" id="contrasenaAntigua" required><br>
             </div>
-              <div class="col-md-8 col-md-offset-2">
-          <label><strong>Nueva Contraseña: </strong></label><br>
-          <input type="password" class="form-control" id="c1" name="c1" required><br>
-          </div>
-          <div class="col-md-8 col-md-offset-2">
-          <label><strong>Repita Nueva Contraseña: </strong></label>
-          <input type="password" class="form-control" id="c2" name="c2" required><br>
-          </div>
-          <div class="col-md-8 col-md-offset-2">
-          <input type="submit" name="button" id="button" class="btn btn-primary btn-block" value="Cambiar Contraseña">
-          </div>
-		  <div class="col-md-8 col-md-offset-2">
-		  <p></p>
-          </div>
-		    
-          </form>
+            <div class="col-md-8 col-md-offset-2">
+                <label><strong>Nueva Contraseña: </strong></label><br>
+                <input type="password" class="form-control" id="contrasenaNueva" required><br>
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                <button tyoe="button" onclick="cambiarContrasena()" class="btn btn-primary btn-block">
+                    Cambiar Contraseña
+                </button>
+            </div>	   
         </div>
     </div>
     </div>
 <?php
-include_once('footer.php');
