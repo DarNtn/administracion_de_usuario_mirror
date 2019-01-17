@@ -7,9 +7,8 @@ include_once './funciones/Link/dataTableLink.php';
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">
-
+        <input hidden id="username" value="<?php echo $_SESSION['username']; ?>" />
         <div class="row">
-
             <div class="col-md-2">
                 <center><img src="assets/img/curse.png" class="img-circle img-polaroid" width="70" height="65"></center>
             </div>
@@ -26,10 +25,9 @@ include_once './funciones/Link/dataTableLink.php';
         <thead>
         <th></th>
         <th style="text-align: left">Curso</th>
-        <th style="text-align: left">Asunto</th>
-        <th style="text-align: left">Materia</th>
+        <th style="text-align: left">Asunto</th>        
         <th style="text-align: left">Fecha</th>
-        <th style="text-align: left">Hora</th>
+        <th style="text-align: left">Hora</th>        
         <th style="text-align: left" class="noExport">Acción</th>        
         <th class="noExport">Id</th>
         </thead>
@@ -44,14 +42,14 @@ include_once './funciones/Link/dataTableLink.php';
         <div class="modal-content"> 
             <div class="modal-body">
 
-                <center><h5 style="color: #55d9cb;">Mensaje</h5></center>
+                <center><h5 style="color: #55d9cb;">Citación</h5></center>
                 <form id="mensajeview">                    
                     <div class="row" style="margin: 5 0;">
                         <div class="col-md-4">
-                            <label>Destinatario: </label>
+                            <label>Hora: </label>
                         </div>
                         <div class="col-md-8">
-                            <input disabled class="form-control" type="text" id='remitente'/>
+                            <input disabled class="form-control" type="text" id='hora'/>
                         </div>
                     </div>
                     <div class="row" style="margin: 5 0;">

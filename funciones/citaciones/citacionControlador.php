@@ -6,10 +6,10 @@ require_once('../profesor/profesorModelo.php');
 $profesor = new Profesor();
 
 if ($_POST['opcion'] == "citaciones") {
-    $idProf = $_POST['id'];
-    echo ($profesor->respuestaJson($profesor->getCitaciones($idProf)));
+    $uProf = $_POST['user'];
+    echo ($profesor->respuestaJson($profesor->getCitaciones($uProf)));
 }
 
-if ($_POST['opcion'] == "getMensaje") {    
+if ($_POST['opcion'] == "getCitacion") {    
     echo $profesor->getCitacion($_POST['id']);
 }
