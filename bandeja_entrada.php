@@ -157,7 +157,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
 </style>
 
-<div class="container" id="app">
+<div class="" id="app">
   <div class="loading" v-show="response">Loading&#8230;</div>
   <h1 style="text-align: center;">Bandeja de entrada</h1>
   <b-container fluid v-show="cargo">
