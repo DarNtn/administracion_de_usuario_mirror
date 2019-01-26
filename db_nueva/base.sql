@@ -622,6 +622,18 @@ CREATE TABLE `administracion_colegio`.`configuracion` (
   `correo` VARCHAR(40) NULL,
   `clave` VARCHAR(45) NULL);
 
+CREATE TABLE `administracion_colegio2`.`plantillas` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `plantilla` TEXT NULL,
+  `asunto` VARCHAR(45) NULL,
+  `admin_id` INT(11) NOT NULL,
+  CONSTRAINT FOREIGN KEY (admin_id) REFERENCES administrador(admin_id),
+	PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1
+COLLATE = latin1_spanish_ci;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
