@@ -16,7 +16,7 @@ include_once('header.php');
         <tr>
           <th>Asunto</th>
           <th>Plantilla</th>
-          <th></th>
+          <!-- <th></th> -->
           <th> </th> 
         </tr>
       </thead>
@@ -24,9 +24,9 @@ include_once('header.php');
         <tr>
           <td>{{plantilla.asunto}}</td>
           <td v-html="truncate(plantilla.plantilla, 50)"></td>
-          <td style="width: 20px;">
+          <!-- <td style="width: 20px;">
             <b-button variant="primary"  v-on:click="editar(plantilla.id)"><i class="lnr lnr-pencil"></i></b-button>
-          </td>
+          </td> -->
           <td style="width: 20px;">
             <b-button variant="danger"  v-on:click="eliminar(plantilla.id)"><i class="lnr lnr-trash"></i></b-button>
           </td>
