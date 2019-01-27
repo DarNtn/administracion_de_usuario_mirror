@@ -49,7 +49,7 @@ class mailEnviar {
         $mail->Password = $claveDest; // ;
 
         $mail->setFrom($correoDest, 'Escuelas');
-        $mail->addAddress($correo, "");
+        $mail->addAddress($correo, $nombreUsuario);
         $mail->Subject = $subject;
         $mail->isHTML(true); 
         $mail->Body = $mensaje;

@@ -5,8 +5,6 @@ include_once('header.php');
 <link href="Plugins/EditorJquery/summernote.css" rel="stylesheet" type="text/css"/>
 <link href="assets/css/extra.css" rel="stylesheet" type="text/css"/>
 
-<style>
-</style>
 
 <div class="" id="app">
   <div style="text-align: center; padding-bottom: 10px;">
