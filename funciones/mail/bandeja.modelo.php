@@ -21,8 +21,12 @@ final class BandejaEntrada {
     if (! empty($emailData)) {
       $array = array();
       foreach ($emailData as $emailIdent) {
+        $msg_no = $emailIdent->msgno;
         $overview = imap_fetch_overview($connection, $emailIdent, 0);
         $message = imap_fetchbody($connection, $emailIdent, '1.1');
+        if ($message == "") {
+          $message = imap_fetchbody($connection, $emailIdent, "1");
+        }
         $messageParse =  trim(quoted_printable_decode($message));
         $header = imap_headerinfo($connection, $emailIdent);
         $fromaddr = $header->from[0]->mailbox . "@" . $header->from[0]->host;
@@ -33,6 +37,7 @@ final class BandejaEntrada {
         $data['remitente'] = $fromaddr;
         $data['fecha'] = $date;
         $data['mensaje'] = $message;
+        $data['body'] = $messageParse;
         $data['from'] = $overview[0]->from;
         $data['subject'] = $overview[0]->subject;
         array_push($array, $data);

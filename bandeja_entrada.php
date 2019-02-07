@@ -183,6 +183,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
         <th> </th>
         <th>Fecha</th>
         <th> </th>
+        <th> </th>
       </tr>
     </thead>
     <tbody v-for="mensaje in filtrarPorRemitente">
@@ -191,12 +192,38 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
         <td>{{mensaje.subject}}</td>
         <td>{{mensaje.fecha}}</td>
         <td>
-          <b-button variant="danger"  v-on:click="borrarCorreo(mensaje.id)"><i class="lnr lnr-trash"></i></b-button>
+          <!-- <b-button variant="success"  v-on:click="verCorreo(mensaje.id)"><i class="lnr lnr-eye"></i></b-button> -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"  v-on:click="verCorreo(mensaje.id)">
+          <i class="lnr lnr-eye"></i>
+</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" v-on:click="borrarCorreo(mensaje.id)"><i class="lnr lnr-trash"></i></button>
+          
         </td>
       </tr>
     </tbody>
     <h1 v-show="filtrarPorRemitente.length === 0 && cargo">Sin resultados</h1>
   </table>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" v-html="mensaje.body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <script src="funciones/mail/bandeja.js" type="text/javascript"></script>
 <?php

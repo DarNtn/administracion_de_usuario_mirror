@@ -25,7 +25,7 @@ class mailEnviar {
         $mail->Subject = 'Clave y usuario';
         $mail->isHTML(true); 
         $mail->Body = 'Su <b>usuario</b> es: ' . $nombreUsuario . ', y su <b>clave</b> es: ' . $contrasena;
-        $mail->AltBody = 'This is a plain-text message body';
+        $mail->AltBody = 'Su <b>usuario</b> es: ' . $nombreUsuario . ', y su <b>clave</b> es: ' . $contrasena;
 
         if (!$mail->send()) {
             return 'no-enviado';
@@ -53,7 +53,7 @@ class mailEnviar {
         $mail->Subject = $subject;
         $mail->isHTML(true); 
         $mail->Body = $mensaje;
-        $mail->AltBody = 'This is a plain-text message body';
+        $mail->AltBody = $mensaje;
 
         if (!$mail->send()) {
             return 'no-enviado';
