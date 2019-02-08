@@ -35,6 +35,39 @@ class Curso extends php_conexion {
         return $respuesta;
     }
     
+    public function getAlumnosCurso($idCurso){
+        $respuesta = $this->realizarConsulta("SELECT cedula, nombres, apellidos, fecha_nacimiento FROM alumno WHERE estado_id=1 AND curso_id='$idCurso'");
+        
+        return $respuesta;
+    }
+    
+    public function getAlumnosEscuela(){
+        $respuesta = $this->realizarConsulta("SELECT cedula, nombres, apellidos, fecha_nacimiento FROM alumno WHERE estado_id=1 AND curso_id is NULL");
+        
+        return $respuesta;
+    }
+    
+    public function agregarAlumnos($idCurso, $alumnos){
+        //for ($a = 0; $a < count($alumnos); $a++){
+        $resultado = $this->realizarIngreso("UPDATE alumno SET curso_id='$idCurso' WHERE cedula in (" . join(',',$alumnos) . ")");
+        //}
+        if ($resultado > 0){
+            return $this->mensajes('success', 'Registro exitoso');
+        } else{
+            return $this->mensajes('error', 'No se pudo agregar al estudiante');
+        }  
+    }
+    
+    public function retirarAlumno($alumno){
+        $resultado = $this->realizarIngreso("UPDATE alumno SET curso_id=NULL WHERE cedula='$alumno'");
+        
+        if ($resultado > 0){
+            return $this->mensajes('success', 'El alumno ha sido retirado del curso');
+        } else{
+            return $this->mensajes('error', 'No se pudo retirar al alumno');
+        }
+    }
+    
     public function getMateriasCurso($idCurso){
         $respuesta = $this->realizarConsulta("SELECT m.id_materia as id, m.nombre as materia FROM cursos c, detalle_materia dm, materia m WHERE c.curso_id = '$idCurso' and c.curso_id = dm.id_curso and dm.id_materia = m.id_materia");
         
@@ -184,8 +217,8 @@ class Curso extends php_conexion {
 
     public function getId($idCurso) {
         $respuesta = $this->realizarConsulta("
-            SELECT curso_id as id,nombre as salon,jornada as horario,cant_alumnos as numero,
-                   paralelo as para,estado_id as estado,nivel_id as nivelI
+            SELECT nombre as curso,jornada,cant_alumnos as capacidad,
+                   paralelo,nivel_id as nivelI
             FROM cursos 
             WHERE curso_id='$idCurso'");
         return $respuesta;

@@ -14,7 +14,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <center><img src="assets/img/salon.png" class="img-circle img-polaroid" width="70" height="65"></center>
             </div>
             <div class="col-md-8">
-                <center><h5>Asignaciones Curso - Dirigente</h5></center>
+                <center><h5>Administración de cursos asignados</h5></center>
             </div>
         </div>
         <div class="row">
@@ -271,6 +271,6 @@ include_once './funciones/Link/dataTableLink.php';
         </div>
     </div>
 </div>
-<!-- Fin del ModalNuevo-->
+<!-- Fin del ModalMaterias-->
 <?php
 include_once('footer.php');
