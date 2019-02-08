@@ -2,12 +2,12 @@
 require_once('configuracionModelo.php');
 
 final class BandejaEntrada {
-  public function Conectar() {
+  public function Conectar($useId) {
     if (! function_exists('imap_open')) {
       return array(false, "IMAP is not configured.");
     }
     $mail = new ConfiguracionMail();
-    list($correo, $clave) = $mail->Obtener();
+    list($correo, $clave) = $mail->Obtener($useId);
     $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', $correo, $clave);
     if (!$connection) {
       return array(false, "Cannot connect to Gmail");

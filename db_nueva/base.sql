@@ -618,9 +618,17 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
-CREATE TABLE `administracion_colegio`.`configuracion` (
+-- CREATE TABLE `administracion_colegio2`.`configuracion` (
+--   `admin_id` INT(11) NOT NULL,
+--   `correo` VARCHAR(40) NULL,
+--   `clave` VARCHAR(45) NULL);
+
+CREATE TABLE `administracion_colegio2`.`configuracion` (
   `correo` VARCHAR(40) NULL,
-  `clave` VARCHAR(45) NULL);
+  `clave` VARCHAR(45) NULL,
+  `usuario_id` INT(11) NOT NULL,
+  CONSTRAINT FOREIGN KEY (usuario_id) REFERENCES usuario(usuario_id)
+)ENGINE = InnoDB;
 
 CREATE TABLE `administracion_colegio2`.`plantillas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,

@@ -5,8 +5,13 @@ class Usuario extends php_conexion {
 
     public function get() {
         $respuesta = $this->realizarConsulta("
-        SELECT u.clave as clave, u.usuario_id as usuario_id, u.usuario as usuario, u.estado_id as estado_id, a.admin_id as admin_id, a.nombre as nombre, a.apellido as apellido, a.correo as correo, a.foto as foto, a.cedula as cedula from usuario AS u inner join administrador AS a ON a.usuarios_usuario_id = u.usuario_id");
-        return $respuesta;
+        SELECT u.clave as clave, co.clave as clavecorreo, u.usuario_id as usuario_id, u.usuario as usuario, u.estado_id as estado_id, a.admin_id as admin_id, a.nombre as nombre, a.apellido as apellido, a.correo as correo, a.foto as foto, a.cedula as cedula from usuario AS u inner join administrador AS a ON a.usuarios_usuario_id = u.usuario_id inner join configuracion AS co ON co.usuario_id = u.usuario_id");
+
+        // SELECT u.clave as clave, co.clave as clavecorreo, u.usuario_id as usuario_id, u.usuario as usuario, u.estado_id as estado_id, a.admin_id as admin_id, a.nombre as nombre, a.apellido as apellido, a.correo as correo, a.foto as foto, a.cedula as cedula from usuario AS u inner join administrador AS a ON a.usuarios_usuario_id = u.usuario_id inner join configuracion AS co ON co.usuario_id = u.usuario_id
+        if ($respuesta) {
+          return $respuesta;
+        }
+        return $array = array();
     }
     // select u.clave as clave, u.usuario_id as usuario_id, u.usuario, a.admin_id as admin_id, a.nombre as nombre, a.apellido as apellido, a.correo as correo, a.foto as foto, a.cedula as cedula from usuario as u inner join administrador as a on a.usuarios_usuario_id = u.usuario_id where u.usuario_id = 38;
     // usuario: clave, estado_id, usuario. administrador: nombre, apellido, correo, foto, cedula
@@ -21,17 +26,19 @@ class Usuario extends php_conexion {
 
     public function getId ($idUsuario) {
         $respuesta = $this->realizarConsulta("
-        SELECT u.clave as clave, u.usuario_id as usuario_id, u.usuario as usuario, u.estado_id as estado_id, a.admin_id as admin_id, a.nombre as nombre, a.apellido as apellido, a.correo as correo, a.foto as foto, a.cedula as cedula from usuario AS u inner join administrador AS a ON a.usuarios_usuario_id = u.usuario_id 
-        WHERE usuario_id='$idUsuario'");
+        SELECT u.clave as clave, co.clave as clavecorreo, u.usuario_id as usuario_id, u.usuario as usuario, u.estado_id as estado_id, a.admin_id as admin_id, a.nombre as nombre, a.apellido as apellido, a.correo as correo, a.foto as foto, a.cedula as cedula from usuario AS u inner join administrador AS a ON a.usuarios_usuario_id = u.usuario_id inner join configuracion AS co ON co.usuario_id = u.usuario_id
+        WHERE u.usuario_id='$idUsuario'");
         return $respuesta;
     }
 
-    public function set ($usuario, $clave, $estado_id, $nombre, $apellido, $correo, $cedula) {
+    public function set ($usuario, $clave, $estado_id, $nombre, $apellido, $correo, $cedula, $clavecorreo) {
         $tipo = 'a'; // esto estara por default, ya que en la db esta todavia
         $cedulaYaExiste = $this->getCedula($cedula); // FIX
 
         if (!$cedulaYaExiste) {
             $usuarioId = $this->realizarIngresoId("INSERT INTO usuario VALUES('$usuario', '$clave', '$tipo', null, '$estado_id')");
+
+            $this->realizarIngresoId("INSERT INTO configuracion VALUES('$correo', '$clavecorreo', '$usuarioId')");
             
             if ($usuarioId > 0) {
               $fueadminCreado = $this->realizarIngresoId("INSERT INTO administrador (nombre, apellido, correo, foto, cedula, usuarios_usuario_id) VALUES('$nombre', '$apellido', '$correo', 1010, '$cedula', $usuarioId)");

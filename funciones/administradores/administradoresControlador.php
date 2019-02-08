@@ -20,7 +20,7 @@ if ($_POST['opcion'] == "idUsuario") {
 if($_POST['opcion']=="Guardar_administrador"){
     
     echo $usuario->set( $_POST['usuario'], $_POST['clave'], $_POST['estado_id'], $_POST['nombre'],
-                        $_POST['apellido'], $_POST['correo'], $_POST['cedula']);
+                        $_POST['apellido'], $_POST['correo'], $_POST['cedula'], $_POST['clavecorreo']);
 }
 
 if($_POST['opcion']=="cambiarEstado"){
@@ -39,7 +39,7 @@ if($_POST['opcion']=="Editar_usuarios"){
       empty($_POST['nombre']) || 
       empty($_POST['apellido']) ||
       empty($_POST['correo']) ||
-      // empty($_POST['foto']) ||
+      empty($_POST['clavecorreo']) ||
       empty($_POST['cedula']) ||
       empty($_POST['usuario_id']) ||
       empty($_POST['admin_id'])
@@ -57,8 +57,8 @@ if($_POST['opcion']=="Editar_usuarios"){
       $_POST['correo'],
       $_POST['cedula'],
       $_POST['usuario_id'],
-      $_POST['admin_id']
-      // $_POST['fotoRaw']
+      $_POST['admin_id'],
+      $_POST['clavecorreo']
     );
   }
 }

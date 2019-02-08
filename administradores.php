@@ -78,6 +78,12 @@ estado_id
                                 <input class="form-control" type="text" name="usuario" placeholder="Usuario" required=""/>
                             </div><br>
                         </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                <input class="form-control" type="password" id="clavecorreo" name="clavecorreo" placeholder="Clave Correo" required=""/>
+                            </div><br>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -191,6 +197,12 @@ estado_id
                             <div class="input-group">
                                 <span class="input-group-addon">Usuario: </span>
                                 <input class="form-control" type="text" name="usuario" id="usuario" placeholder="Usuario" required=""/>
+                            </div><br>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                <input class="form-control" type="password" id="clavecorreo_edit" name="clavecorreo" placeholder="Clave Correo" required=""/>
                             </div><br>
                         </div>
                     </div>

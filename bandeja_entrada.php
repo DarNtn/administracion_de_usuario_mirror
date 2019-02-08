@@ -198,7 +198,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 </button>
         </td>
         <td>
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" v-on:click="borrarCorreo(mensaje.id)"><i class="lnr lnr-trash"></i></button>
+          <button type="button" class="btn btn-danger" v-on:click="borrarCorreo(mensaje.id)"><i class="lnr lnr-trash"></i></button>
           
         </td>
       </tr>

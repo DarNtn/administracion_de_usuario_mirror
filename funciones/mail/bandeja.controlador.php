@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once('bandeja.modelo.php');
 $bandeja = new BandejaEntrada();
 list($error, $mensaje, $conection) = $bandeja->Conectar();
@@ -24,7 +24,8 @@ switch($metodo){
     switch ($ruta) {
       case 'correos':
         $bandeja = new BandejaEntrada();
-        list($error, $mensaje, $conection) = $bandeja->Conectar();
+        $useId = $_SESSION['user'];
+        list($error, $mensaje, $conection) = $bandeja->Conectar($useId);
         if (!$error) {
           echo $responses->response('error', $mensaje);
         } else {

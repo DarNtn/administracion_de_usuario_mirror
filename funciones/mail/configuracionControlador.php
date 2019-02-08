@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 header("Content-Type: application/json;charset=utf-8");
 require_once('mail.php');
 require_once('configuracionModelo.php');
@@ -18,7 +18,8 @@ switch($metodo){
   case 'GET': 
     switch ($ruta) {
       case 'correo':
-        list($correo, $clave) = $configuracion->Obtener();
+        $useId = $_SESSION['user'];
+        list($correo, $clave) = $configuracion->Obtener($useId);
         $datos['correo'] = $correo;
         $datos['clave'] = $clave;
         echo $configuracion->respuestaJson($datos);
@@ -28,13 +29,14 @@ switch($metodo){
   case 'POST': 
     switch ($ruta) {
       case 'correo':
+        $useId = $_SESSION['user'];
         $correo = $datos->correo;
         $clave = $datos->clave;
         $data['correo'] = $correo;
         // $link = $responses->obtenerConexion();
         $data['clave'] = $clave;
         
-        $respuesta = $configuracion->Cambio($correo, $clave);
+        $respuesta = $configuracion->Cambio($correo, $clave, $useId);
         // mysqli_commit($link);
         $mail = new mailEnviar();
         $mensaje = $mail->enviar($correo, 'yo mismo', 'tmp');
