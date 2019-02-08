@@ -43,6 +43,42 @@
         <link type="text/css" rel="stylesheet" href="assets/css/bootstrap-vue.css"/>
         <link href="Plugins/SweetAlert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
         <script src="Plugins/SweetAlert2/sweetalert2.min.js" type="text/javascript"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+
+        <!--external css-->
+        <link href="Plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/> 
+        <link href="Plugins/full_calendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+        <link href="Plugins/SweetAlert2/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+        <link href="Plugins/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+
+        <!-- Custom styles for this template -->
+        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/style.css" rel="stylesheet">
+        <link href="assets/css/style-responsive.css" rel="stylesheet">
+        <link href="assets/css/jquery.orgchart.min.css" rel="stylesheet" type="text/css"/>
+
+        <link rel="icon" type="image/png" sizes="256x256" href="assets/img/camaron.png">
+
+        <style>
+            .fc-day-grid-container.fc-scroller { 
+                height: auto!important; 
+                overflow-y: auto; 
+            }
+
+            .fc-time-grid-container.fc-scroller { 
+                height: auto!important; 
+                overflow-y: auto; 
+            }
+            div > .fc-scroller {
+                min-height: 100px !important;	 
+                height: auto!important; 
+                overflow-y: auto; 
+            }
+        </style>
     </head>
 
     
@@ -129,7 +165,7 @@
                                 <a href="#subCartelera" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Cartelera</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subCartelera" class="collapse ">
                                     <ul class="nav">
-                                        <li><a href=""><i class="lnr lnr-code"></i>Vacio</a></li>
+                                        <li><a href="actividades.php"><i class="lnr lnr-code"></i>Vacio</a></li>
                                     </ul>
                                 </div>
                             </li>
