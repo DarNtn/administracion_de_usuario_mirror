@@ -17,7 +17,6 @@ include_once('header.php');
     </div>
 </div>
 
-
 <!-- Modal Editar Evento-->
 <div id="ModalEdit" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm" role="document">
@@ -34,9 +33,8 @@ include_once('header.php');
                         <div class="col-md-12">
                             <label>Descripción de actividad</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-step-backward"></i></span>
-                                <select id="tipoActividad" name="tipo" class="form-control">
-                                </select>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input class="form-control" type="text" id="descripcionActividad" name="descripcionActividad" placeholder="Nombres" required=""/>
                             </div><br>
                         </div>
                         <div class="col-md-12">
@@ -83,9 +81,8 @@ include_once('header.php');
                         <div class="col-md-12">
                             <label>Descripción de actividad</label>
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-step-backward"></i></span>
-                                <select name="tipo" class="form-control">
-                                </select>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input class="form-control" type="text" id="descripcionActividad" name="descripcionActividad" required=""/>
                             </div><br>
                         </div>
                         <div class="col-md-12">
@@ -121,21 +118,29 @@ include_once('header.php');
 <script>
 
 </script>
+
 <script src="assets/js/bootstrap.min.js"></script>
 <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="assets/js/jquery.scrollTo.min.js"></script>
 <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+
+
 <!--common script for all pages-->
 <script src="assets/js/common-scripts.js"></script>
+
 <!--external script for all pages-->
 <script src="Plugins/gritter/js/jquery.gritter.js" type="text/javascript" ></script>
 <script src="Plugins/gritter/gritter-conf.js" type="text/javascript" ></script>
+
 <script src="Plugins/full_calendar/js/moment.min.js" type="text/javascript"></script>
 <script src="Plugins/full_calendar/fullcalendar.min.js" type="text/javascript"></script>
 <script src="Plugins/full_calendar/js/locale-all.js" type="text/javascript"></script>
+
 <script src="Plugins/SweetAlert2/js/sweetalert2.min.js" type="text/javascript"></script>
 <script src="funciones/actividad/actividad.js" type="text/javascript"></script>
+
 <!--end external script for all pages-->
+
 </body>
 </html>
 

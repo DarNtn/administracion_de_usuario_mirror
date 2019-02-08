@@ -5,8 +5,8 @@ $(document).ready(function () {
         var parametros = {'opcion': 'listaActividades'};
         $.ajax({
             type: 'POST',
-            url: "funciones/actividad/actividadControlador.php",
-            data: parametros,
+            url: "funciones/actividad/actividadControlador.php", // El script a dónde se realizará la petición.
+            data: parametros, // Adjuntar los campos del formulario enviado.
             success: function (data) {
                 var datos = [];
 
@@ -14,12 +14,13 @@ $(document).ready(function () {
                     if (data['data'] !== null && data['data'] !== '') {
                         for (var i = 0; i < data['data'].length; i++) {
 
+
                             datos.push({
                                 id: data['data'][i]['id_actividad'],
                                 title:  data['data'][i]['descripcion'],
                                 start: moment(data['data'][i]['fecha_inicio']),
                                 end: moment(data['data'][i]['fecha_fin']).add(1, "days"),
-                                actividad:data['data'][i]['descripcion'],
+                                actividad:data['data'][i]['tipo_actividad'],
                                 allDay: true,
                                 color: data['data'][i]['color'],
                                 description:data['data'][i]['descripcion'] + "<br>" +
@@ -35,30 +36,35 @@ $(document).ready(function () {
         });
     }
     
+    
+    
+    
     calendar = $('#calendar').fullCalendar({
         locale: 'es',
         header: {
             left: 'prev,next today',
             center: 'title',
+            //right: 'month,agendaWeek,agendaDay'
             right: 'month,agendaWeek,listMonth'
         },
         views: {
             list: {
+                //duration: {days: 90},
                 listDayAltFormat: 'dddd',
             }
         },
-        eventLimit: true,
+        eventLimit: true, // allow "more" link when too many events
         selectable: true,
         selectHelper: true,
         editable: true,
-        eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
+        eventResize: function (event, delta, revertFunc, jsEvent, ui, view) { // si changement de longueur
             $('#textEditActividad').text(event.title);
             $('#inicioEd').val(event.start.format('YYYY-MM-DD'));
             $('#finEd').val(event.end.subtract(1, "days").format('YYYY-MM-DD'));
             $('#id_actividad').val(event.id);
             $('#ModalEdit').modal('show');
         },
-        eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) {
+        eventDrop: function (event, delta, revertFunc, jsEvent, ui, view) { // si changement de position
             $('#textEditActividad').text(event.title);
             $('#inicioEd').val(event.start.format('YYYY-MM-DD'));
             $('#finEd').val(event.end.subtract(1, "days").format('YYYY-MM-DD'));
@@ -83,19 +89,30 @@ $(document).ready(function () {
             $('.tooltipevent').remove();
         },
         select: function (start, end) {
+//            var inicioSelected = start.format('YYYY-MM-DD');
+//            if (inicioSelected >= fechaActual) {
                 var event = {'start': start, 'end': end, 'title': ''};
                 llamarModalAdd(event);
+//            } else {
+//                swal("Mensaje", "No puede seleccionar fechas pasadas!", "error");
+//            }
+
         },
         eventClick: function (calEvent, jsEvent, view) {
             var event = {'id': calEvent.id, 'start': calEvent.start, 'end': calEvent.end, 'title': calEvent.title,'actividad':calEvent.actividad};
+//            $('#diasTotal').text("# Días seleccionados: " + fin.diff(inicio, 'days'));
             llamarModalEdit(event);
+
+//            $('#ModalAdd').modal('show');
         }
+
     });
 
     function llamarModalEdit(event) {
+
         $('#myModalLabel').text(event.title);
         $('#id_actividad').val(event.id);
-        $('#descripcionActividad').val(event.actividad);
+        $('#tipoActividad').val(event.actividad);
         $('#inicioEd').val(event.start.format('YYYY-MM-DD'));
         $('#finEd').val(event.end.subtract(1, "days").format('YYYY-MM-DD'));
         $('#ModalEdit').modal('show');
@@ -112,18 +129,36 @@ $(document).ready(function () {
         $('#ModalAdd,#ModalEdit').modal('hide');
     }
 
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
     $('#btnEditar').on('click', function () {
+//        var parametros = {'opcion': 'EditarActividad', 'id_actividad': $('#id_actividad').val(), 'fecha_inicio': $('#inicioEd').val(), 'fecha_fin': $('#finEd').val()};
+
         $.ajax({
             type: 'POST',
-            url: "funciones/actividad/actividadControlador.php",
-            data: $('#formEditActividad').serialize(),
+            url: "funciones/actividad/actividadControlador.php", // El script a dónde se realizará la petición.
+            data: $('#formEditActividad').serialize(), // Adjuntar los campos del formulario enviado.
             success: function (data) {
+
                 if (data['data']['tipo'] === "error") {
                     swal("", data['data']['texto'], data['data']['tipo']);
                 } else {
                     swal("", data['data']['texto'], data['data']['tipo']);
                     refreshCalendarActividad();
                 }
+
             },
             error: function (data) {
                 alert("Ocurrió un error, intente más tarde.");
@@ -131,18 +166,23 @@ $(document).ready(function () {
         });
     });
 
+
     $('#btnAdd').on('click', function () {
+//        var parametros = {'opcion': 'GuardarAguaje','fecha_inicio':$('#inicioAdd').val(),'fecha_fin':$('#finAdd').val()};
+//        console.log(parametros);
         $.ajax({
             type: 'POST',
-            url: "funciones/actividad/actividadControlador.php",
-            data: $('#formAddActividad').serialize(), 
+            url: "funciones/actividad/actividadControlador.php", // El script a dónde se realizará la petición.
+            data: $('#formAddActividad').serialize(), // Adjuntar los campos del formulario enviado.
             success: function (data) {
-                if (data['data']['tipo'] === "error") {
+
+                 if (data['data']['tipo'] === "error") {
                     swal("", data['data']['texto'], data['data']['tipo']);
                 } else {
                     swal("", data['data']['texto'], data['data']['tipo']);
                     refreshCalendarActividad();
                 }
+
             },
             error: function (data) {
                 alert("Ocurrió un error, intente más tarde.");
@@ -152,17 +192,20 @@ $(document).ready(function () {
     
     $('#btnBorrar').on('click', function () {
         var parametros = {'opcion': 'EliminarActividad', 'id_actividad': $('#id_actividad').val(), 'fecha_inicio': $('#inicioEd').val(), 'fecha_fin': $('#finEd').val()};
+
         $.ajax({
             type: 'POST',
-            url: "funciones/actividad/actividadControlador.php",
-            data: parametros,
+            url: "funciones/actividad/actividadControlador.php", // El script a dónde se realizará la petición.
+            data: parametros, // Adjuntar los campos del formulario enviado.
             success: function (data) {
-                if (data['data']['tipo'] === "error") {
+
+                 if (data['data']['tipo'] === "error") {
                     swal("", data['data']['texto'], data['data']['tipo']);
                 } else {
                     swal("", data['data']['texto'], data['data']['tipo']);
                     refreshCalendarActividad();
                 }
+
             },
             error: function (data) {
                 alert("Ocurrió un error, intente más tarde.");
@@ -171,3 +214,9 @@ $(document).ready(function () {
     });
 
 });
+
+
+
+
+
+
