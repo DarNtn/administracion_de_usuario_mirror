@@ -36,6 +36,29 @@ DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
 
+--
+-- Table structure for table `actividades`
+--
+
+DROP TABLE IF EXISTS `actividades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `actividades` (
+  `id_actividad` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_inicio` date DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `descripcion` varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `color` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha_reg` timestamp NULL DEFAULT current_timestamp(),
+  `fecha_mod` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `id_estado` int(11) DEFAULT NULL,
+  `id_user_reg` int(11) DEFAULT NULL,
+  `tipo_actividad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_actividad`)
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 -- -----------------------------------------------------
 -- Table `administracion_colegio`.`estados`
 -- -----------------------------------------------------

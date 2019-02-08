@@ -14,7 +14,7 @@ if ($_POST['opcion'] == 'EditarActividad') {
     } else {
         $fInicio = strtotime($_POST['fecha_inicio']);
         $fFin = strtotime($_POST['fecha_fin']);
-        $colorActividad = "#ffca05";
+        $colorActividad = "#df1601";
         $descripcion = $_POST['descripcionActividad'];
         if ($fFin >= $fInicio) {
             $calendarioActividad->EditActividad($_POST['id_actividad'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $descripcion, $colorActividad, 0, 0);
@@ -29,7 +29,7 @@ if ($_POST['opcion'] == 'GuardarActividad') {
     } else {
         $fInicio = strtotime($_POST['fecha_inicio']);
         $fFin = strtotime($_POST['fecha_fin']);
-        $colorActividad = "#ffca05";
+        $colorActividad = "#df1601";
         $descripcion = $_POST['descripcionActividad'];
         if ($fFin >= $fInicio) {
             $calendarioActividad->AddActividad($_POST['fecha_inicio'], $_POST['fecha_fin'], $descripcion, $colorActividad, 0, 0);
