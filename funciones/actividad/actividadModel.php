@@ -43,6 +43,11 @@ class Actividad extends conexion {
         //}
     }
 
+    public function EliminarActividad($id_actividad, $idUser) {
+        $this->realizarUpdate("Update actividades set id_estado='2',id_user_reg=$idUser where id_actividad=$id_actividad");
+        return $this->mensajes('success', "Se eliminado la actividad correctamente!");
+    }
+
     public function getAllEventsActividad($fecha_inicio, $fecha_fin) {
         $sentencia = "SELECT * FROM actividades where id_estado = 1 and ((fecha_inicio BETWEEN '$fecha_inicio' AND '$fecha_fin')or(fecha_fin BETWEEN '$fecha_inicio' AND '$fecha_fin')) ;";
         $result = $this->realizarConsulta($sentencia);

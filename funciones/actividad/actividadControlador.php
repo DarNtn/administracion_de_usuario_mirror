@@ -36,6 +36,15 @@ if ($_POST['opcion'] == 'GuardarActividad') {
     }
 }
 
+if ($_POST['opcion'] == 'EliminarActividad') {
+    if (empty($_POST['id_actividad'])) {
+        echo $calendarioActividad->mensajes('error', 'Algunos campos están vacios!');
+    } else {
+        $calendarioActividad->EliminarActividad($_POST['id_actividad'], $_SESSION['id_usuario']);
+    }
+}
+
+
 
 
 
