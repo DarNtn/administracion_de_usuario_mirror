@@ -165,7 +165,7 @@
                                 <a href="#subCartelera" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Cartelera</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                                 <div id="subCartelera" class="collapse ">
                                     <ul class="nav">
-                                        <li><a href="actividades.php"><i class="lnr lnr-code"></i>Vacio</a></li>
+                                        <li><a href="actividades.php"><i class="lnr lnr-code"></i>Cartelera</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -187,6 +187,18 @@
                             </li>
                         </ul>
                         <?php endif; ?>
+                        <?php if($rol === "PROFESOR") : ?>
+                        <ul class="nav">
+                            <li>
+                                <a href="#subCartelera" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Cartelera</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subCartelera" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="actividades.php"><i class="lnr lnr-code"></i>Cartelera</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                        <?php endif; ?>
                     </nav>
                 </div>
             </div>
@@ -196,6 +208,6 @@
                 <!-- MAIN CONTENT -->
                 <div class="main-content">
                     <div class="container-fluid">
-                        <div style="height: 90%; min-height: 85vh;">
+                        <div style="height: 80%; min-height: 85vh;">
                             <div class="panel panel-headline">
                                 <div class="panel-body">
