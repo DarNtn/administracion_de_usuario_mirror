@@ -13,3 +13,12 @@ INSERT INTO `nivel_educacion` (`nivel_id`, `nombre`, `descripcion`) VALUES (1,'O
 
 -- CREATE TABLE `configuracion` (`correo` VARCHAR(40) NULL,`clave` VARCHAR(45) NULL);
 insert into configuracion(usuario_id,correo,clave) values (1,"darichiliao@gmail.com", "Believer1980");
+
+insert into citacion values (1, '2019-01-01','50 min', 'Basico 3-A', 'Lenguaje','Primer mensaje', '2019-01-01 00:00:01');
+
+insert into citacion values (2, '2019-02-01','50 min', 'Basico 4-A', 'Sociales','Asunto interno', '2019-01-01 00:00:01');-- `id_citacion_curso` int(11) NOT NULL AUTO_INCREMENT,
+--   `usuario` int(11) NOT NULL,
+--   `citacion` int(11) NOT NULL,
+--   `curso` int(11) NOT NULL,
+
+insert into citacion_curso values (1, 2, 1);

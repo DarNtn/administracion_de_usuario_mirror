@@ -142,7 +142,7 @@
                                         <li><a href="bandeja_entrada.php"><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Nueva Citación</a></li>
-                                        <li><a ><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
+                                        <li><a href="citaciones_agendadas.php"><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
                                         <li><a href="plantillas.php"><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>
                                         <li><a href="plantillas_ver.php"><i class="lnr lnr-code"></i>Plantillas Ingresadas</a></li>
                                         <li><a href="configuracion_mail.php"><i class="lnr lnr-code"></i>Configuración</a></li>

@@ -86,3 +86,5 @@ where alumnos_cedula='0930703707';
 
 ###########
 UPDATE alumno SET foto_direccion='$direccion' where cedula='0930703707';
+
+--  '838:59:59'

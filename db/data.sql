@@ -213,15 +213,29 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `citacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
+
 CREATE TABLE `citacion` (
-  `id_Citacion` int(11) NOT NULL AUTO_INCREMENT,
+  `citacion_id` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
-  `duración` time DEFAULT NULL,
-  `mensaje` int(11) NOT NULL,
+  -- `duración` time DEFAULT NULL,
+  `mensaje` varchar(45) NOT NULL,
   `hora` timestamp(5) NULL DEFAULT NULL,
-  PRIMARY KEY (`id_Citacion`),
-  KEY `fk_Citación_mensaje1_idx` (`mensaje`)
+  PRIMARY KEY (`citacion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- CREATE TABLE `administrador` (
+--   `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+--   `nombre` varchar(45) DEFAULT NULL,
+--   `apellido` varchar(45) DEFAULT NULL,
+--   `correo` varchar(45) DEFAULT NULL,
+--   `foto` blob,
+--   `cedula` varchar(45) DEFAULT NULL,
+--   `usuarios_usuario_id` int(11) NOT NULL,
+--   `cedula_copy1` varchar(10) DEFAULT NULL,
+--   PRIMARY KEY (`admin_id`),
+--   KEY `fk_administradores_usuarios1_idx` (`usuarios_usuario_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

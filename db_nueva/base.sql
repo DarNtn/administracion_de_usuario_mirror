@@ -413,19 +413,30 @@ COLLATE = latin1_spanish_ci;
 -- -----------------------------------------------------
 -- Table `administracion_colegio`.`citacion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `administracion_colegio`.`citacion` (
+CREATE TABLE IF NOT EXISTS `administracion_colegio2`.`citacion` (
   `id_citacion` INT(11) NOT NULL,
-  `fecha` DATE NOT NULL,
-  `duración` TIME NOT NULL,
+  `fecha` VARCHAR(40) NOT NULL,
+  `duración` VARCHAR(40) NOT NULL,
+  `curso_nombre` VARCHAR(40) NOT NULL,
+  `materia` VARCHAR(40) NOT NULL,
+  `asunto` VARCHAR(40) NOT NULL,
   `hora` TIMESTAMP(5) NOT NULL DEFAULT CURRENT_TIMESTAMP(5) ON UPDATE CURRENT_TIMESTAMP(5),
-  PRIMARY KEY (`id_citacion`),
-  CONSTRAINT `citacion_ibfk_1`
-    FOREIGN KEY (`id_citacion`)
-    REFERENCES `administracion_colegio`.`mensaje` (`id_mensaje`))
+  PRIMARY KEY (`id_citacion`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1
 COLLATE = latin1_spanish_ci;
 
+
+CREATE TABLE `citacion_curso` (
+  `id_citacion_curso` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario` int(11) NOT NULL,
+  `citacion` int(11) NOT NULL,
+  -- `curso` int(11) NOT NULL,
+  PRIMARY KEY (`id_citacion_curso`),
+     CONSTRAINT FOREIGN KEY (citacion) REFERENCES citacion(id_citacion),
+     CONSTRAINT FOREIGN KEY (usuario) REFERENCES usuario(usuario_id)
+    --  CONSTRAINT FOREIGN KEY (curso) REFERENCES cursos(curso_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- -----------------------------------------------------
 -- Table `administracion_colegio`.`grupo_sanguineo`
