@@ -148,6 +148,29 @@ $(document).ready(function () {
             }
         });
     });
+    
+    $('#btnEditar').on('click', function () {
+//        var parametros = {'opcion': 'EditarActividad', 'id_actividad': $('#id_actividad').val(), 'fecha_inicio': $('#inicioEd').val(), 'fecha_fin': $('#finEd').val()};
+
+        $.ajax({
+            type: 'POST',
+            url: "funciones/actividad/actividadControlador.php", // El script a dónde se realizará la petición.
+            data: $('#formEditActividad').serialize(), // Adjuntar los campos del formulario enviado.
+            success: function (data) {
+
+                if (data['data']['tipo'] === "error") {
+                    swal("", data['data']['texto'], data['data']['tipo']);
+                } else {
+                    swal("", data['data']['texto'], data['data']['tipo']);
+                    refreshCalendarActividad();
+                }
+
+            },
+            error: function (data) {
+                alert("Ocurrió un error, intente más tarde.");
+            }
+        });
+    });
 
 });
 

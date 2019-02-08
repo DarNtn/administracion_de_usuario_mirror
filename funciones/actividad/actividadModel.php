@@ -15,6 +15,20 @@ class Actividad extends conexion {
         return $result;
     }
 
+    public function EditActividad($id_actividad, $fecha_inicio, $fecha_fin,$descripcion,$color,$tipo, $idUser) {
+        $datoID = $this->getIdActividad($id_actividad);
+        if ($datoID != NULL) {
+           // if ($tipo==3? TRUE:($this->valideRangoDate($id_actividad, $fecha_inicio, $fecha_fin) == FALSE)) {
+                $this->realizarUpdate("Update actividades set fecha_inicio='".$fecha_inicio."',fecha_fin='".$fecha_fin."',descripcion=concat('".$descripcion."',' ',MONTHNAME('".$fecha_inicio."')),color='$color',tipo_actividad='$tipo',id_user_reg=$idUser where id_actividad=$id_actividad");
+                return $this->mensajes('success', "Actualización exitosa!");
+            //} else {
+            //    return $this->mensajes('error', 'El calendario ya tiene una actividad registrada en este rango de fecha!');
+           // }
+        } else {
+            return $this->mensajes('error', 'Este registro no existe');
+        }
+    }
+
     public function AddActividad($fecha_inicio, $fecha_fin,$descripcion,$color,$tipo, $idUser) {
        // if ($tipo==3? TRUE:($this->valideRangoDate(0, $fecha_inicio, $fecha_fin) == FALSE)) {
             $result=$this->realizarIngresoIndex("insert into actividades (fecha_inicio,fecha_fin,descripcion,color,id_estado,tipo_actividad,id_user_reg) values('$fecha_inicio','$fecha_fin',concat('".$descripcion."',' ',MONTHNAME('$fecha_inicio')),'$color',1,'$tipo',$idUser)");

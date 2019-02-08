@@ -9,13 +9,25 @@ if ($_POST['opcion'] == 'listaActividades') {
     echo $calendarioActividad->respuestaJson($calendarioActividad->getEventosActividad());
 }
 
+if ($_POST['opcion'] == 'EditarActividad') {
+    if (empty($_POST['id_actividad']) && empty($_POST['fecha_inicio']) && empty($_POST['fecha_fin']) && empty($_POST['tipo'])) {
+        echo $calendarioActividad->mensajes('error', 'Algunos campos están vacios!');
+    } else {
+        $fInicio = strtotime($_POST['fecha_inicio']);
+        $fFin = strtotime($_POST['fecha_fin']);
+        if ($fFin >= $fInicio) {
+            $calendarioActividad->EditActividad($_POST['id_actividad'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $descripcion, $colorActividad, $_POST['tipo'], $_SESSION['id_usuario']);
+        } else {
+            echo $calendarioActividad->mensajes('error', 'La fecha de finalización debe ser mayor a la de inicio!');
+        }
+    }
+}
 if ($_POST['opcion'] == 'GuardarActividad') {
     if (empty($_POST['fecha_inicio']) && empty($_POST['fecha_fin']) && empty($_POST['tipo'])) {
         echo $calendarioActividad->mensajes('error', 'Algunos campos están vacios!');
     } else {
         $fInicio = strtotime($_POST['fecha_inicio']);
         $fFin = strtotime($_POST['fecha_fin']);
-        
         if ($fFin >= $fInicio) {
             $calendarioActividad->AddActividad($_POST['fecha_inicio'], $_POST['fecha_fin'], $descripcion, $colorActividad, $_POST['tipo'], $_SESSION['id_usuario']);
         } else {
@@ -23,6 +35,7 @@ if ($_POST['opcion'] == 'GuardarActividad') {
         }
     }
 }
+
 
 
 
