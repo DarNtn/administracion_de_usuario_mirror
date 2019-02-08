@@ -23,15 +23,15 @@ include_once('header.php');
 </div>
 <!-- Fin del Cabecera-->
 <!-- Inicio del Comunicado-->
-                <form id="correoPersonal" style="max-width: 100%">
-                    <select id="seleccion" name="seleccion" class="form-control">
-                        <option value="especifico">email específico</option>
-                        <option value="todos">Todos los representantes activos del período</option>
-                    </select><br>
-                    <input name="correo" id="correo" class="form-control" style="max-width: 100%;" placeholder="Correo electronico. Ejemplo: Ejemplo@gmail.com"><br>
-                    <textarea name="contenido" class="summernote" id="contents" title="Contents"></textarea><br>
-                    <button type="submit" class="btn btn-block btn-info">Enviar</button>
-                </form>
+<form id="correoPersonal" enctype="multipart/form-data" style="max-width: 100%">
+    <select id="seleccion" name="seleccion" class="form-control">
+        <option value="especifico">email específico</option>
+        <option value="todos">Todos los representantes activos del período</option>
+    </select><br>
+    <input name="correo" id="correo" class="form-control" style="max-width: 100%;" placeholder="Correo electronico. Ejemplo: Ejemplo@gmail.com"><br>
+    <textarea name="contenido" class="summernote" id="contents" title="Contents"></textarea><br>
+    <button type="submit" class="btn btn-block btn-info">Enviar</button>
+</form>
 <!-- Fin del Comunicado-->
 <?php
 include_once('footer.php');
