@@ -30,6 +30,7 @@ include_once('header.php');
     </select><br>
     <input name="correo" id="correo" class="form-control" style="max-width: 100%;" placeholder="Correo electronico. Ejemplo: Ejemplo@gmail.com"><br>
     <textarea name="contenido" class="summernote" id="contents" title="Contents"></textarea><br>
+    <div class="adjunto-panel" style="padding: 0px 10px"></div>
     <button type="submit" class="btn btn-block btn-info">Enviar</button>
 </form>
 <!-- Fin del Comunicado-->
