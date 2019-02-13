@@ -70,3 +70,15 @@ input[type="radio"].estado{
 .align-center {
     text-align: center !important;
 }
+
+.badge-correo {
+    border-radius: 30px !important;
+    margin-bottom: 2px !important;    
+    margin-right: 5px;
+    height: 30px;
+    padding: 5px 30px 5px 10px !important;
+    display: inline-table;
+    font-weight: 700;
+    text-align: center;
+    font-size: 12px;
+}

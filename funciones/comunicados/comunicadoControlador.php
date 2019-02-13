@@ -5,6 +5,7 @@ require_once 'correoconfig.php';
 require_once('comunicadoModelo.php');
 header('Content-Type: application/json');
 $comunicado = new Comunicado();
+/*
 if (!empty($_POST['contenido'])) {
     if (!empty($_POST['seleccion']) && $_POST['seleccion'] == 'todos') {
         $correos = $comunicado->get();
@@ -34,4 +35,20 @@ if (!empty($_POST['contenido'])) {
 } else {
     echo $comunicado->mensajes('info', 'Contenido de Correo vacio');
 }
+ */
 
+if ($_POST['opcion'] == "getPlantilla"){
+    echo $comunicado->getPlantilla($_POST['id']);
+}
+
+if ($_POST['opcion'] == "enviarComunicado"){
+    echo $comunicado->enviarComunicado($_POST['cursosDest'], $_POST['contenido'], $_POST['asunto']);
+}
+
+if ($_POST['opcion'] == "getCursos"){
+    echo $comunicado->getCursos();
+}
+
+if ($_POST['opcion'] == "getCursosProf"){
+    echo $comunicado->getCursosProfesor($_POST['username']);
+}
