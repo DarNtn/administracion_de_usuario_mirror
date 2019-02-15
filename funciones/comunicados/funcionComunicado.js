@@ -44,7 +44,7 @@
     
     function loadCursosDisponibles(){
         var opcion;
-        opcion = ($('#tipo').val()==='a')? 'getCursos': 'getCursosProf';
+        opcion = ($('#tipo').text()==='a')? 'getCursos': 'getCursosProf';
         
         $.ajax({
             url: 'funciones/comunicados/comunicadoControlador.php',

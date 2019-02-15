@@ -7,7 +7,7 @@ include_once('header.php');
 <link href="assets/css/extra.css" rel="stylesheet" type="text/css"/>
 
 <!-- Inicio del Cabecera-->
-<span id="user" style="display:none"><?php echo $_SESSION['username'] ?></span>
+<span id="user" style="display:none"><?php echo $_SESSION['username']; ?></span>
 <span id="tipo" style="display:none"><?php echo $_SESSION['tipo_usu'] ?></span>
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">
