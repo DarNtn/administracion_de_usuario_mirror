@@ -67,3 +67,12 @@ if ($_POST['opcion'] == "cedulaUsuario") {
   $cedula=$_POST['cedula'];
   echo ($usuario->respuestaJson($usuario->getCedula($cedula)));
 }
+
+if ($_POST['opcion'] == "mensajesEntrada") {
+    $uAdmin = $_POST['user'];
+    echo ($usuario->respuestaJson($usuario->getMensajesEntrada($uAdmin)));
+}
+
+if ($_POST['opcion'] == "getMensaje") {    
+    echo $usuario->getMensaje($_POST['id']);
+}

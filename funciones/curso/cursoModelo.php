@@ -35,6 +35,39 @@ class Curso extends php_conexion {
         return $respuesta;
     }
     
+    public function getAlumnosCurso($idCurso){
+        $respuesta = $this->realizarConsulta("SELECT cedula, nombres, apellidos, fecha_nacimiento FROM alumno WHERE estado_id=1 AND curso_id='$idCurso'");
+        
+        return $respuesta;
+    }
+    
+    public function getAlumnosEscuela(){
+        $respuesta = $this->realizarConsulta("SELECT cedula, nombres, apellidos, fecha_nacimiento FROM alumno WHERE estado_id=1 AND curso_id is NULL");
+        
+        return $respuesta;
+    }
+    
+    public function agregarAlumnos($idCurso, $alumnos){
+        //for ($a = 0; $a < count($alumnos); $a++){
+        $resultado = $this->realizarIngreso("UPDATE alumno SET curso_id='$idCurso' WHERE cedula in (" . join(',',$alumnos) . ")");
+        //}
+        if ($resultado > 0){
+            return $this->mensajes('success', 'Registro exitoso');
+        } else{
+            return $this->mensajes('error', 'No se pudo agregar al estudiante');
+        }  
+    }
+    
+    public function retirarAlumno($alumno){
+        $resultado = $this->realizarIngreso("UPDATE alumno SET curso_id=NULL WHERE cedula='$alumno'");
+        
+        if ($resultado > 0){
+            return $this->mensajes('success', 'El alumno ha sido retirado del curso');
+        } else{
+            return $this->mensajes('error', 'No se pudo retirar al alumno');
+        }
+    }
+    
     public function getMateriasCurso($idCurso){
         $respuesta = $this->realizarConsulta("SELECT m.id_materia as id, m.nombre as materia FROM cursos c, detalle_materia dm, materia m WHERE c.curso_id = '$idCurso' and c.curso_id = dm.id_curso and dm.id_materia = m.id_materia");
         
@@ -117,20 +150,41 @@ class Curso extends php_conexion {
     }
     
     public function getHorarioCurso($idCurso){
-        $respuesta = $this->realizarConsulta("SELECT * FROM horario h, detalle_materia dm WHERE h.id_detalle_materia = dm.id_detalle_materia AND dm.id_curso = '$idCurso'");
-        $horario = array("Lunes" => array(), "Martes" => array(), "Miercoles" => array(), "Jueves" => array(), "Viernes" => array());
+        $respuesta = $this->realizarConsulta("SELECT * FROM horario h, detalle_materia dm WHERE h.id_detalle_materia = dm.id_detalle_materia AND dm.id_curso = '$idCurso' ORDER BY hora_inicio ASC");
+        $horario = array();
         if ($respuesta){
             for ($a = 0; $a < count($respuesta); $a++){                
-                $horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "hasta" => $respuesta[$a]['hora_fin'], "materia" => $respuesta[$a]['id_materia']);
+                //$horario[$respuesta[$a]['dia']][] = array("desde" => $respuesta[$a]['hora_inicio'], "hasta" => $respuesta[$a]['hora_fin'], "materia" => $respuesta[$a]['id_materia']);
+                $horario[substr($respuesta[$a]['hora_inicio'],0,5) . " - " . substr($respuesta[$a]['hora_fin'],0,5)][$respuesta[$a]['dia']]["materia"] = $respuesta[$a]['id_materia'];
             }                        
         }
         
-        return $this->respuestaJson($horario);
+        return $this->respuestaJson(array("horario" => $horario));
+    }
+    
+    public function getHorarioProf($profesor){         
+        $idProf = $this->realizarConsulta("SELECT p.personal_id FROM personal p, usuario u WHERE p.usuario_id = u.usuario_id AND u.usuario = '$profesor'");
+        $idProf = $idProf? $idProf[0]['personal_id'] : 0;
+        $respuesta = $this->realizarConsulta("SELECT dia, hora_inicio, hora_fin, m.nombre as materia, c.nombre, paralelo FROM horario h, detalle_materia dm, cursos c, materia m WHERE h.id_detalle_materia = dm.id_detalle_materia AND dm.id_materia = m.id_materia AND c.curso_id = dm.id_curso AND dm.id_profesor = '$idProf' ORDER BY hora_inicio ASC");
+        $horario = array();
+        if ($respuesta){            
+            for ($a = 0; $a < count($respuesta); $a++){ 
+                /*
+                $duracion = new DateTime($respuesta[$a]['hora_fin']);
+                $duracion = $duracion->diff(new DateTime($respuesta[$a]['hora_inicio']));
+                $duracion = $duracion->h * 60 + $duracion->i;
+                */
+                //$horario[substr($respuesta[$a]['hora_inicio'],0,5) . " - " . substr($respuesta[$a]['hora_fin'],0,5)][] = array($respuesta[$a]['dia'] => array("materia" => $respuesta[$a]['materia'], "curso" => $respuesta[$a]['nombre'] . ' ' . $respuesta[$a]['paralelo']));
+                $horario[substr($respuesta[$a]['hora_inicio'],0,5) . " - " . substr($respuesta[$a]['hora_fin'],0,5)][$respuesta[$a]['dia']]["materia"] = $respuesta[$a]['materia'];
+                $horario[substr($respuesta[$a]['hora_inicio'],0,5) . " - " . substr($respuesta[$a]['hora_fin'],0,5)][$respuesta[$a]['dia']]["curso"] = $respuesta[$a]['nombre'] . ' ' . $respuesta[$a]['paralelo'];
+            }                        
+        }                
+        
+        return $this->respuestaJson(array("horario" => $horario));
     }
     
     public function guardarHorarioCurso($horario, $idCurso){
-        $dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
-        
+        $dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];        
         $this->borrarHorarios($idCurso);
         for ($a = 0; $a < count($dias); $a++){
             $dia = $dias[$a];
@@ -163,8 +217,8 @@ class Curso extends php_conexion {
 
     public function getId($idCurso) {
         $respuesta = $this->realizarConsulta("
-            SELECT curso_id as id,nombre as salon,jornada as horario,cant_alumnos as numero,
-                   paralelo as para,estado_id as estado,nivel_id as nivelI
+            SELECT nombre as curso,jornada,cant_alumnos as capacidad,
+                   paralelo,nivel_id as nivelI
             FROM cursos 
             WHERE curso_id='$idCurso'");
         return $respuesta;

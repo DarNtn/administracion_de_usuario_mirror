@@ -34,7 +34,7 @@ if ($_POST['opcion'] == "Guardar_representante") {
             $cuenta = null;
         }
         
-        $resultado = $estudiante->crearRepresentante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['direccion'], $_POST['genero'], $_POST['telefono'], $_POST['mail'], $_POST['tipoC'], $cuenta);
+        $resultado = $estudiante->crearRepresentante($_POST['cedula'], $_POST['nombres'], $_POST['apellidos'], $_POST['direccion'], $_POST['genero'], $_POST['telefono'], $_POST['mail'], $_POST['tipoC'], $cuenta, $_POST['fechaNR']);
         if ($resultado != null) {
             /*
             if (!empty($_FILES["certificadoRepresentante"]['name'])) {

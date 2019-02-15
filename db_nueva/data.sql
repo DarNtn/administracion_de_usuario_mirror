@@ -13,3 +13,22 @@ INSERT INTO `nivel_educacion` (`nivel_id`, `nombre`, `descripcion`) VALUES (1,'O
 
 CREATE TABLE `configuracion` (`correo` VARCHAR(40) NULL,`clave` VARCHAR(45) NULL);
 insert into configuracion(correo,clave) values ("darichiliao@gmail.com", "Believer1980");
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+insert into usuario (usuario_id, usuario, clave, tipo, estado_id) values (10,'rosav','rosav','p',1);
+
+insert into personal (nombres, apellidos, especialidad_id, telefono, mail, genero_id, estado_civil_id, direccion, fechaNac, fechaLaboral, aniosExperiencia, cargas, usuario_id, cedula, curriculum_direccion) 
+values ('Rosa','Velez',1,'0987654321','m@example.com',2,1,'direccion','1980-03-10','2017-04-04',3,1,10,'0987651234','dir_curriculum');
+
+insert into usuario (usuario_id, usuario, clave, tipo, estado_id) values (11,'mateop','mateop','p',1);
+
+insert into personal (nombres, apellidos, especialidad_id, telefono, mail, genero_id, estado_civil_id, direccion, fechaNac, fechaLaboral, aniosExperiencia, cargas, usuario_id, cedula, curriculum_direccion) 
+values ('Mateo','Perez',1,'0987654321','m@example.com',1,1,'direccion','1980-03-10','2017-04-04',4,1,11,'0987541234','dir_curriculum');
+
+insert into usuario (usuario_id, usuario, clave, tipo, estado_id) values (12,'luciaf','luciaf','p',1);
+
+insert into personal (nombres, apellidos, especialidad_id, telefono, mail, genero_id, estado_civil_id, direccion, fechaNac, fechaLaboral, aniosExperiencia, cargas, usuario_id, cedula, curriculum_direccion) 
+values ('Lucia','Fernandez',1,'0987654321','m@example.com',2,1,'direccion','1980-03-10','2017-04-04',5,1,12,'0987541299','dir_curriculum');

@@ -2,17 +2,13 @@
 
 header("Content-Type: application/json;charset=utf-8");
 require_once('../curso/cursoModelo.php');
-# Traer los datos de un usuario
+
 $curso = new Curso();
+
 if ($_POST['opcion'] == "idCurso") {
     $idCurso = $_POST['id'];
     echo ($curso->respuestaJson($curso->getId($idCurso)));
 }
-
-//if ($_POST['opcion'] == "cedulaUsuario") {
-//    $cedula=$_POST['cedula'];
-//    echo ($curso->respuestaJson($curso->getCedula($cedula)));
-//}
 
 if ($_POST['opcion'] == "listaCursos") {
     echo ($curso->respuestaJson($curso->getCursosAsignados()));
@@ -59,4 +55,20 @@ if ($_POST['opcion'] == "Asignar_materias") {
 if ($_POST['opcion'] == "Cambiar_dirigente") {
     echo $curso->cambiarDirigente($_POST['Ejornada'], $_POST['Ecurso'], $_POST['Eparalelo'], $_POST['Edirigente']);    
     //echo $curso->asignarDirigente($_POST['Edirigente'], $_POST['Ecurso'], $_POST['Eparalelo'], $_POST['Ejornada']);    
+}
+
+if ($_POST['opcion'] == "alumnosCurso"){
+    echo ($curso->respuestaJson($curso->getAlumnosCurso($_POST['cursoId'])));
+}
+
+if ($_POST['opcion'] == "alumnosEscuela"){
+    echo ($curso->respuestaJson($curso->getAlumnosEscuela()));
+}
+
+if ($_POST['opcion'] == "agregarAlumnos"){
+    echo $curso->agregarAlumnos($_POST['cursoId'], $_POST['alumnos']);
+}
+
+if ($_POST['opcion'] == "retirarAlumno"){
+    echo $curso->retirarAlumno($_POST['alumno']);
 }

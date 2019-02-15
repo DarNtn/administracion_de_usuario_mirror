@@ -16,7 +16,7 @@
 ?>
 <html lang="en">
     <head>
-        <title>Jardín</title>
+        <title>Escuela</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -175,8 +175,9 @@
                                 <div id="comunicados" class="collapse">
                                     <ul class="nav">
                                         <li><a href="comunicados.php"><i class="lnr lnr-code"></i>Nueva Notificación</a></li>
-                                        <li><a href="bandeja_entrada.php"><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
-                                        <li><a ><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
+                                        <!--li><a href="bandeja_entrada.php"><i class="lnr lnr-code"></i>Bandeja Entrada</a></li-->
+                                        <li><a href="entrada_admin.php"><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
+                                        <li><a href="salida_admin.php"><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Nueva Citación</a></li>
                                         <li><a ><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
                                         <li><a href="plantillas.php"><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>
@@ -187,6 +188,7 @@
                             </li>
                         </ul>
                         <?php endif; ?>
+
                         <?php if($rol === "PROFESOR") : ?>
                         <ul class="nav">
                             <li>
@@ -194,6 +196,40 @@
                                 <div id="subCartelera" class="collapse ">
                                     <ul class="nav">
                                         <li><a href="actividades.php"><i class="lnr lnr-code"></i>Cartelera</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                       
+                            <li>
+                                <a href="#subCursos" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Cursos</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subCursos" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="cursos_prof.php"><i class="lnr lnr-code"></i>Ver Cursos</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#subHorario" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Horario de Clases</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="subHorario" class="collapse ">
+                                    <ul class="nav">
+                                        <li><a href="horario_prof.php"><i class="lnr lnr-code"></i>Ver Horario</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <a href="#comunicados" data-toggle="collapse" class="collapsed"><i class="lnr lnr-home"></i> <span>Comunicados</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                <div id="comunicados" class="collapse">
+                                    <ul class="nav">
+                                        <li><a href="comunicados.php"><i class="lnr lnr-code"></i>Nueva Notificación</a></li>
+                                        <li><a href="entrada_prof.php"><i class="lnr lnr-code"></i>Bandeja Entrada</a></li>
+                                        <li><a href="salida_prof.php"><i class="lnr lnr-code"></i>Bandeja Salida</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Nueva Citación</a></li>
+                                        <li><a href="citaciones_prof.php"><i class="lnr lnr-code"></i>Citaciones Agendadas</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Nueva Plantilla</a></li>
+                                        <li><a ><i class="lnr lnr-code"></i>Plantillas Ingresadas</a></li>
+                                        <li><a href="configuracion_mail.php"><i class="lnr lnr-code"></i>Configuración</a></li>
                                     </ul>
                                 </div>
                             </li>

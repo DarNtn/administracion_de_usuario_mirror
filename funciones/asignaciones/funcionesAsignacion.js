@@ -68,7 +68,7 @@ $(document).ready(function () {
             type: 'POST',
             success: function (data) {
                 for (var i = 0; i < data['data'].length; i++) {
-                    var estado = data['data'][i]['estado'];
+                    //var estado = data['data'][i]['estado'];
                     tblCursos.row.add([
                         '',
                         data['data'][i]['curso'],
@@ -78,7 +78,7 @@ $(document).ready(function () {
                         data['data'][i]['aInicio']+'-'+data['data'][i]['aFin'],
                         data['data'][i]['nombre']+' '+data['data'][i]['apellido'],
                         '<div class="row"><button type="button" onclick="setModalMaterias('+i+')" class="btn-line modificar btn btn-warning btn-sm" title="Administrar materias"><i class="glyphicon glyphicon-folder-open"></i></button>\n\
-                        <button type="button" class="btn-line btn btn-warning btn-sm" title="Administrar estudiantes"><i class="glyphicon glyphicon-user"></i></button>\n\
+                        <button type="button" onclick="gestionarAlumnos('+i+')" class="btn-line btn btn-warning btn-sm" title="Administrar estudiantes"><i class="glyphicon glyphicon-user"></i></button>\n\
                         <button type="button" onclick="setModalEditar('+i+')" class="btn-line btn btn-warning btn-sm" title="Editar asignación"><i class="glyphicon glyphicon-edit"></i></button></div>',
                         data['data'][i]['id']
                     ]).draw(false);
@@ -265,6 +265,12 @@ $(document).ready(function () {
         $('#Eparalelo').prop('disabled', !$('#Eparalelo').prop('disabled'));
     }
 });
+
+
+function gestionarAlumnos(index){
+    var data = tblCursos.row(index).data();            
+    window.location = 'estudiantes_curso.php?curso='+data[8];   
+}
 
 
 function setModalEditar(index){

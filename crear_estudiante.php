@@ -390,9 +390,12 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                        <input class="form-control" type="text" id="direccionR" name="direccion" placeholder="Dirección" required=""/>
+                                    <div class="row">
+                                        <div class="col-md-5" style="padding-top: 0.5em"><a for="fechaNR" style="color:gray">Fecha de nacimiento:</a></div>
+                                        <div class="input-group col">                                        
+                                            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                            <input class="form-control" type="date" id="fechaNR" name="fechaNR" required=""/>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -401,6 +404,15 @@
                                         <input class="form-control" type="email" id="mail" name="mail" placeholder="Email" required=""/>
                                     </div>
                                 </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                        <input class="form-control" type="text" id="direccionR" name="direccion" placeholder="Dirección" required=""/>
+                                    </div>
+                                </div>                                
                             </div>
                             <br>
                             <a style="color: gray">Sexo</a>

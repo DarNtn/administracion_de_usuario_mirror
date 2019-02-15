@@ -3,7 +3,7 @@ include_once('header.php');
 include_once './funciones/Link/dataTableLink.php';
 ?>
 <link rel="stylesheet" href="assets/css/extra.css"/>
-<script src="funciones/horarios/funcionesHorarios.js" type="text/javascript"></script>
+<script src="funciones/horarios/funcioneshorarioprofesor.js" type="text/javascript"></script>
 <!-- Inicio del Cabecera-->
 <div class="panel" style="background: #50BFE6">
     <div class="panel-heading" style="color: white">
@@ -14,7 +14,7 @@ include_once './funciones/Link/dataTableLink.php';
                 <center><img src="assets/img/salon.png" class="img-circle img-polaroid" width="70" height="65"></center>
             </div>
             <div class="col-md-8">
-                <center><h5>Gestor de Horarios de Clase</h5></center>
+                <center><h5>Horario de Clases</h5></center>
             </div>
         </div>
         <div class="row">
@@ -29,16 +29,15 @@ include_once './funciones/Link/dataTableLink.php';
 <!-- Fin del Cabecera-->
 <!-- Inicio del Tabla-->
 <div class="table-responsive" >
-    <table id="tblCursos" class="mdl-data-table" cellspacing="0" style="width:100%;white-space: pre-line !important;">
+    <span id="idProf" style="display:none"><?php echo $_SESSION['username'] ?></span>
+    <table id="tblHorario" class="mdl-data-table" cellspacing="0" style="width:100%;white-space: pre-line !important;">
         <thead>
-        <th>N°</th>
-        <th>Curso</th>
-        <th>Nivel</th>
-        <th>Paralelo</th>
-        <th>Jornada</th>        
-        <th>Período</th>        
-        <th class="noExport">Acción</th>    
-        <th>Id</th>
+        <th id='columna0'>HORA</th>
+        <th id='columna1'>LUNES</th>
+        <th id='columna2'>MARTES</th>
+        <th id='columna3'>MIÉRCOLES</th>
+        <th id='columna4'>JUEVES</th>        
+        <th id='columna5'>VIERNES</th>
         </thead>
         <tbody>
         </tbody>
@@ -46,54 +45,6 @@ include_once './funciones/Link/dataTableLink.php';
 </div>
 <!-- Fin del Tabla-->
 <!-- Inicio del ModalNuevo-->
-<div id="editor" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content"> 
-            <div class="modal-body">
-
-                <center><h4 style="color: #55d9cb;">Gestor de Horario</h4></center>
-                <center><h4 id="curso-name" style="color: #55d9cb;">Curso - Paralelo</h4></center>                                  
-                
-                <center><button id="agregarFila" class="btn btn-default round addHora" title="Añadir clase"><span class="glyphicon glyphicon-plus"></span></button></center>
-                <form id="guardarHorario" method="post">
-                    <div class="table-responsive" >                    
-                        <table id="tblHorario" class="mdl-data-table" cellspacing="0" style="width:100%;white-space: pre-line !important;">
-                            <thead>
-                            <th id='columna0'>HORA</th>
-                            <th id='columna1'>LUNES</th>
-                            <th id='columna2'>MARTES</th>
-                            <th id='columna3'>MIÉRCOLES</th>
-                            <th id='columna4'>JUEVES</th>        
-                            <th id='columna5'>VIERNES</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>                    
-                    
-                    <br>                    
-                    <br>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="submit" id="btn_enviar" class="btn btn-info btn-block btn-sm" value="Guardar">
-                                <i class="fa fa-save"> </i> Guardar
-                            </button><br>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-warning btn-block btn-sm" data-dismiss="modal" value="Cancelar">
-                                <i class="fa fa-trash"> </i> Cancelar
-                            </button><br>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fin del ModalNuevo-->
-
-<!-- Inicio del ModalNuevo->
 <div id="editor" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content"> 
