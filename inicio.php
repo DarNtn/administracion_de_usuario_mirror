@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="row" style="padding-top: 20px;">
-    <div class="col-md-6 col-md-offset-6" align="center">
+    <div class="col-md-7 col-md-offset-6" align="center">
         <div class="row" style="padding-top: 20px;">
             <div class="col-md-6" align="center">
                 <div class="panel panel-info">
@@ -18,7 +18,7 @@
                                 <i class="fa fa-users fa-3x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge" style="font-size: 40px;line-height: 40px;">1000<?php // echo $t_alumno; ?></div>
+                                <div class="huge" style="font-size: 40px;line-height: 40px;"><?php $t_alumno=$conexion->realizarConsulta("select count(cedula) as cant from alumno"); echo $t_alumno[0]['cant'] ?></div>
                                 <!--<div>Alumnos</div>-->
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <i class="fa fa-tasks fa-3x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge" style="font-size: 40px;line-height: 40px;">1000<?php // echo $t_salones;  ?></div>
+                                <div class="huge" style="font-size: 40px;line-height: 40px;"><?php $t_salones=$conexion->realizarConsulta("select count(curso_id) as cant from cursos"); echo $t_salones[0]['cant']  ?></div>
                                 <!--<div>Cursos</div>-->
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <i class="fa fa-users fa-3x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge" style="font-size: 40px;line-height: 40px;">1000<?php // echo $t_profesores;  ?></div>
+                                <div class="huge" style="font-size: 40px;line-height: 40px;"><?php $t_profesores=$conexion->realizarConsulta("select count(personal_id) as cant from personal"); echo $t_profesores[0]['cant'] ?></div>
                                 <!--<div>Profesores</div>-->
                             </div>
                         </div>

@@ -53,7 +53,7 @@ include_once './funciones/Link/dataTableLink.php';
         <div class="modal-content"> 
             <div class="modal-body">
 
-                <center><h4 style="color: #55d9cb;">Registro de Cursoo</h4></center>
+                <center><h4 style="color: #55d9cb;">Registro de Curso</h4></center>
                 <form id="registarCurso" method="post">
                     <input type="hidden" name="opcion" value="Guardar_cursos"/>
                     <div class="row">

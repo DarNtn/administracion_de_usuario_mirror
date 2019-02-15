@@ -21,7 +21,18 @@ $(document).ready(function () {
             }
         });
     }
-
+    var column = [{
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }, {
+                "orderable": false,
+                "targets": 9
+            }];
+    t = inicializartable('#tblCursos', column,0);
+    t.buttons().container()
+            .appendTo('#example_wrapper .col-sm-6:eq(0)');
+    /*
     t = $('#example').DataTable({
         "columnDefs": [{
                 "searchable": false,
@@ -40,7 +51,7 @@ $(document).ready(function () {
             "infoFiltered": ""
         }
     });
-
+    */
     $('#example tbody').on('click', '#delete', function () {
         $('.autorizado'+$(this).parents('tr').children()[0].innerHTML).remove();
         t
